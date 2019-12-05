@@ -32,24 +32,24 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="menu.pas"/>
+        <Filename Value="unitmenu.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Menu"/>
+        <UnitName Value="UnitMenu"/>
       </Unit1>
       <Unit2>
-        <Filename Value="personnage.pas"/>
+        <Filename Value="unitpersonnage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Personnage"/>
+        <UnitName Value="UnitPersonnage"/>
       </Unit2>
       <Unit3>
-        <Filename Value="magasin.pas"/>
+        <Filename Value="unitmagasin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Magasin"/>
+        <UnitName Value="UnitMagasin"/>
       </Unit3>
       <Unit4>
-        <Filename Value="combat.pas"/>
+        <Filename Value="unitcombat.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Combat"/>
+        <UnitName Value="unitCombat"/>
       </Unit4>
     </Units>
   </ProjectOptions>

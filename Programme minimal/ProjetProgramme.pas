@@ -1,6 +1,6 @@
 program ProjetProgramme;
 
-uses Menu, Personnage, Magasin, Combat, GestionEcran;
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran;
 
 begin
   menuInitial();

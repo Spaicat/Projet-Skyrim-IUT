@@ -1,7 +1,7 @@
 unit Menu;
 
 interface
-uses Personnage, Magasin, Combat, GestionEcran;
+uses UnitPersonnage, Magasin, unitCombat, GestionEcran;
 
 
 //Procédure qui affiche le menu initial
@@ -58,7 +58,7 @@ begin
        else
          begin
          writeln('Veuillez saisir une réponse valide');
-         Delay(1000);
+         attendre(1000);
          QuitGame();
          end;
   end;
