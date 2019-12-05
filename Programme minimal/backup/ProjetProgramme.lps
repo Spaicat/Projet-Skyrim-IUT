@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="6">
+      <Unit0>
+        <Filename Value="ProjetProgramme.pas"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="25" Y="8"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="menu.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Menu"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="30"/>
+        <CursorPos X="18" Y="61"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="personnage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Personnage"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="85" Y="27"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="magasin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Magasin"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="6" Y="4"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="combat.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Combat"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="6" Y="4"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="GestionEcran.pas"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="23" Y="53"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit5>
+    </Units>
+    <JumpHistory Count="24" HistoryIndex="23">
+      <Position1>
+        <Filename Value="ProjetProgramme.pas"/>
+        <Caret Line="6" Column="17"/>
+      </Position1>
+      <Position2>
+        <Filename Value="menu.pas"/>
+        <Caret Line="49" Column="15"/>
+      </Position2>
+      <Position3>
+        <Filename Value="menu.pas"/>
+        <Caret Line="26" Column="19" TopLine="16"/>
+      </Position3>
+      <Position4>
+        <Filename Value="menu.pas"/>
+        <Caret Line="28" Column="26"/>
+      </Position4>
+      <Position5>
+        <Filename Value="menu.pas"/>
+        <Caret Line="12" Column="6"/>
+      </Position5>
+      <Position6>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="7" Column="19"/>
+      </Position6>
+      <Position7>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="4" Column="8"/>
+      </Position7>
+      <Position8>
+        <Filename Value="magasin.pas"/>
+        <Caret Line="4" Column="6"/>
+      </Position8>
+      <Position9>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="4" Column="8"/>
+      </Position9>
+      <Position10>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="6" Column="19"/>
+      </Position10>
+      <Position11>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="7" Column="25"/>
+      </Position11>
+      <Position12>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="23" Column="21"/>
+      </Position12>
+      <Position13>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="25" Column="53"/>
+      </Position13>
+      <Position14>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="4" Column="22"/>
+      </Position14>
+      <Position15>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="25" Column="56"/>
+      </Position15>
+      <Position16>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="21" Column="30"/>
+      </Position16>
+      <Position17>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="23" Column="42"/>
+      </Position17>
+      <Position18>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="21" Column="30"/>
+      </Position18>
+      <Position19>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="24" Column="40"/>
+      </Position19>
+      <Position20>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="28" Column="49"/>
+      </Position20>
+      <Position21>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="23" Column="9"/>
+      </Position21>
+      <Position22>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="21" Column="35"/>
+      </Position22>
+      <Position23>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="23" Column="24"/>
+      </Position23>
+      <Position24>
+        <Filename Value="personnage.pas"/>
+        <Caret Line="25" Column="41"/>
+      </Position24>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
