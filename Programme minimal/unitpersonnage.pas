@@ -67,7 +67,7 @@ implementation
       case repUtilisateur of //Attribution numéro pour les stats
          1:
          begin
-         personnage.argent := 20;
+         personnage.argent := 100;
          personnage.pv := 100;
          personnage.pvMax := 100;
          personnage.attaque := 20;
@@ -75,7 +75,7 @@ implementation
          end;
          2:
          begin
-         personnage.argent := 60;
+         personnage.argent := 20;
          personnage.pv := 75;
          personnage.pvMax := 75;
          personnage.attaque := 25;
