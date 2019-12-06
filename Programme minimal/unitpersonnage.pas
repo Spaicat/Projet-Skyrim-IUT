@@ -65,10 +65,38 @@ implementation
       writeln();
       write('Vous avez choisi la race ');
       case repUtilisateur of //Attribution numéro pour les stats
-         1:writeln(Khajiit);
-         2:writeln(HautElfe);
-         3:writeln(Sombrage);
-         4:writeln(Imperiaux);
+         1:
+         begin
+         personnage.argent := 100;
+         personnage.pv := 100;
+         personnage.pvMax := 100;
+         personnage.attaque := 20;
+         personnage.defense := 15;
+         end;
+         2:
+         begin
+         personnage.argent := 20;
+         personnage.pv := 75;
+         personnage.pvMax := 75;
+         personnage.attaque := 25;
+         personnage.defense := 15;
+         end;
+         3:
+         begin
+         personnage.argent := 20;
+         personnage.pv := 120;
+         personnage.pvMax := 120;
+         personnage.attaque := 15;
+         personnage.defense := 20;
+         end;
+         4:
+         begin
+         personnage.argent := 200;
+         personnage.pv := 95;
+         personnage.pvMax := 95;
+         personnage.attaque := 15;
+         personnage.defense := 15;
+         end;
       end;
       repeat
         writeln('Votre personnage s''appelle ', persoChoose.pseudo, ', il est de la race ', persoChoose.race);
