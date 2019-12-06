@@ -32,7 +32,7 @@ implementation
     repeat
       write('Choisissez le pseudonyme de votre personnage : ');
       readln(persoChoose.pseudo);
-      repUtilisateur:=-1;
+      writeln();
       repeat
           writeln('Races'); // LISTE DES RACES + DESCRIPTION
            writeln();
