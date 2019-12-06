@@ -70,7 +70,8 @@ begin
   writeln('===========================');
   writeln('Pseudo : ', persoChoose.pseudo);
   writeln('Race : ', persoChoose.race);
-  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax)
+  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
+  writeln('Bourse : ', persoChoose.argent, ' Gold');
   writeln('===========================');
 end;
 

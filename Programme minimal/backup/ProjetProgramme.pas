@@ -4,8 +4,7 @@ uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran;
 
 begin
   menuInitial();
-  test();
-
+  InterfaceInGame()
 readln;
 end.
 

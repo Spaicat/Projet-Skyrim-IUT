@@ -10,6 +10,8 @@ procedure menuInitial();
 procedure LaunchGame();
 //Procédure pour quitter le jeu
 procedure QuitGame();
+//Procédure pour afficher l'interface du jeu
+procedure InterfaceInGame();
 
 implementation
 
@@ -70,8 +72,8 @@ begin
   writeln('===========================');
   writeln('Pseudo : ', persoChoose.pseudo);
   writeln('Race : ', persoChoose.race);
-  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax)
-  writeln('Bourse : ', persoChoose.argent, ' Gold')
+  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
+  writeln('Bourse : ', persoChoose.argent, ' Gold');
   writeln('===========================');
 end;
 

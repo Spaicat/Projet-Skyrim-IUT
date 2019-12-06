@@ -54,51 +54,51 @@ implementation
            writeln();
           write('Choisissez une race : ');
           readln(repUtilisateur);
-          if ((repUtilisateur<1) or (repUtilisateur>ord(high(race)))) then
+          if ((repUtilisateur<1) or (repUtilisateur>ord(high(race))+1)) then
              begin
              effacerEcran();
              writeln('Veuillez choisir une réponse valide');
              attendre(1000);
              end;
-      until ((repUtilisateur>=1) and (repUtilisateur<=ord(high(race))));
+      until ((repUtilisateur>=1) and (repUtilisateur<=ord(high(race))+1));
       persoChoose.race := race(repUtilisateur-1);
-      writeln();
-      write('Vous avez choisi la race ');
       case repUtilisateur of //Attribution numéro pour les stats
          1:
          begin
-         personnage.argent := 100;
-         personnage.pv := 100;
-         personnage.pvMax := 100;
-         personnage.attaque := 20;
-         personnage.defense := 15;
+         persoChoose.argent := 100;
+         persoChoose.pv := 100;
+         persoChoose.pvMax := 100;
+         persoChoose.attaque := 20;
+         persoChoose.defense := 15;
          end;
          2:
          begin
-         personnage.argent := 20;
-         personnage.pv := 75;
-         personnage.pvMax := 75;
-         personnage.attaque := 25;
-         personnage.defense := 15;
+         persoChoose.argent := 20;
+         persoChoose.pv := 75;
+         persoChoose.pvMax := 75;
+         persoChoose.attaque := 25;
+         persoChoose.defense := 15;
          end;
          3:
          begin
-         personnage.argent := 20;
-         personnage.pv := 120;
-         personnage.pvMax := 120;
-         personnage.attaque := 15;
-         personnage.defense := 20;
+         persoChoose.argent := 20;
+         persoChoose.pv := 120;
+         persoChoose.pvMax := 120;
+         persoChoose.attaque := 15;
+         persoChoose.defense := 20;
          end;
          4:
          begin
-         personnage.argent := 200;
-         personnage.pv := 95;
-         personnage.pvMax := 95;
-         personnage.attaque := 15;
-         personnage.defense := 15;
+         persoChoose.argent := 200;
+         persoChoose.pv := 95;
+         persoChoose.pvMax := 95;
+         persoChoose.attaque := 15;
+         persoChoose.defense := 15;
          end;
       end;
       repeat
+        writeln();
+        writeln('===========================');
         writeln('Votre personnage s''appelle ', persoChoose.pseudo, ', il est de la race ', persoChoose.race);
         writeln('Voulez-vous confirmez ? [o/n] ');
         readln(repUtilisateurChar);
