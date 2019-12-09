@@ -75,7 +75,6 @@ begin
   writeln('Race : ', persoChoose.race);
   writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
   writeln('Bourse : ', persoChoose.argent, ' Gold');
-  writeln('Vous vous-situez à ',position.nom);
   writeln('===========================');
 end;
 

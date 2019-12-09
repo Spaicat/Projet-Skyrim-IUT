@@ -11,8 +11,8 @@ var
 //until (position.nom = Blancherive) OR (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Chateau_De_Blancherive);
 
 begin
-  menuInitial();            //Creation du Menu Principal
-  createCharacter();       //Creation du personage (Variable globale)
+  changerTailleConsole(200,60);
+  menuInitial();            //Creation du Menu Principal avec selection du personnage
   position.nom := Blancherive;
   InterfaceInGame(position);        //Creation de l'interface
   scenario := 1;
