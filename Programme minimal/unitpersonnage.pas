@@ -110,7 +110,7 @@ implementation
            end;
       until (repUtilisateurChar='o') or (repUtilisateurChar='n');
     effacerEcran();
-    until repUtilisateurChar='o';
+   until repUtilisateurChar='o';
   end;
 
 end.

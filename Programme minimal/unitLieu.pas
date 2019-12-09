@@ -15,11 +15,11 @@ type
     possibiliteLieu : TTableau;
   end;
 
-procedure initLieu(position : TInformation);
+procedure initLieu(var position : TInformation);
 
 implementation
 
-procedure initLieu(position : TInformation);
+procedure initLieu(var position : TInformation);
 var
   lieu1 : TInformation;  //Information de 1 / Blancherive
   lieu2 : TInformation;	 //Information de 2 / Marche de Blancherive
@@ -75,7 +75,7 @@ begin
       if i = 4 then
         writeln('Porte_De_Blancherive');
       end;
-end;
+    end;
 
 end.
 

@@ -1,7 +1,7 @@
 unit UnitMenu;
 
 interface
-uses UnitPersonnage, UnitMagasin, unitCombat, GestionEcran;
+uses UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu;
 
 
 //Procédure qui affiche le menu initial
@@ -11,7 +11,7 @@ procedure LaunchGame();
 //Procédure pour quitter le jeu
 procedure QuitGame();
 //Procédure pour afficher l'interface du jeu
-procedure InterfaceInGame();
+procedure InterfaceInGame(position : TInformation);
 
 implementation
 
@@ -65,15 +65,17 @@ begin
       end;
   until (rep = 'o') OR (rep = 'n');
   effacerEcran();
+  Halt(1);
 end;
 
-procedure InterfaceInGame();
+procedure InterfaceInGame(position : TInformation);
 begin
   writeln('===========================');
   writeln('Pseudo : ', persoChoose.pseudo);
   writeln('Race : ', persoChoose.race);
   writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
   writeln('Bourse : ', persoChoose.argent, ' Gold');
+  writeln('Vous vous-situez à ',position.nom);
   writeln('===========================');
 end;
 
