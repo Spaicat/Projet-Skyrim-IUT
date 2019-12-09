@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\lazarus\fpc\3.0.4\bin\i386-win32\fpc.exe" Date="1331391085"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq &quot;-FiG:\Cours IUT\M1102 - Algorithmique et programmation\Projet\gitHub\Projet-Skyrim-IUT-master\Programme minimal\lib\i386-win32&quot; &quot;-FuG:\Cours IUT\M1102 - Algorithmique et programmation\Projet\gitHub\Projet-Skyrim-IUT-master\Programme minimal\&quot; &quot;-FUG:\Cours IUT\M1102 - Algorithmique et programmation\Projet\gitHub\Projet-Skyrim-IUT-master\Programme minimal\lib\i386-win32\&quot; &quot;-FEG:\Cours IUT\M1102 - Algorithmique et programmation\Projet\gitHub\Projet-Skyrim-IUT-master\Programme minimal\&quot; &quot;-oG:\Cours IUT\M1102 - Algorithmique et programmation\Projet\gitHub\Projet-Skyrim-IUT-master\Programme minimal\ProjetProgramme.exe&quot; ProjetProgramme.pas"/>
+</CONFIG>
