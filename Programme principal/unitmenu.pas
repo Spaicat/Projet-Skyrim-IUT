@@ -1,7 +1,7 @@
 unit UnitMenu;
 
 interface
-uses UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils;
+uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils;
 
 //Procédure qui affiche le menu initial
 procedure menuInitial();
@@ -11,53 +11,62 @@ procedure LaunchGame();
 procedure QuitGame();
 //Procédure pour afficher l'interface du jeu
 procedure InterfaceInGame(position : TInformation);
+//Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
+procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
+
+function selectionMenu(coordMin : coordonnees; nbText : Integer; distanceEntreTexte, couleurFondTexte, couleurTexte : Integer) : Integer;
 
 function Key() : TKeyEvent;
 procedure redo();
-function lancerMenu():Boolean;
 
 implementation
+
 //Procédure qui affiche le menu initial
 procedure menuInitial();
 var
   rep : Integer;
-  coorC : coordonnees;
-  coorC2 : coordonnees;
   coorT : coordonnees;
-  coorT2 : coordonnees;
+  coorTMax : coordonnees;
   coorT3 : coordonnees;
-  largeur : Integer;
-  hauteur : Integer;
   volonte : Integer;
   lancement : Boolean;
   touche : TKeyEvent;
+  ListeMenuInitial : array of String;
+  choiceMenu : Integer;
+
+ // personnageCree : personnageStat;
+
 begin
-  repeat
-    writeln('Commencer une partie - 1');
-    writeln('Quitter - 2');
-    write('Choisissez votre action : ');
-    readln(rep);
-    if (rep<1) OR (rep>2) then //On teste si la réponse est bien ce que l'on veut
-    begin
-      writeln('Veuillez saisir une réponse valide');
-      attendre(1000);
-      effacerEcran();
-    end;
-  until (rep>=1) AND (rep<=2);
-  case rep of //On lance les fonctions en conséquences
-       1:LaunchGame();
-       2:QuitGame();
-  end;
+  coorT.x := 96;      //Coor Texte
+  coorT.y := 30 - 5;
+
+  coorTMax.x := coorT.x;    // Coor Texte2
+  coorTMax.y := coorT.y + 5;
+
+  redo();
+  couleurTexte(White);
+
+  setLength(ListeMenuInitial, 2);
+  ListeMenuInitial[0] := 'Jouer ?';
+  ListeMenuInitial[1] := 'Quitter ?';
+  afficherListeMenu(ListeMenuInitial, coorT, 5);
+  choiceMenu := selectionMenu(coorT, 2, 5, LightBlue, White);
+
+  if choiceMenu = 0 then
+    LaunchGame()
+  else
+    QuitGame();
+
+  readln;
 end;
 
 
 //Procédure pour quitter le jeu
 procedure LaunchGame();
 begin
-  effacerEcran();
+  redo();
   createCharacter();
 end;
-
 
 //Procédure pour quitter le jeu
 procedure QuitGame();
@@ -105,71 +114,90 @@ DoneKeyBoard;
 end;
 
 procedure redo();
-
 var
-  coorC : coordonnees;
+  coorC,
   coorC2 : coordonnees;
-begin
-  coorC.x := 2;      //Coor 1
-  coorC.y := 0;
-  coorC2.x := 197;     //Coor 2
-  coorC2.y := 58;
-
-  effacerEcran();
-  dessinerCadre(coorC,coorC2,double,4,0);
-end;
-
-function lancerMenu():Boolean;
-var
-  coorC : coordonnees;
-  coorC2 : coordonnees;
-  coorT : coordonnees;
-  coorT2 : coordonnees;
-  coorT3 : coordonnees;
-  largeur : Integer;
+  largeur,
   hauteur : Integer;
-  volonte : Integer;
-  lancement : Boolean;
-  touche : TKeyEvent;
-
- // personnageCree : personnageStat;
-
 begin
   coorC.x := 2;      //Coor 1
   coorC.y := 0;
   coorC2.x := 197;     //Coor 2
   coorC2.y := 58;
-
-  coorT.x := 50;      //Coor Texte
-  coorT.y := 18 - 5;
-
-  coorT2.x := 50 ;    // Coor Texte2
-  coorT2.y := 18 + 5;
-
   largeur := 200;
   hauteur := 60;
 
-
+  effacerEcran();
   changerTailleConsole(largeur,hauteur);
   dessinerCadre(coorC,coorC2,double,4,0);
-  couleurTexte(LightBlue);
-  ecrireEnPosition(coorT,'Jouer ?');
-  ecrireEnPosition(coorT2,'Quitter ?');
+  couleurTexte(White);
+end;
 
+//Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
+procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
+var
+  i : Integer;
+  coordTemp : coordonnees;
+begin
+  coordTemp.x := coordMenuInitial.x;
+  coordTemp.y := coordMenuInitial.y;
+  for i:=low(ListeTexte) to high(ListeTexte) do
+      begin
+      ecrireEnPosition(coordTemp, ListeTexte[i]);
+      coordTemp.x := coordTemp.x;
+      coordTemp.y := coordTemp.y + distanceEntreTexte;
+      end;
+end;
+
+function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte: Integer; couleurFondTexte, couleurTexte : Integer) : Integer;
+var
+  coordTemp,
+  coordMax : coordonnees;
+  selectedChoice : Integer;
+  Touche : TKeyEvent;
+begin
+  deplacerCurseur(CoordMin);
+  coordTemp.x := coordMin.x;
+  coordTemp.y := coordMin.y;
+  ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+  coordMax.y := coordMin.y + (nbText-1)*distanceEntreTexte;
+  coordMax.x := coordMin.x;
   repeat
-  Touche := Key();
-  if (KeyEventToString(Touche)='Up') then
-    deplacerCurseur(coorT)
-  else
-    if (KeyEventToString(Touche)='Down') then
-    deplacerCurseur(coorT2);
+    Touche := Key();
+    if (KeyEventToString(Touche)='Up') then
+       if coordTemp.y = coordMin.y then
+          begin
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          coordTemp := coordMax;
+          deplacerCurseur(coordTemp);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          end
+       else
+          begin
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          coordTemp.y := coordTemp.y-distanceEntreTexte;
+          deplacerCurseur(coordTemp);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          end
+    else if (KeyEventToString(Touche)='Down') then
+       if coordTemp.y = coordMax.y then
+          begin
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          coordTemp := coordMin;
+          deplacerCurseur(coordTemp);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          end
+       else
+          begin
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          coordTemp.y := coordTemp.y+distanceEntreTexte;
+          deplacerCurseur(coordTemp);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          end;
 
   until (KeyEventToString(Touche)=chr(13));
-  if (positionCurseur().y = coorT.y) AND (positionCurseur().x = coorT.x) then
-    lancement := True
-  else
-    lancement := False;
-  lancerMenu := lancement;
+  selectedChoice := (coordTemp.y - CoordMin.y) div distanceEntreTexte;
+  selectionMenu:=selectedChoice;
 end;
 
 end.

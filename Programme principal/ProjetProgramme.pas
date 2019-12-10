@@ -1,6 +1,7 @@
 program ProjetProgramme;
 
-uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils;
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu,
+  TypInfo, Keyboard, Classes, SysUtils;
 
 var
   position : TInformation;    //Variable qui stokera la position du personnage dans le jeu
@@ -12,15 +13,11 @@ var
 //until (position.nom = Blancherive) OR (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Chateau_De_Blancherive);
 
 begin
-coorMenuTexte1.x := 50;
-coorMenuTexte1.y := 18- 5;
+  coorMenuTexte1.x := 50;
+  coorMenuTexte1.y := 18 - 5;
 
-coorMenuTexte2.x := 50;
-coorMenuTexte2.y := 18+5;
-
-lancerMenu();
-redo();
-readln;
+  coorMenuTexte2.x := 50;
+  coorMenuTexte2.y := 18 + 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
   position.nom := Blancherive;
