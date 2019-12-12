@@ -21,7 +21,7 @@ implementation
      for i:=0 to length(listePerso.listeObjets) do
      begin
          listeMagasin.listeObjets[i]:=listePerso.listeObjets[i];
-         listeMagasin.possession[i]:=1;
+         listeMagasin.possession[i]:=3;
      end;
    end;
 
