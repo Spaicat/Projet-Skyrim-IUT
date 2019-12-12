@@ -4,95 +4,86 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="9">
       <Unit0>
         <Filename Value="ProjetProgramme.pas"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="17" Y="6"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="58"/>
+        <CursorPos Y="61"/>
+        <UsageCount Value="35"/>
       </Unit0>
       <Unit1>
         <Filename Value="unitmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMenu"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="16"/>
-        <CursorPos X="5" Y="29"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3"/>
+        <CursorPos X="42" Y="70"/>
+        <UsageCount Value="35"/>
       </Unit1>
       <Unit2>
         <Filename Value="unitpersonnage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitPersonnage"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="12"/>
-        <CursorPos X="23" Y="47"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos Y="56"/>
+        <UsageCount Value="34"/>
       </Unit2>
       <Unit3>
         <Filename Value="unitmagasin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UnitMagasin"/>
-        <EditorIndex Value="4"/>
-        <CursorPos X="6" Y="4"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
+        <UnitName Value="unitMagasin"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="65" Y="39"/>
+        <UsageCount Value="34"/>
       </Unit3>
       <Unit4>
         <Filename Value="unitcombat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitCombat"/>
-        <EditorIndex Value="5"/>
-        <CursorPos X="44" Y="7"/>
-        <UsageCount Value="25"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="59"/>
+        <CursorPos X="66" Y="74"/>
+        <UsageCount Value="34"/>
       </Unit4>
       <Unit5>
         <Filename Value="GestionEcran.pas"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="23" Y="53"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="67"/>
+        <CursorPos X="48" Y="53"/>
+        <UsageCount Value="17"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="unitinventaire.pas"/>
+        <UnitName Value="unitInventaire"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="101"/>
+        <CursorPos X="45" Y="155"/>
+        <UsageCount Value="15"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="unitLieu.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="26" Y="53"/>
+        <UsageCount Value="14"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\Programme principal\unitmenu.pas"/>
+        <UnitName Value="UnitMenu"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="146"/>
+        <UsageCount Value="12"/>
+      </Unit8>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
-      <Position1>
-        <Filename Value="ProjetProgramme.pas"/>
-        <Caret Line="6" Column="17"/>
-      </Position1>
-      <Position2>
-        <Filename Value="ProjetProgramme.pas"/>
-        <Caret Line="7" Column="10"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="28" Column="51" TopLine="8"/>
-      </Position3>
-      <Position4>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="29" Column="21" TopLine="8"/>
-      </Position4>
-      <Position5>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="14" Column="5"/>
-      </Position5>
-      <Position6>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="42" Column="24" TopLine="8"/>
-      </Position6>
-      <Position7>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="3" Column="30"/>
-      </Position7>
-      <Position8>
-        <Filename Value="unitpersonnage.pas"/>
-        <Caret Line="46" Column="12" TopLine="12"/>
-      </Position8>
-    </JumpHistory>
+    <General>
+      <ActiveWindowIndexAtStart Value="-1"/>
+    </General>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes Count="0" ActiveMode=""/>
