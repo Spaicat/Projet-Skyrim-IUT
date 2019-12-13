@@ -35,6 +35,7 @@ var
   touche : TKeyEvent;
   ListeMenuInitial : array of String;
   choiceMenu : Integer;
+  asciiText : String;
 
  // personnageCree : personnageStat;
 
@@ -42,11 +43,34 @@ begin
   coorT.x := 96;      //Coor Texte
   coorT.y := 30 - 5;
 
-  coorTTest.x := 20;
+  coorTTest.x := 38;
   coorTTest.y := 20;
 
   redo();
   couleurTexte(White);
+
+  asciiText :=             '      #######      /                            ##### ##                                                              ';
+  asciiText := asciiText + '    /       ###  #/                          ######  /###                          #                                  ';
+  asciiText := asciiText + '   /         ##  ##                         /#   /  /  ###                        ###                           #     ';
+  asciiText := asciiText + '   ##        #   ##                        /    /  /    ###                        #                           ##     ';
+  asciiText := asciiText + '    ###          ##                            /  /      ##                                                    ##     ';
+  asciiText := asciiText + '   ## ###        ##  /##  ##   ####           ## ##      ## ###  /###     /###   ###      /##       /###     ######## ';
+  asciiText := asciiText + '    ### ###      ## / ###  ##    ###  /       ## ##      ##  ###/ #### / / ###  / ###    / ###     / ###  / ########  ';
+  asciiText := asciiText + '      ### ###    ##/   /   ##     ###/      /### ##      /    ##   ###/ /   ###/   ##   /   ###   /   ###/     ##     ';
+  asciiText := asciiText + '        ### /##  ##   /    ##      ##      / ### ##     /     ##       ##    ##    /   ##    ### ##            ##     ';
+  asciiText := asciiText + '          #/ /## ##  /     ##      ##         ## ######/      ##       ##    ##   /    ########  ##            ##     ';
+  asciiText := asciiText + '           #/ ## ## ##     ##      ##         ## ######       ##       ##    ##  ###   #######   ##            ##     ';
+  asciiText := asciiText + '            # /  ######    ##      ##         ## ##           ##       ##    ##   ###  ##        ##            ##     ';
+  asciiText := asciiText + '  /##        /   ##  ###   ##      ##         ## ##           ##       ##    ##    ### ####    / ###     /     ##     ';
+  asciiText := asciiText + ' /  ########/    ##   ### / #########         ## ##           ###       ######      ### ######/   ######/      ##     ';
+  asciiText := asciiText + '/     #####       ##   ##/    #### ###   ##   ## ##            ###       ####        ##  #####     #####        ##    ';
+  asciiText := asciiText + '|                                   ### ###   #  /                                   ##                               ';
+  asciiText := asciiText + ' \)                          #####   ### ###    /                                    /                                ';
+  asciiText := asciiText + '                           /#######  /#   #####/                                    /                                 ';
+  asciiText := asciiText + '                          /      ###/       ###                                    /                                  ';
+  ecrireTexte(coorTTest, asciiText, 118);
+  readln;
+  redo();
 
   setLength(ListeMenuInitial, 2);
   ListeMenuInitial[0] := 'Jouer ?';
@@ -123,7 +147,7 @@ var
   hauteur : Integer;
 begin
   coorC.x := 2;      //Coor 1
-  coorC.y := 0;
+  coorC.y := 1;
   coorC2.x := 197;     //Coor 2
   coorC2.y := 58;
   largeur := 200;
