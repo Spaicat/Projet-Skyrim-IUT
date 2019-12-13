@@ -16,6 +16,8 @@ procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coo
 
 function selectionMenu(coordMin : coordonnees; nbText : Integer; distanceEntreTexte, couleurFondTexte, couleurTexte : Integer) : Integer;
 
+procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
+
 function Key() : TKeyEvent;
 procedure redo();
 
@@ -26,7 +28,7 @@ procedure menuInitial();
 var
   rep : Integer;
   coorT : coordonnees;
-  coorTMax : coordonnees;
+  coorTTest : coordonnees;
   coorT3 : coordonnees;
   volonte : Integer;
   lancement : Boolean;
@@ -40,8 +42,8 @@ begin
   coorT.x := 96;      //Coor Texte
   coorT.y := 30 - 5;
 
-  coorTMax.x := coorT.x;    // Coor Texte2
-  coorTMax.y := coorT.y + 5;
+  coorTTest.x := 20;
+  coorTTest.y := 20;
 
   redo();
   couleurTexte(White);
@@ -143,7 +145,7 @@ begin
   coordTemp.y := coordMenuInitial.y;
   for i:=low(ListeTexte) to high(ListeTexte) do
       begin
-      ecrireEnPosition(coordTemp, ListeTexte[i]);
+      ecrireTexte(coordTemp, ListeTexte[i], 120);
       coordTemp.x := coordTemp.x;
       coordTemp.y := coordTemp.y + distanceEntreTexte;
       end;
@@ -198,6 +200,28 @@ begin
   until (KeyEventToString(Touche)=chr(13));
   selectedChoice := (coordTemp.y - CoordMin.y) div distanceEntreTexte;
   selectionMenu:=selectedChoice;
+end;
+
+//Procédure pour écrire un texte sur une largeur donnée (justifié)
+procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
+var
+  tempText : String;
+  tempPosCoord : coordonnees;
+begin
+  tempPosCoord.y := posCoord.y - 1;
+  tempPosCoord.x := posCoord.x;
+  tempText := textToWrite;
+  while length(tempText) > largeur do
+    begin
+    tempPosCoord.y := tempPosCoord.y + 1;
+    ecrireEnPosition(tempPosCoord, copy(tempText, 0, largeur));
+    tempText := copy(tempText, largeur+1, length(tempText)-largeur);
+    end;
+  if length(tempText) <> 0 then
+     begin
+     tempPosCoord.y := tempPosCoord.y + 1;
+     ecrireEnPosition(tempPosCoord, tempText);
+     end;
 end;
 
 end.
