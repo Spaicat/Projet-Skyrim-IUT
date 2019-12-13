@@ -8,7 +8,7 @@ uses unitInventaire, unitPersonnage;
 
 procedure initMagasin(var listePerso,listeMagasin:Inventaire);
 procedure achat(var p:Personnage; var listePer,listeMagasin:Inventaire);
-
+procedure vente(var p:Personnage; var listePer,listeMagasin:Inventaire);
 
 
 
@@ -34,10 +34,10 @@ implementation
    begin
      sortie:=false;
 
-     afficheInventaire(listeMagasin);
-     writeln('1 vous permettra d''acheter une epee');
-     writeln('2 vous permettra d''acheter un bouclier');
-     writeln('3 vous permettra d''acheter une potion');
+     afficheInventaire(listePer);
+     writeln('1 : Epee --> 5 or');
+     writeln('2 : Bouclier --> 3 or');
+     writeln('3 : Potion --> 5 or');
      while(sortie=false) do
      begin
          writeln;
@@ -59,15 +59,42 @@ implementation
    end;
    end;
 
-   {procedure vente(var p:Personnage; var listeMagasin:Inventaire);
-   var
-     i:Integer //permet de lire et de connaître le numéro de l'objet
+  procedure vente(var p:Personnage; var listePer,listeMagasin:Inventaire);
+  var
+     nChoix:Integer;
+     sortie:boolean;
 
-   begin
+  begin
+     afficheInventaire(listePer);
+     sortie := False;
+     writeln('1 - Vendre une epee pour 3 or ? Vous en avez ',listePer.possession[1]);
+     writeln('1 - Vendre un Bouclier pour 1 or ? Vous en avez ',listePer.possession[2]);
+     writeln('1 - Vendre une potion pour 3 or ? Vous en avez ',listePer.possession[3]);
+     while(sortie=false) do
+     begin
+         writeln;
+       write('Faites votre choix (pour sortir saisir 0) : ');
+       writeln();
+       readln(nChoix);
+       if (nChoix=0) then sortie:=true
 
+     else if (nChoix = 1) AND (listePer.possession[1] > 0) then
+       begin
+       writeln('Vous vender une epee pour 3 or');
+       p.argent := p.argent + 3;
+       end
+     else if (nChoix = 2) AND (listePer.possession[2] > 0) then
+       begin
+       writeln('Vous vender un Bouclier pour 1 or');
+       p.argent := p.argent + 1;
+       end
+      else if (nChoix = 3) AND (listePer.possession[3] > 0) then
+       begin
+       writeln('Vous vender une potion pour 3 or');
+       p.argent := p.argent + 3;
+       end
+     end;
+  end;
 
-
-
-   end;}
 end.
 
