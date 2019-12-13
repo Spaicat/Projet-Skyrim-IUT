@@ -3,14 +3,14 @@ program ProjetProgramme;
 uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu,unitInventaire;
 
 var
-  position : TInformation;    //Variable qui stokera la position du personnage dans le jeu
   i : Integer;
   scenario : Integer; //Varaible qui definiera ou le joueur en est dans l'histoire
-
+  anciennePosition : TInformation;
   dragonFeu : Personnage;
   fuite : Boolean;
 
-  anciennePosition : TInformation;
+
+  nChoix : Integer;
 
    o1,
   o2,
@@ -27,8 +27,8 @@ begin
   changerTailleConsole(200,60);
   fuite := False;
   menuInitial();   //Creation du Menu Principal avec selection du personnage
-  position.nom := Blancherive;
-  anciennePosition.nom := position.nom;
+  anciennePosition := lieu1;
+  initLieu();
   indicateur := 0;
   nomEquipement := '';
   InterfaceInGame(position);        //Creation de l'interface
@@ -47,66 +47,69 @@ begin
   writeln('Il vous tendit alors un parchemin scelle.. ');
   writeln('Vous comprirent donc qu''ils faut le livrer au Jarl de Blancherive');
   writeln();
-  writeln('Ou voulez-vous aller ?');
-  writeln();
-  couleurTexte(4);
-  writeln('Vous pouvez regarder a tous moment votre inventaire avec la commande : AccesInventaire');
-  couleurTexte(15);
-  writeln();
+  deplacement();
 
-  initLieu(position);
-  writeln();
-
-  repeat
-    readln(position.nom);
-  until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Boutique) OR (position.nom = AccesInventaire);
-  effacerEcran();
 
   while scenario = 1 do
     begin
     case position.nom of
 
-    Boutique :
+    'Boutique' :
       begin
-      InterfaceInGame(position);
-      achat(persoChoose,inventairePerso,inventaireMagasin);
-      writeln();
       effacerEcran();
-      position.nom := Blancherive;
+      InterfaceInGame(position);
+      writeln('Que voulez-vous faire');
+      writeln();
+      writeln('1 Pour vendre');
+      writeln('2 pour acheter');
+      writeln('0 pour quitter');
+      readln(nChoix);
+
+      case nChoix of
+      0 :
+        begin
+        position := lieu1;
+        effacerEcran();
+        end;
+      1 :
+      begin
+      vente(persoChoose,inventairePerso,inventaireMagasin);
+      effacerEcran();
+      end;
+      2 :
+      begin
+      achat(persoChoose,inventairePerso,inventaireMagasin);
+      effacerEcran();
       end;
 
-    AccesInventaire :
+      end;
+      end;
+
+    'Inventaire' :
       begin
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
-      readln;
       effacerEcran();
-      position.nom := anciennePosition.nom;
+      deplacement();
       end;
 
-    Porte_De_Blancherive :
+    'Porte de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Porte de Blancherive';
       InterfaceInGame(position);
       writeln('Bienvenue devant la porte de Blancherive');
       writeln('Sortir maintenant serai une perte de temps...');
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
-    Blancherive :
+    'Bourg de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Bourg de Blancherive';
       InterfaceInGame(position);   //Creation de l'interface
       writeln('Vous revoila a l''entre de Blancherive');
       writeln('Vous devez donnez le message au jarl le plus vite possible');
@@ -114,21 +117,14 @@ begin
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Boutique) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
 
-    Marche_De_Blancherive :
+    'Marche de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Marche de Blancherive';
       InterfaceInGame(position);
       writeln('Bienvenue au marché de Blancherive');
       writeln('Vous voila au grand marche de Blancherive');
@@ -136,19 +132,13 @@ begin
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive) OR (position.nom = Chateau_De_Blancherive) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
-    Chateau_De_Blancherive :
+    'Chateau de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Chateau de Blancherive';
       InterfaceInGame(position);
       writeln('Bienvenue au Chateux de Blancherive');
       writeln('En arrivant a Fort-Dragon les garde vous arrête un instant et vous laisse passer a la vu du parchemin');
@@ -161,14 +151,7 @@ begin
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
     end;  // Fin du case
@@ -178,26 +161,45 @@ begin
     begin
     case position.nom of
 
-    Boutique :
+    'Boutique' :
       begin
       InterfaceInGame(position);
-      achat(persoChoose,inventairePerso,inventaireMagasin);
+      writeln('Que voulez-vous faire');
       writeln();
+      writeln('1 Pour vendre');
+      writeln('2 pour acheter');
+      writeln('0 pour quitter');
+      readln(nChoix);
+
+      case nChoix of
+      0 : position := lieu1;
+
+      1 :
+      begin
+      vente(persoChoose,inventairePerso,inventaireMagasin);
       effacerEcran();
-      position.nom := Blancherive;
+      end;
+      2 :
+      begin
+      achat(persoChoose,inventairePerso,inventaireMagasin);
+      effacerEcran();
       end;
 
-    AccesInventaire :
+      end;
+      end;
+
+    'Inventaire' :
       begin
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
       readln;
       effacerEcran();
-      position.nom := anciennePosition.nom;
+      position := anciennePosition;
+      deplacement();
       end;
 
 
-    Porte_De_Blancherive :
+    'Porte de Blancherive' :
       begin
       writeln();
       dragonFeu.pv := 70;
@@ -232,10 +234,10 @@ begin
 
       end;
 
-    Blancherive :
+    'Bourg de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Bourg de Blancherive';
       InterfaceInGame(position);   //Creation de l'interface
       writeln('Vers la porte de la ville vous entender un grand bruit...');
       couleurTexte(4);
@@ -245,21 +247,14 @@ begin
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Boutique) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
 
-    Marche_De_Blancherive :
+    'Marche de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Marche de Blancherive';
       InterfaceInGame(position);
       writeln('Bienvenue au marché de Blancherive');
       writeln('Vous voila au grand marche de Blancherive');
@@ -267,32 +262,19 @@ begin
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive) OR (position.nom = Chateau_De_Blancherive) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
-    Chateau_De_Blancherive :
+    'Chateau de Blancherive' :
       begin
       writeln();
-      anciennePosition.nom := position.nom;
+      anciennePosition.nom := 'Chateau de Blancherive';
       InterfaceInGame(position);
       writeln('Diriger vous au plus vite au porte de la ville !');
       writeln();
       writeln('Ou voulez-vous aller ?');
       writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = AccesInventaire);
-      effacerEcran();
+      deplacement();
       end;
 
     end;  // Fin du case
