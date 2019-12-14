@@ -24,13 +24,6 @@ var
   coorMenuTexte1 : coordonnees;
   coorMenuTexte2 : coordonnees;
 
-  stdOutputHandle : Cardinal;
-  Buffer : CONSOLE_SCREEN_BUFFER_INFO;
-  LastMode: Word;
-  cursorPos: TCoord;
-  TextAttr: Byte;
-  nbChars: Cardinal;
-
 begin
   coorMenuTexte1.x := 50;
   coorMenuTexte1.y := 18 - 5;
@@ -58,7 +51,6 @@ begin
   writelnPerso('En allant a sa rencontre vous remarquer d''etrange brulure sur le corp...');
   writelnPerso('Alors qu''il est au bord du malaise il vous dit :');               //Affichage du scenario
   writelnPerso('Ils arrivent....Les dragons.....');
-  writelnPerso();
   writelnPerso('Il vous tendit alors un parchemin scelle.. ');
   writelnPerso('Vous comprirent donc qu''ils faut le livrer au Jarl de Blancherive');
   writelnPerso();
@@ -104,7 +96,8 @@ begin
       begin
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
-      effacerEcran();
+      redo();
+      InterfaceInGame(position);
       deplacement();
       end;
 

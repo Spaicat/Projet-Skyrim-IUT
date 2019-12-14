@@ -14,7 +14,7 @@ procedure InterfaceInGame(position : TInformation);
 //Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
 procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
 
-function selectionMenu(coordMin : coordonnees; nbText : Integer; distanceEntreTexte, couleurFondTexte, couleurTexte : Integer) : Integer;
+function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
 
@@ -83,14 +83,12 @@ begin
   ListeMenuInitial[0] := 'Jouer ?';
   ListeMenuInitial[1] := 'Quitter ?';
   afficherListeMenu(ListeMenuInitial, coorT, 5);
-  choiceMenu := selectionMenu(coorT, 2, 5, LightBlue, White);
+  choiceMenu := selectionMenu(coorT, 2, 5, 10, LightBlue, White);
 
   if choiceMenu = 0 then
     LaunchGame()
   else
     QuitGame();
-
-  readln;
 end;
 
 
@@ -151,7 +149,7 @@ begin
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'Vous vous-situez à ' + position.nom;
+  textTemp := 'Position : ' + position.nom;
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
@@ -161,6 +159,7 @@ begin
   for i := posCadre1.x-1 to 195 do //On dessine la ligne du bas
     write(#205);
   couleurTexte(White);
+  posCadre1.x := posCadre1.x+2;
   posCadre1.y := posCadre1.y+1;
   deplacerCurseur(posCadre1);
 end;
@@ -209,12 +208,11 @@ begin
   for i:=low(ListeTexte) to high(ListeTexte) do
       begin
       ecrireTexte(coordTemp, ListeTexte[i], 120);
-      coordTemp.x := coordTemp.x;
       coordTemp.y := coordTemp.y + distanceEntreTexte;
       end;
 end;
 
-function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte: Integer; couleurFondTexte, couleurTexte : Integer) : Integer;
+function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 var
   coordTemp,
   coordMax : coordonnees;
@@ -224,7 +222,7 @@ begin
   deplacerCurseur(CoordMin);
   coordTemp.x := coordMin.x;
   coordTemp.y := coordMin.y;
-  ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+  ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
   coordMax.y := coordMin.y + (nbText-1)*distanceEntreTexte;
   coordMax.x := coordMin.x;
   repeat
@@ -232,36 +230,37 @@ begin
     if (KeyEventToString(Touche)='Up') then
        if coordTemp.y = coordMin.y then
           begin
-          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           coordTemp := coordMax;
           deplacerCurseur(coordTemp);
-          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           end
        else
           begin
-          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           coordTemp.y := coordTemp.y-distanceEntreTexte;
           deplacerCurseur(coordTemp);
-          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           end
     else if (KeyEventToString(Touche)='Down') then
        if coordTemp.y = coordMax.y then
           begin
-          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           coordTemp := coordMin;
           deplacerCurseur(coordTemp);
-          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           end
        else
           begin
-          ColorierZone(0, 15, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           coordTemp.y := coordTemp.y+distanceEntreTexte;
           deplacerCurseur(coordTemp);
-          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+10, coordTemp.y);
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
           end;
 
   until (KeyEventToString(Touche)=chr(13));
   selectedChoice := (coordTemp.y - CoordMin.y) div distanceEntreTexte;
+  deplacerCurseur(coordMax);
   selectionMenu:=selectedChoice;
 end;
 
@@ -287,12 +286,12 @@ begin
      end;
 end;
 
-//Fonction writeln qui marche avec des coordonnées non fixe (juste pour sauter une ligne)
+//Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe (juste pour sauter une ligne)
 procedure writelnPerso();
 begin
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
 end;
-//Fonction writeln qui marche avec des coordonnées non fixe
+//Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe
 procedure writelnPerso(ligneAEcrire : String);
 var
   posTemp : Integer; //Position en x du premier caractère de la ligne
@@ -308,7 +307,7 @@ begin
   read();
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
 end;
-//Fonction readln qui marche avec des coordonnées non fixe
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe
 procedure readlnPerso(var ligneAEnregistrer : String);
 var
   posTemp : Integer;
@@ -318,7 +317,7 @@ begin
   read(ligneAEnregistrer);
   deplacerCurseurXY(posTemp, positionCurseur.y);
 end;
-//Fonction readln qui marche avec des coordonnées non fixe
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe
 procedure readlnPerso(var ligneAEnregistrer : Integer);
 var
   posTemp : Integer;

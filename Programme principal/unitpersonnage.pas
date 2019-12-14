@@ -52,7 +52,7 @@ implementation
       listeTexte[3] := '<Imperiaux>    ' + 'Les Imperiaux paraissent plus faibles que les autres races a cause de leur apparence plutot frele mais ils sont les meilleurs soldats de leur rang. Bien que leurs armures lourdes les protege des coups les plus importants, leurs attaques restent ralenties par tout le poids qu''ils portent';
       coordOrigin.y := coordOrigin.y + 2;
       afficherListeMenu(listeTexte, coordOrigin, 7);
-      repUtilisateur := selectionMenu(coordOrigin, 4, 7, LightBlue, White) + 1;
+      repUtilisateur := selectionMenu(coordOrigin, 4, 7, 10, LightBlue, White) + 1;
 
       persoChoose.race := race(repUtilisateur-1);
       case repUtilisateur of //Attribution numéro pour les stats
@@ -101,7 +101,7 @@ implementation
       listeTexte[1] := 'non';
       coordOrigin.y := coordOrigin.y + 2;
       afficherListeMenu(listeTexte, coordOrigin, 1);
-      repUtilisateur := selectionMenu(coordOrigin, 2, 1, LightBlue, White); //0 = oui et 1 = non
+      repUtilisateur := selectionMenu(coordOrigin, 2, 1, 3, LightBlue, White); //0 = oui et 1 = non
 
     until repUtilisateur=0;
   end;

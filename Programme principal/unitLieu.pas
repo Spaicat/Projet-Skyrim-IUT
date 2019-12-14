@@ -20,7 +20,7 @@ var lieu1, lieu2, lieu3, lieu4,lieu5,lieu6,position : TInformation;
 
 procedure initLieu();
 procedure deplacement();
-procedure afficheLieuxPossibles();
+function afficheLieuxPossibles() : Integer;
 procedure actionLieu();
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 
@@ -39,21 +39,27 @@ begin
    end;
 end;
 
-procedure afficheLieuxPossibles();
+function afficheLieuxPossibles() : Integer;
 var
-  i:Integer;
+  i : Integer;
+  posInitial : coordonnees;
+  listePos : String;
 begin
+    listePos := '';
     writelnPerso('Position : ' + position.nom);
+    posInitial.x := positionCurseur().x;
+    posInitial.y := positionCurseur().y+1;
     for i:= 1 to 6 do
       if position.possibiliteLieu[i] then
         case i of
-          1:begin writelnPerso(IntToStr(i) + ' : ' + lieu1.nom);end;
-          2:begin writelnPerso(IntToStr(i) + ' : ' + lieu2.nom);end;
-          3:begin writelnPerso(IntToStr(i) + ' : ' + lieu3.nom);end;
-          4:begin writelnPerso(IntToStr(i) + ' : ' + lieu4.nom);end;
-          5:begin writelnPerso(IntToStr(i) + ' : ' + lieu5.nom);end;
-          6:begin writelnPerso(IntToStr(i) + ' : ' + lieu6.nom);end;
+          1:begin writelnPerso(lieu1.nom); listePos := listePos + IntToStr(i);end;
+          2:begin writelnPerso(lieu2.nom); listePos := listePos + IntToStr(i);end;
+          3:begin writelnPerso(lieu3.nom); listePos := listePos + IntToStr(i);end;
+          4:begin writelnPerso(lieu4.nom); listePos := listePos + IntToStr(i);end;
+          5:begin writelnPerso(lieu5.nom); listePos := listePos + IntToStr(i);end;
+          6:begin writelnPerso(lieu6.nom); listePos := listePos + IntToStr(i);end;
         end;
+    afficheLieuxPossibles := StrToInt(listePos[selectionMenu(posInitial, length(listePos), 1, 22, LightBlue, White)+1]);
 end;
 
 procedure deplacement();
@@ -61,9 +67,7 @@ var
   choix:Integer;
 
 begin
-  afficheLieuxPossibles();
-  writelnPerso('Ou voulez-vous aller ?');
-  readlnPerso(choix);
+  choix := afficheLieuxPossibles();
   while((choix<1) or (choix>6) or not(position.possibiliteLieu[choix])) do
   begin
     writelnPerso('Vous ne pouvez pas aller ici directement');
