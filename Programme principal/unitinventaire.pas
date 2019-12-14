@@ -2,7 +2,7 @@ unit unitInventaire;
 
 
 interface
-
+  uses unitPersonnage;
   // TYPES
 
   type categorie=(Soin,Protection,Degats);
@@ -29,6 +29,7 @@ interface
   procedure initObjet(var o1,o2,o3:Objet);
   procedure afficheObjet(var o:Objet);
   procedure afficheInventaire(var liste:Inventaire);
+  procedure equipement(var perso : Personnage;var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 
 implementation
 
@@ -59,11 +60,10 @@ implementation
       liste.listeObjets[2]:=o2;
       liste.listeObjets[3]:=o3;
 
-      liste.possession[1]:=0;
+      liste.possession[1]:=1;
       liste.possession[2]:=0;
       liste.possession[3]:=0;
   end;
-
 
    procedure afficheObjet(var o:Objet);
    begin
@@ -73,7 +73,8 @@ implementation
 
 
    procedure afficheInventaire(var liste:Inventaire);
-   var i:Integer;
+   var
+     i:Integer;
    begin
      for i:=1 to length(liste.listeObjets) DO
      begin
@@ -86,5 +87,121 @@ implementation
         end;
      end;
    end;
-end.
 
+   procedure equipement(var perso : Personnage;var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
+   var
+     option : Integer;
+     sortie : Boolean;
+   begin
+   sortie := False;
+   writeln('De quel objet voulez-vous vous equiper ?');
+   writeln();
+   writeln('1 - Epee');
+   writeln('2 - Bouclier');
+   writeln('3 - Potion');
+   readln(option);
+
+   while sortie = False do
+   begin
+   case option of
+   0: sortie := True;
+
+   1 :
+     begin
+     if inventairePerso.possession[1] > 0 then
+     begin
+       if indicateur = 1 then
+         begin
+         if nomEquipement = 'Epee' then
+           begin
+           writeln('Elle est deja equiper');
+           sortie := True;
+           end
+         else
+           begin
+           writeln('Vous vous en Equiper');
+           readln();
+           perso.defense := perso.defense - 10;
+           perso.attaque := perso.attaque + 20;
+           indicateur := indicateur + 1;
+           nomEquipement := 'Epee';
+           sortie := True;
+           end;
+         end
+       else
+         begin
+         writeln('Vous vous equiper de l''eppe !');
+         readln();
+         perso.attaque := perso.attaque + 20;
+         indicateur := indicateur + 1;
+         nomEquipement := 'Epee';
+         sortie := True;
+         end;
+      end
+     else
+       begin
+       writeln('Vous n''avez pas cet objet...');
+       sortie := True;
+       end;
+     end;
+   2 :
+     begin
+     if inventairePerso.possession[2] > 0 then
+       begin
+       if indicateur = 1 then
+         begin
+         if nomEquipement = 'Bouclier' then
+           begin
+           writeln('Elle est deja equiper');
+           sortie := True;
+           end
+         else
+           begin
+           writeln('Vous vous en Equiper');
+           readln();
+           perso.defense := perso.defense + 10;
+           perso.attaque := perso.attaque - 20;
+           indicateur := indicateur + 1;
+           nomEquipement := 'Bouclier';
+           sortie := True;
+           end;
+         end
+       else
+         begin
+         writeln('Vous vous equiper du Bouclier !');
+         readln();
+         perso.defense := perso.defense + 10;
+         indicateur := indicateur + 1;
+         nomEquipement := 'Bouclier';
+         sortie := True;
+         end;
+
+       end
+      else
+         begin
+         writeln('Vous n''avez pas cet objet...');
+         sortie := True;
+         end;
+     end;
+  3 :
+    begin
+    if inventairePerso.possession[3] > 0 then
+      begin
+      sortie := True;
+      writeln('Vous consommer une potion !');
+      writeln('Vous regagner 30 PV !');
+      perso.pv := perso.pv + 30;
+      if perso.pv > perso.pvMax then
+        perso.pv := perso.pvMax;
+      inventairePerso.possession[3] := inventairePerso.possession[3]-1
+      end
+    else
+      begin
+      sortie := True;
+      writeln('Vous n''avez pas de potion...');
+      end;
+    end;
+   end;
+   end;
+   end;
+end.

@@ -116,14 +116,44 @@ begin
 end;
 
 procedure InterfaceInGame(position : TInformation);
+var
+  posInterface, //Position du contenu de l'interface
+  posCadre1, //Position du coin haut gauche
+  posCadre2 : coordonnees; //Position du coin bas droit
+  i : Integer; //Variable de boucle
+  textTemp : String; //Variable qui affiche chaque ligne de l'inventaire
 begin
-  writeln('===========================');
-  writeln('Pseudo : ', persoChoose.pseudo);
-  writeln('Race : ', persoChoose.race);
-  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
-  writeln('Bourse : ', persoChoose.argent, ' Gold');
-  writeln('Vous vous-situez à ',position.nom);
-  writeln('===========================');
+  redo();
+  posInterface.x := 5;
+  posInterface.y := 4;
+  posCadre1.x := 3;
+
+  textTemp := 'Pseudo : ' + persoChoose.pseudo;
+  ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  textTemp := 'Race : ' + GetEnumName(TypeInfo(race), Ord(persoChoose.race));
+  ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  textTemp := 'PV : ' + IntToStr(persoChoose.pv) + ' / ' + IntToStr(persoChoose.pvMax);
+  ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  textTemp := 'Bourse : ' + IntToStr(persoChoose.argent) + ' Gold';
+  ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  textTemp := 'Vous vous-situez à ' + position.nom;
+  ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  posCadre1.y := posInterface.y+2;
+  couleurTexte(Red);
+  deplacerCurseur(posCadre1);
+  for i := posCadre1.x-1 to 195 do //On dessine la ligne du bas
+    write(#205);
+  couleurTexte(White);
 end;
 
 function Key() : TKeyEvent;
