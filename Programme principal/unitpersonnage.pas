@@ -1,7 +1,7 @@
 unit UnitPersonnage;
 
 interface
-  uses GestionEcran;
+  uses GestionEcran, SysUtils, TypInfo;
 
   type race = (Khajiit, HautElfe, Sombrage, Imperiaux);
 

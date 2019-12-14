@@ -25,6 +25,8 @@ procedure actionLieu();
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 
 implementation
+uses unitMenu;
+
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 var
   i:Integer;//indice de parcours du tableau
@@ -41,16 +43,16 @@ procedure afficheLieuxPossibles();
 var
   i:Integer;
 begin
-    writeln('Position : ',position.nom);
+    writelnPerso('Position : ' + position.nom);
     for i:= 1 to 6 do
       if position.possibiliteLieu[i] then
         case i of
-          1:begin writeln(i,' : ',lieu1.nom);end;
-          2:begin writeln(i,' : ',lieu2.nom);end;
-          3:begin writeln(i,' : ',lieu3.nom);end;
-          4:begin writeln(i,' : ',lieu4.nom);end;
-          5:begin writeln(i,' : ',lieu5.nom);end;
-          6:begin writeln(i,' : ',lieu6.nom);end;
+          1:begin writelnPerso(IntToStr(i) + ' : ' + lieu1.nom);end;
+          2:begin writelnPerso(IntToStr(i) + ' : ' + lieu2.nom);end;
+          3:begin writelnPerso(IntToStr(i) + ' : ' + lieu3.nom);end;
+          4:begin writelnPerso(IntToStr(i) + ' : ' + lieu4.nom);end;
+          5:begin writelnPerso(IntToStr(i) + ' : ' + lieu5.nom);end;
+          6:begin writelnPerso(IntToStr(i) + ' : ' + lieu6.nom);end;
         end;
 end;
 
@@ -60,14 +62,14 @@ var
 
 begin
   afficheLieuxPossibles();
-  writeln('Ou voulez-vous aller ?');
-  readln(choix);
+  writelnPerso('Ou voulez-vous aller ?');
+  readlnPerso(choix);
   while((choix<1) or (choix>6) or not(position.possibiliteLieu[choix])) do
   begin
-    writeln('Vous ne pouvez pas aller ici directement');
+    writelnPerso('Vous ne pouvez pas aller ici directement');
     afficheLieuxPossibles();
-    writeln('Ou voulez-vous aller ?');
-    readln(choix);
+    writelnPerso('Ou voulez-vous aller ?');
+    readlnPerso(choix);
   end;
   case choix of
        1:setLieu(position,lieu1);
@@ -98,8 +100,8 @@ var
 begin
      case position.cate of
           magasin:;//appeler procedure du marche pour acheter et vendre;
-          autre:writeln('Bon voyage ! autre');
-          fight:writeln('Combat');
+          autre:writelnPerso('Bon voyage ! autre');
+          fight:writelnPerso('Combat');
      end;
 end;
 

@@ -3,7 +3,7 @@ unit unitCombat;
 
 
 interface
-    uses unitPersonnage,unitInventaire,GestionEcran;
+    uses unitPersonnage, unitInventaire, GestionEcran, SysUtils, TypInfo;
 
   // TYPES
 
@@ -13,6 +13,7 @@ interface
 
 
 implementation
+uses UnitMenu;
 
 procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
 
@@ -31,19 +32,19 @@ randomize();
 
          attendre(4000);
          effacerEcran();
-         writeln('=============');
-         writeln('PV : ',perso.pv,' / ',perso.pvMax);
-         writeln('=============');
-         writeln();
-         writeln('=============');
-         writeln('PV Monstre : ',monstre.pv,' / ',monstre.pvMax);
-         writeln('=============');
-         writeln();
-         writeln('Choisissez une option : ');
-         writeln('1 - Attaquer');
-         writeln('2 - Se defendre');
-         writeln('3 - Utiliser une potion');
-         writeln('4 - Fuite');
+         writelnPerso('=============');
+         writelnPerso('PV : ' + IntToStr(perso.pv) + ' / ' + IntToStr(perso.pvMax));
+         writelnPerso('=============');
+         writelnPerso();
+         writelnPerso('=============');
+         writelnPerso('PV Monstre : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
+         writelnPerso('=============');
+         writelnPerso();
+         writelnPerso('Choisissez une option : ');
+         writelnPerso('1 - Attaquer');
+         writelnPerso('2 - Se defendre');
+         writelnPerso('3 - Utiliser une potion');
+         writelnPerso('4 - Fuite');
          readln(choix);
          case choix of
               1:
@@ -52,40 +53,40 @@ randomize();
                 monstre.pv := monstre.pv - attaque;
                 if monstre.pv <= 0 then
                   monstre.pv :=  0;
-                writeln('Vous attaquez ',monstre.pseudo,' il subit ',attaque,' pv. Il lui reste ',monstre.pv,' pv.');
+                writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
                 attaque:= monstre.attaque + random(monstre.attaque div 2);
                 perso.pv:= perso.pv - attaque;
-                writeln;
-                writeln(monstre.pseudo,' vous attaque, ',' vous subissez ',attaque,' pv. Il vous reste ',perso.pv,' pv.');
+                writelnPerso();
+                writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
               end;
               2:
               begin
                 attaque:= (perso.attaque div 2) + random(perso.attaque div 2);
                 monstre.pv := monstre.pv - attaque;
-                writeln('Vous contrez ',monstre.pseudo,' il subit ',attaque,'. Il lui reste ',monstre.pv);
+                writelnPerso('Vous contrez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + '. Il lui reste ' + IntToStr(monstre.pv));
                 attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
                 perso.pv:= perso.pv - attaque;
-                writeln(monstre.pseudo,' vous attaque, ',' vous subissez ',attaque,' pv. Il vous reste ',perso.pv,' pv.');
+                writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
               end;
               3:
               begin
                 if inventairePerso.possession[3] = 0 then
                   begin
-                  writeln('Vous N''avez pas de potion...');
-                  writeln('Choissiser une autre option.');
+                  writelnPerso('Vous N''avez pas de potion...');
+                  writelnPerso('Choissiser une autre option.');
                   end
                 else
                   begin
-                  writeln('Vous consommer une potion !');
-                  writeln('Vous regagnez 30 PV !');
+                  writelnPerso('Vous consommer une potion !');
+                  writelnPerso('Vous regagnez 30 PV !');
                   inventairePerso.possession[3] := inventairePerso.possession[3]-1;
                   perso.pv := perso.pv + 30;
                   if perso.pv > perso.pvMax then
                     perso.pv := perso.pvMax;
                   attaque:= monstre.attaque + random(monstre.attaque div 2);
                   perso.pv:= perso.pv - attaque;
-                  writeln();
-                  writeln(monstre.pseudo,' vous attaque, ',' vous subissez ',attaque,' pv. Il vous reste ',perso.pv,' pv.');
+                  writelnPerso();
+                  writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
               end;
               4:
@@ -93,32 +94,32 @@ randomize();
                 rng := random(2);
                 if rng = 1 then
                   begin
-                  writeln('Vous vous enfuyez !');
+                  writelnPerso('Vous vous enfuyez !');
                   sortie:=TRUE;
                   fuite := True;
                   end
                 else
                   begin
-                  writeln('Vous n''avez pas reussi a vous enfuir...');
+                  writelnPerso('Vous n''avez pas reussi a vous enfuir...');
                   attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
                   perso.pv:= perso.pv - attaque;
-                  writeln(monstre.pseudo,' vous attaque, ',' vous subissez ',attaque,' pv. Il vous reste ',perso.pv,' pv.');
+                  writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
               end;
        end;
          IF monstre.pv<=0 then
            begin
              sortie := True;
-             writeln('Vous avez gagnez !!');
-             writeln('Vous gagnez ',monstre.argent,' or !');
+             writelnPerso('Vous avez gagnez !!');
+             writelnPerso('Vous gagnez ' + IntToStr(monstre.argent) + ' or !');
              perso.argent := perso.argent + monstre.argent;
          if perso.pv <= 0 then
            begin
-           writeln('Vous êtes mort...');
+           writelnPerso('Vous êtes mort...');
            // QuitGame();
            end;
            end;
-         writeln;
+         writelnPerso();
 end;
 end;
 end.

@@ -18,6 +18,13 @@ function selectionMenu(coordMin : coordonnees; nbText : Integer; distanceEntreTe
 
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
 
+procedure writelnPerso();
+procedure writelnPerso(ligneAEcrire : String);
+
+procedure readlnPerso();
+procedure readlnPerso(var ligneAEnregistrer : String);
+procedure readlnPerso(var ligneAEnregistrer : Integer);
+
 function Key() : TKeyEvent;
 procedure redo();
 
@@ -278,6 +285,48 @@ begin
      tempPosCoord.y := tempPosCoord.y + 1;
      ecrireEnPosition(tempPosCoord, tempText);
      end;
+end;
+
+//Fonction writeln qui marche avec des coordonnées non fixe (juste pour sauter une ligne)
+procedure writelnPerso();
+begin
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+end;
+//Fonction writeln qui marche avec des coordonnées non fixe
+procedure writelnPerso(ligneAEcrire : String);
+var
+  posTemp : Integer; //Position en x du premier caractère de la ligne
+begin
+  posTemp := positionCurseur.x;
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+  write(ligneAEcrire);
+  deplacerCurseurXY(posTemp, positionCurseur.y);
+end;
+//Fonction readln qui marche avec des coordonnées non fixe (juste pour sauter une ligne)
+procedure readlnPerso();
+begin
+  read();
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+end;
+//Fonction readln qui marche avec des coordonnées non fixe
+procedure readlnPerso(var ligneAEnregistrer : String);
+var
+  posTemp : Integer;
+begin
+  posTemp := positionCurseur.x;
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+  read(ligneAEnregistrer);
+  deplacerCurseurXY(posTemp, positionCurseur.y);
+end;
+//Fonction readln qui marche avec des coordonnées non fixe
+procedure readlnPerso(var ligneAEnregistrer : Integer);
+var
+  posTemp : Integer;
+begin
+  posTemp := positionCurseur.x;
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+  read(ligneAEnregistrer);
+  deplacerCurseurXY(posTemp, positionCurseur.y);
 end;
 
 end.
