@@ -154,6 +154,8 @@ begin
   for i := posCadre1.x-1 to 195 do //On dessine la ligne du bas
     write(#205);
   couleurTexte(White);
+  posCadre1.y := posCadre1.y+1;
+  deplacerCurseur(posCadre1);
 end;
 
 function Key() : TKeyEvent;
@@ -176,12 +178,12 @@ var
   largeur,
   hauteur : Integer;
 begin
-  coorC.x := 2;      //Coor 1
-  coorC.y := 1;
-  coorC2.x := 197;     //Coor 2
-  coorC2.y := 58;
   largeur := 200;
   hauteur := 60;
+  coorC.x := 2;      //Coor 1
+  coorC.y := 1;
+  coorC2.x := largeur-3;     //Coor 2
+  coorC2.y := hauteur-2;
 
   effacerEcran();
   changerTailleConsole(largeur,hauteur);
