@@ -45,7 +45,7 @@ randomize();
          writelnPerso('2 - Se defendre');
          writelnPerso('3 - Utiliser une potion');
          writelnPerso('4 - Fuite');
-         readln(choix);
+         readlnPerso(choix);
          case choix of
               1:
               begin

@@ -32,8 +32,7 @@ begin
   coorMenuTexte2.y := 18 + 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
-  
-  anciennePosition := lieu1;
+
   initLieu();
   indicateur := 0;
   nomEquipement := '';
@@ -44,6 +43,8 @@ begin
   inventaireMagasin.possession[2]:=3;
   inventaireMagasin.possession[3]:=3;
   scenario := 1;
+
+  anciennePosition := lieu1;
 
   InterfaceInGame(position); //Creation de l'interface
 
@@ -63,7 +64,7 @@ begin
 
     'Boutique' :
       begin
-      effacerEcran();
+      redo();
       InterfaceInGame(position);
       writelnPerso('Que voulez-vous faire');
       writelnPerso();
@@ -97,8 +98,8 @@ begin
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
       redo();
+      position := anciennePosition;
       InterfaceInGame(position);
-      deplacement();
       end;
 
     'Porte de Blancherive' :
@@ -200,10 +201,9 @@ begin
       begin
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
-      readln;
-      effacerEcran();
+      redo();
       position := anciennePosition;
-      deplacement();
+      InterfaceInGame(position);
       end;
 
 

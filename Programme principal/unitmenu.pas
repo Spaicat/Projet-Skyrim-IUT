@@ -18,14 +18,19 @@ function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, dista
 
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
 
+//Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe (juste pour sauter une ligne)
 procedure writelnPerso();
+//Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe
 procedure writelnPerso(ligneAEcrire : String);
 
 procedure readlnPerso();
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour une chaine de caractères)
 procedure readlnPerso(var ligneAEnregistrer : String);
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour un entier)
 procedure readlnPerso(var ligneAEnregistrer : Integer);
 
 function Key() : TKeyEvent;
+//Efface l'écran et reconstitue le cadre
 procedure redo();
 
 implementation
@@ -177,6 +182,7 @@ InitKeyBoard;
 DoneKeyBoard;
 end;
 
+//Efface l'écran et reconstitue le cadre
 procedure redo();
 var
   coorC,
@@ -304,27 +310,28 @@ end;
 //Fonction readln qui marche avec des coordonnées non fixe (juste pour sauter une ligne)
 procedure readlnPerso();
 begin
-  read();
+  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+  readln();
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
 end;
-//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour une chaine de caractères)
 procedure readlnPerso(var ligneAEnregistrer : String);
 var
   posTemp : Integer;
 begin
   posTemp := positionCurseur.x;
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
-  read(ligneAEnregistrer);
+  readln(ligneAEnregistrer);
   deplacerCurseurXY(posTemp, positionCurseur.y);
 end;
-//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe
+//Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour un entier)
 procedure readlnPerso(var ligneAEnregistrer : Integer);
 var
   posTemp : Integer;
 begin
   posTemp := positionCurseur.x;
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
-  read(ligneAEnregistrer);
+  readln(ligneAEnregistrer);
   deplacerCurseurXY(posTemp, positionCurseur.y);
 end;
 
