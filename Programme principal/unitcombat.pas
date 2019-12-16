@@ -5,15 +5,66 @@ unit unitCombat;
 interface
     uses unitPersonnage, unitInventaire, GestionEcran, SysUtils, TypInfo;
 
-  // TYPES
-
   //FONCTIONS ET PROCEDURES
 
     procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
+    //Procedure gérant tous les combats
+
+    function Illyar():personnage;
+    //Fonction permettant gérer le premier dragon
+
+    function Qjard():Personnage;
+    //Fonction permettant gérer le second dragon
+
+    function Ksiorn():Personnage;
+    //Fonction permettant gérer le troisième dragon
 
 
 implementation
+
 uses UnitMenu;
+
+function Illyar():Personnage;
+
+var
+   monstre : Personnage;
+
+begin
+     monstre.pseudo:= 'Illÿar';
+     monstre.pv:= 120;
+     monstre.pvMax:=120;
+     monstre.attaque:=10;
+     monstre.argent:=12;
+     Illyar:=monstre;
+end;
+
+function Qjard():Personnage;
+
+var
+   monstre : Personnage;
+
+begin
+     monstre.pseudo:= 'Qjärd';
+     monstre.pv:= 125;
+     monstre.pvMax:=125;
+     monstre.attaque:=10;
+     monstre.argent:=12;
+     Qjard:=monstre;
+end;
+
+function Ksiorn():Personnage;
+
+var
+   monstre : Personnage;
+
+begin
+     monstre.pseudo:= 'Ksïorn';
+     monstre.pv:= 130;
+     monstre.pvMax:=130;
+     monstre.attaque:=10;
+     monstre.argent:=12;
+     Ksiorn:=monstre;
+end;
 
 procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
 
