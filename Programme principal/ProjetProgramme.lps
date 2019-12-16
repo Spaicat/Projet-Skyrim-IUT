@@ -2,14 +2,14 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="11"/>
+    <Version Value="10"/>
     <BuildModes Active="Default"/>
     <Units Count="9">
       <Unit0>
         <Filename Value="ProjetProgramme.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="16"/>
-        <CursorPos X="29" Y="36"/>
+        <TopLine Value="20"/>
+        <CursorPos X="28" Y="20"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,6 +17,7 @@
         <Filename Value="unitmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMenu"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="159"/>
         <CursorPos X="58" Y="189"/>
@@ -27,17 +28,16 @@
         <Filename Value="unitpersonnage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitPersonnage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="86"/>
-        <CursorPos X="25" Y="116"/>
+        <TopLine Value="44"/>
+        <CursorPos X="19" Y="97"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="unitmagasin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="unitMagasin"/>
+        <UnitName Value="UnitMagasin"/>
         <EditorIndex Value="5"/>
         <CursorPos X="6" Y="4"/>
         <UsageCount Value="40"/>
@@ -48,8 +48,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="unitCombat"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="28"/>
-        <CursorPos X="44" Y="23"/>
+        <CursorPos X="54" Y="11"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit4>
@@ -57,7 +56,7 @@
         <Filename Value="GestionEcran.pas"/>
         <EditorIndex Value="2"/>
         <TopLine Value="10"/>
-        <CursorPos X="37" Y="10"/>
+        <CursorPos X="30" Y="29"/>
         <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -206,9 +205,5 @@
         <Caret Line="57" Column="48" TopLine="46"/>
       </Position30>
     </JumpHistory>
-    <RunParams>
-      <FormatVersion Value="2"/>
-      <Modes Count="0" ActiveMode=""/>
-    </RunParams>
   </ProjectSession>
 </CONFIG>
