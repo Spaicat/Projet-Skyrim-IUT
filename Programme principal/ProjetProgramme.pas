@@ -7,7 +7,8 @@ var
   i : Integer;
   scenario : Integer; //Varaible qui definiera ou le joueur en est dans l'histoire
   anciennePosition : TInformation;
-  dragonFeu : Personnage;
+  persoChoose : Personnage;
+  monstre : Personnage;
   fuite : Boolean;
 
 
@@ -32,6 +33,7 @@ begin
   coorMenuTexte2.y := 18 + 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
+  persoChoose := getPerso();
 
   initLieu();
   indicateur := 0;
@@ -210,14 +212,10 @@ begin
     'Porte de Blancherive' :
       begin
       writelnPerso();
-      dragonFeu.pv := 70;
-      dragonFeu.pvMax := 70;
-      dragonFeu.attaque := 20;
-      dragonFeu.pseudo := 'Dragon De Feu';
-      dragonFeu.argent := 100;
+      monstre := Illyar();
       writelnPerso('Il est la !!!');
-      writelnPerso('Le ' + dragonFeu.pseudo + ' vous attaque !');
-      combat(persoChoose,dragonFeu,inventairePerso,fuite);
+      writelnPerso('Le ' + monstre.pseudo + ' vous attaque !');
+      combat(persoChoose,monstre,inventairePerso,fuite);
       effacerEcran();
       if fuite = False then
         begin

@@ -15,14 +15,19 @@ interface
                   defense : Integer;
                   end;
 
-  var
-    persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
 
   //Procédure pour créer le personnage
   procedure createCharacter();
 
+  function getPerso():Personnage;
+
 implementation
   uses unitMenu;
+
+  var
+    persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
+
+
   //Procédure pour créer le personnage
   procedure createCharacter();
   var
@@ -105,6 +110,11 @@ implementation
 
     until repUtilisateur=0;
   end;
+
+function getPerso():Personnage;
+begin
+getPerso := persoChoose;
+end;
 
 end.
 
