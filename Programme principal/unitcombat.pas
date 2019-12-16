@@ -22,7 +22,7 @@ interface
 
 implementation
 
-uses UnitMenu;
+uses UnitMenu, unitLieu;
 
 function Illyar():Personnage;
 
@@ -83,9 +83,7 @@ randomize();
 
          attendre(4000);
          effacerEcran();
-         writelnPerso('=============');
-         writelnPerso('PV : ' + IntToStr(perso.pv) + ' / ' + IntToStr(perso.pvMax));
-         writelnPerso('=============');
+         InterfaceInGame(position);
          writelnPerso();
          writelnPerso('=============');
          writelnPerso('PV Monstre : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));

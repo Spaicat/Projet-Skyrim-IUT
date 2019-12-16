@@ -88,7 +88,7 @@ uses UnitMenu;
      end;
    end;
 
-   procedure equipement(var perso : Personnage;var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
+   procedure equipement(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
    var
      option : Integer;
      sortie : Boolean;

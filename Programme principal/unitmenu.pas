@@ -1,7 +1,7 @@
 unit UnitMenu;
 
 interface
-uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils;
+uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils, unitInventaire;
 
 //Procédure qui affiche le menu initial
 procedure menuInitial();
@@ -11,6 +11,7 @@ procedure LaunchGame();
 procedure QuitGame();
 //Procédure pour afficher l'interface du jeu
 procedure InterfaceInGame(position : TInformation);
+procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 //Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
 procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
 
@@ -190,6 +191,33 @@ begin
   posCadre1.y := posTemp.y+1;
   deplacerCurseur(posCadre1);
 end;
+
+procedure afficheMenuPersonnage();
+begin
+  InterfaceInGame(position);
+  writelnPerso('Pseudo : ' + persoChoose.pseudo);
+  writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(persoChoose.race)));
+  writelnPerso('PV : ' + IntToStr(persoChoose.pv) + ' / ' + IntToStr(persoChoose.pvMax));
+  writelnPerso('Bourse : ' + IntToStr(persoChoose.argent) + ' Gold');
+  writelnPerso();
+  writelnPerso('Attaque : ' + IntToStr(persoChoose.attaque));
+  writelnPerso('Defense : ' + IntToStr(persoChoose.defense));
+  readlnPerso();
+end;
+
+procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
+begin
+  if GetChoixMenu() = -1 then
+    afficheMenuPersonnage()
+  else if GetChoixMenu() = -2 then
+    begin
+      InterfaceInGame(position);
+      afficheInventaire(inventairePerso);
+      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      readlnPerso();
+    end;
+end;
+
 
 function Key() : TKeyEvent;
 var
@@ -404,7 +432,7 @@ begin
   until (KeyEventToString(Touche)=chr(13));
 
   if (menuSelectionne = 1) then
-     selectedChoice := ((coordTemp.y - CoordMin.y) div distanceEntreTexte)*(-1) - 1 //La fonction va renvoyer un nombre négatif si on selectionne le menu du jeu (Quêtes, Inventaire ...)
+     selectedChoice := ((coordTempInterface.y - coordMinInterface.y) div 5)*(-1) - 1 //La fonction va renvoyer un nombre négatif si on selectionne le menu du jeu (Quêtes, Inventaire ...)
   else
      selectedChoice := (coordTemp.y - CoordMin.y) div distanceEntreTexte;  //La fonction va renvoyer un nombre positif ou nul si on selectionne le menu qu'on veut implémenter (donc pas du jeu)
   deplacerCurseur(coordMax);
@@ -452,10 +480,13 @@ begin
 end;
 //Fonction readln qui marche avec des coordonnées non fixe (juste pour sauter une ligne)
 procedure readlnPerso();
+var
+  posTemp : coordonnees;
 begin
+  posTemp := positionCurseur;
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
   readln();
-  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
+  deplacerCurseur(posTemp);
 end;
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour une chaine de caractères)
 procedure readlnPerso(var ligneAEnregistrer : String);

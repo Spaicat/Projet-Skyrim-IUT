@@ -3,7 +3,7 @@ unit unitLieu;
 interface
 
 uses
-    SysUtils,unitPersonnage,unitCombat,unitMagasin,unitInventaire,GestionEcran;
+    SysUtils,unitPersonnage,unitCombat,unitMagasin,unitInventaire,GestionEcran, TypInfo;
 
 type
   cateLieu = (magasin,fight,autre);
@@ -18,6 +18,7 @@ type
   end;
 var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, position : TInformation;
 
+function GetChoixMenu() : Integer;
 procedure initLieu();
 procedure deplacement();
 function afficheLieuxPossibles() : Integer;
@@ -26,6 +27,14 @@ procedure setLieu(var lieuAAffect,lieu:TInformation);
 
 implementation
 uses unitMenu;
+
+var
+  choixMenu : Integer;
+
+function GetChoixMenu() : Integer;
+begin
+  GetChoixMenu := choixMenu;
+end;
 
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 var
@@ -58,13 +67,14 @@ begin
           3:begin writelnPerso(lieu3.nom); listePos := listePos + IntToStr(i);end; //Chateau
           4:begin writelnPerso(lieu4.nom); listePos := listePos + IntToStr(i);end; //Porte de la ville
           5:begin writelnPerso(lieu5.nom); listePos := listePos + IntToStr(i);end; //Boutique
-          //Le menu donne des chiffres dans le négatif
+          //Le menu est obtenu avec des chiffres dans le négatif
         end;
     selectedChoice := selectionMenuEtInterface(posInitial, length(listePos), 1, 22, LightBlue, White);
     if selectedChoice >= 0 then
-       afficheLieuxPossibles := StrToInt(listePos[selectedChoice+1])
+       choixMenu := StrToInt(listePos[selectedChoice+1])
     else
-       afficheLieuxPossibles := selectedChoice;
+       choixMenu := selectedChoice;
+    afficheLieuxPossibles := choixMenu;
 end;
 
 procedure deplacement();
