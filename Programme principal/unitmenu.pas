@@ -16,6 +16,8 @@ procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coo
 
 function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 
+function selectionMenuEtInterface(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
+
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
 
 //Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe (juste pour sauter une ligne)
@@ -127,11 +129,12 @@ end;
 
 procedure InterfaceInGame(position : TInformation);
 var
+  posTemp,
   posInterface, //Position du contenu de l'interface
-  posCadre1, //Position du coin haut gauche
-  posCadre2 : coordonnees; //Position du coin bas droit
+  posCadre1 : coordonnees; //Position du coin haut gauche
   i : Integer; //Variable de boucle
   textTemp : String; //Variable qui affiche chaque ligne de l'inventaire
+  listeInterface : array of String;
 begin
   redo();
   posInterface.x := 5;
@@ -163,9 +166,28 @@ begin
   deplacerCurseur(posCadre1);
   for i := posCadre1.x-1 to 195 do //On dessine la ligne du bas
     write(#205);
+
+  posTemp := posCadre1;
+  posCadre1.x := 25;
+  for i := posCadre1.y to 56 do
+    begin
+    posCadre1.y := posCadre1.y + 1;
+    deplacerCurseur(posCadre1);
+    write(#186);
+    end;
   couleurTexte(White);
-  posCadre1.x := posCadre1.x+2;
-  posCadre1.y := posCadre1.y+1;
+
+  setLength(listeInterface, 3);
+  listeInterface[0] := 'Personnage';
+  listeInterface[1] := 'Inventaire';
+  listeInterface[2] := '   Test   ';
+
+  posCadre1.x := 9;
+  posCadre1.y := posTemp.y + 3;
+  afficherListeMenu(listeInterface, posCadre1, 5);
+
+  posCadre1.x := 28;
+  posCadre1.y := posTemp.y+1;
   deplacerCurseur(posCadre1);
 end;
 
@@ -218,6 +240,7 @@ begin
       end;
 end;
 
+//Affiche une selection pour un menu (Pour l'esthetique du choix et pour savoir quel choix est selectionné)
 function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 var
   coordTemp,
@@ -269,6 +292,126 @@ begin
   deplacerCurseur(coordMax);
   selectionMenu:=selectedChoice;
 end;
+
+//Affiche une selection pour un menu (Pour l'esthetique du choix et pour savoir quel choix est selectionné) et en plus affiche le menu du jeu (Quêtes, Inventaire ...) (suivant le même fonctionnement)
+function selectionMenuEtInterface(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
+var
+  coordTempInterface,
+  coordMinInterface,
+  coordMaxInterface,
+  coordTemp,
+  coordMax : coordonnees;
+  menuSelectionne,
+  selectedChoice : Integer;
+  Touche : TKeyEvent;
+begin
+  deplacerCurseur(CoordMin);
+  coordTemp.x := coordMin.x;
+  coordTemp.y := coordMin.y;
+  ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+  coordMax.y := coordMin.y + (nbText-1)*distanceEntreTexte;
+  coordMax.x := coordMin.x;
+
+
+  coordTempInterface.x := 7;
+  coordTempInterface.y := 14;
+  coordMinInterface := coordTempInterface;
+  coordMaxInterface.x := coordTempInterface.x;
+  coordMaxInterface.y := coordTempInterface.y + 5*2;
+  menuSelectionne := 0;
+
+  repeat
+    Touche := Key();
+    if (menuSelectionne = 1) then //On teste si le menu selectionné correspond au menu du jeu (Quêtes, Inventaire ...)
+       begin
+       if (KeyEventToString(Touche)=chr(9)) then //On teste si la touche pressée est tab
+          begin
+          ColorierZone(0, 15, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+          menuSelectionne := 0;
+          ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+          end
+       else if (KeyEventToString(Touche)='Up') then //On teste si la touche pressée est la flêche du haut
+         if coordTempInterface.y = coordMinInterface.y then
+            begin
+            ColorierZone(0, 15, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            coordTempInterface := coordMaxInterface;
+            deplacerCurseur(coordTempInterface);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            end
+         else
+            begin
+            ColorierZone(0, 15, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            coordTempInterface.y := coordTempInterface.y-5;
+            deplacerCurseur(coordTempInterface);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            end
+      else if (KeyEventToString(Touche)='Down') then //On teste si la touche pressée est la flêche du bas
+         if coordTempInterface.y = coordMaxInterface.y then
+            begin
+            ColorierZone(0, 15, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            coordTempInterface := coordMinInterface;
+            deplacerCurseur(coordTempInterface);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            end
+         else
+            begin
+            ColorierZone(0, 15, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            coordTempInterface.y := coordTempInterface.y+5;
+            deplacerCurseur(coordTempInterface);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+            end;
+       end
+    else //Sinon on est dans le menu qu'on veut implémenter (donc pas du jeu)
+    begin;
+      if (KeyEventToString(Touche)=chr(9)) then //On teste si la touche pressée est tab
+         begin
+         ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+         menuSelectionne := 1;
+         ColorierZone(couleurFondTexte, couleurTexte, coordTempInterface.x, coordTempInterface.x+13, coordTempInterface.y);
+         end
+      else if (KeyEventToString(Touche)='Up') then //On teste si la touche pressée est la flêche du haut
+         if coordTemp.y = coordMin.y then
+            begin
+            ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            coordTemp := coordMax;
+            deplacerCurseur(coordTemp);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            end
+         else
+            begin
+            ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            coordTemp.y := coordTemp.y-distanceEntreTexte;
+            deplacerCurseur(coordTemp);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            end
+      else if (KeyEventToString(Touche)='Down') then //On teste si la touche pressée est la flêche du bas
+         if coordTemp.y = coordMax.y then
+            begin
+            ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            coordTemp := coordMin;
+            deplacerCurseur(coordTemp);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            end
+         else
+            begin
+            ColorierZone(0, 15, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            coordTemp.y := coordTemp.y+distanceEntreTexte;
+            deplacerCurseur(coordTemp);
+            ColorierZone(couleurFondTexte, couleurTexte, coordTemp.x, coordTemp.x+distanceDuFond, coordTemp.y);
+            end;
+    end;
+
+  until (KeyEventToString(Touche)=chr(13));
+
+  if (menuSelectionne = 1) then
+     selectedChoice := ((coordTemp.y - CoordMin.y) div distanceEntreTexte)*(-1) - 1 //La fonction va renvoyer un nombre négatif si on selectionne le menu du jeu (Quêtes, Inventaire ...)
+  else
+     selectedChoice := (coordTemp.y - CoordMin.y) div distanceEntreTexte;  //La fonction va renvoyer un nombre positif ou nul si on selectionne le menu qu'on veut implémenter (donc pas du jeu)
+  deplacerCurseur(coordMax);
+  selectionMenuEtInterface:=selectedChoice;
+end;
+
+
 
 //Procédure pour écrire un texte sur une largeur donnée (justifié)
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);

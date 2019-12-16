@@ -25,8 +25,8 @@ var
   coorMenuTexte2 : coordonnees;
 
 begin
-  coorMenuTexte1.x := 50;
-  coorMenuTexte1.y := 18 - 5;
+  coorMenuTexte1.x := 10;
+  coorMenuTexte1.y := 5;
 
   coorMenuTexte2.x := 50;
   coorMenuTexte2.y := 18 + 5;
@@ -93,8 +93,10 @@ begin
       end;
       end;
 
-    'Inventaire' :
+    'Menu' :
       begin
+      redo();
+      InterfaceInGame(position);
       afficheInventaire(inventairePerso);
       equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
       redo();
@@ -105,7 +107,7 @@ begin
     'Porte de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Porte de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);
       writelnPerso('Bienvenue devant la porte de Blancherive');
       writelnPerso('Sortir maintenant serai une perte de temps...');
@@ -118,7 +120,7 @@ begin
     'Bourg de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Bourg de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);   //Creation de l'interface
       writelnPerso('Vous revoila a l''entre de Blancherive');
       writelnPerso('Vous devez donnez le message au jarl le plus vite possible');
@@ -133,7 +135,7 @@ begin
     'Marche de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Marche de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);
       writelnPerso('Bienvenue au marché de Blancherive');
       writelnPerso('Vous voila au grand marche de Blancherive');
@@ -147,7 +149,7 @@ begin
     'Chateau de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Chateau de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);
       writelnPerso('Bienvenue au Chateux de Blancherive');
       writelnPerso('En arrivant a Fort-Dragon les garde vous arrête un instant et vous laisse passer a la vu du parchemin');
@@ -245,7 +247,7 @@ begin
     'Bourg de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Bourg de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);   //Creation de l'interface
       writelnPerso('Vers la porte de la ville vous entender un grand bruit...');
       couleurTexte(4);
@@ -262,7 +264,7 @@ begin
     'Marche de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Marche de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);
       writelnPerso('Bienvenue au marché de Blancherive');
       writelnPerso('Vous voila au grand marche de Blancherive');
@@ -276,7 +278,7 @@ begin
     'Chateau de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition.nom := 'Chateau de Blancherive';
+      anciennePosition := position;
       InterfaceInGame(position);
       writelnPerso('Diriger vous au plus vite au porte de la ville !');
       writelnPerso();

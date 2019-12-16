@@ -16,7 +16,7 @@ type
     possibiliteLieu : TTableau;
     cate:cateLieu;
   end;
-var lieu1, lieu2, lieu3, lieu4,lieu5,lieu6,position : TInformation;
+var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, position : TInformation;
 
 procedure initLieu();
 procedure deplacement();
@@ -41,7 +41,8 @@ end;
 
 function afficheLieuxPossibles() : Integer;
 var
-  i : Integer;
+  i,
+  selectedChoice : Integer;
   posInitial : coordonnees;
   listePos : String;
 begin
@@ -52,14 +53,18 @@ begin
     for i:= 1 to 6 do
       if position.possibiliteLieu[i] then
         case i of
-          1:begin writelnPerso(lieu1.nom); listePos := listePos + IntToStr(i);end;
-          2:begin writelnPerso(lieu2.nom); listePos := listePos + IntToStr(i);end;
-          3:begin writelnPerso(lieu3.nom); listePos := listePos + IntToStr(i);end;
-          4:begin writelnPerso(lieu4.nom); listePos := listePos + IntToStr(i);end;
-          5:begin writelnPerso(lieu5.nom); listePos := listePos + IntToStr(i);end;
-          6:begin writelnPerso(lieu6.nom); listePos := listePos + IntToStr(i);end;
+          1:begin writelnPerso(lieu1.nom); listePos := listePos + IntToStr(i);end; //Blancherive
+          2:begin writelnPerso(lieu2.nom); listePos := listePos + IntToStr(i);end; //Marché de Blacherive
+          3:begin writelnPerso(lieu3.nom); listePos := listePos + IntToStr(i);end; //Chateau
+          4:begin writelnPerso(lieu4.nom); listePos := listePos + IntToStr(i);end; //Porte de la ville
+          5:begin writelnPerso(lieu5.nom); listePos := listePos + IntToStr(i);end; //Boutique
+          //Le menu donne des chiffres dans le négatif
         end;
-    afficheLieuxPossibles := StrToInt(listePos[selectionMenu(posInitial, length(listePos), 1, 22, LightBlue, White)+1]);
+    selectedChoice := selectionMenuEtInterface(posInitial, length(listePos), 1, 22, LightBlue, White);
+    if selectedChoice >= 0 then
+       afficheLieuxPossibles := StrToInt(listePos[selectedChoice+1])
+    else
+       afficheLieuxPossibles := selectedChoice;
 end;
 
 procedure deplacement();
@@ -68,20 +73,15 @@ var
 
 begin
   choix := afficheLieuxPossibles();
-  while((choix<1) or (choix>6) or not(position.possibiliteLieu[choix])) do
-  begin
-    writelnPerso('Vous ne pouvez pas aller ici directement');
-    afficheLieuxPossibles();
-    writelnPerso('Ou voulez-vous aller ?');
-    readlnPerso(choix);
-  end;
   case choix of
        1:setLieu(position,lieu1);
        2:setLieu(position,lieu2);
        3:setLieu(position,lieu3);
        4:setLieu(position,lieu4);
        5:setLieu(position,lieu5);
-       6:setLieu(position,lieu6);
+       else
+         if choix < 0 then
+           setLieu(position,lieu6);
   end;
 
   {writeln('Vous allez à ',position.nom);
@@ -167,7 +167,7 @@ begin
   lieu5.possibiliteLieu[5] := False;
   lieu5.possibiliteLieu[6] := False;
 
-  lieu6.nom := 'Inventaire';
+  lieu6.nom := 'Menu';
   lieu6.indice:=6;
   lieu6.cate:=autre;
   lieu6.possibiliteLieu[1] := True;
