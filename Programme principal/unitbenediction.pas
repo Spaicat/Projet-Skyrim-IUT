@@ -14,9 +14,10 @@ implementation
 procedure Benediction(var perso: personnage);
 
 var
-  texte1 :Coordonnees;
-  texte2 :Coordonnees;
-  texte3 : Coordonnees;
+  texte1 : Coordonnees; // Première bénédiction (ODIN)
+  texte2 : Coordonnees; // Deuxième bénédiction (IDUNN)
+  texte3 : Coordonnees; // Troisième bénédiction (THOR)
+  texte4 : Coordonnees; // Phrase finale de choix ("Vous êtes bénis par ...")
   temp : Integer;
 
 begin
@@ -28,6 +29,9 @@ begin
 
   texte3.x := 10;    //Assimilation des coordonnées au troisième choix
   texte3.y := 20;
+
+  texte4.x := 10;    //Assimilation des coordonnées à la phrase finale des choix "vous êtes bénis par ..."
+  texte4.y := 25;
 
   //CHOIX DE LA BENEDICTION
   writeln('De quelle bénédiction souhaitez-vous bénéficiez pour la suite de votre aventure ?');
@@ -43,21 +47,24 @@ begin
   case temp of
   0 :         //BENEDICTION D'ODIN
     begin
-    writeln('Vous êtes bénis par Odin');
     perso.attaque:= perso.attaque + 30;
+    ecrireEnPosition(texte4,'Vous êtes bénis par Odin. ');
+    writeln('Votre attaque est désormais de ',perso.attaque);
     end;
   1:          //BENEDICTION D'IDUNN
     begin
-    writeln('Vous êtes bénis pas Idunn');
     perso.pv:= perso.pv + 30;
     perso.pvMax := perso.pvMax +30;
+    ecrireEnPosition(texte4,'Vous êtes bénis pas Idunn. ');
+    writeln('Votre vie est élevée à ',perso.pv,' pv');
     end;
   2:         //BENEDICTION DE THOR
     begin
-    writeln('Vous êtes bénis par Thor');
     perso.pv:= perso.pv + 10;
     perso.attaque:= perso.attaque + 10;
     perso.defense:= perso.defense +10;
+    ecrireEnPosition(texte4,'Vous êtes bénis par Thor. ');
+    writeln('Votre vie est de ',perso.pv,' pv, votre attaque est désormais de ',perso.attaque,' et votre défense est de ',perso.defense);
     end;
   end;
 
