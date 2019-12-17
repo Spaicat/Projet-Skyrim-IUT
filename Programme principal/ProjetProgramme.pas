@@ -96,10 +96,7 @@ begin
     'Menu' :
       begin
       redo();
-      InterfaceInGame(position);
-      afficheInventaire(inventairePerso);
-      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
-      redo();
+      gestionMenu(persoChoose,inventairePerso,indicateur,nomEquipement);
       position := anciennePosition;
       InterfaceInGame(position);
       end;

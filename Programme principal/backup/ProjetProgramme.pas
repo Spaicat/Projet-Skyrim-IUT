@@ -1,127 +1,166 @@
 program ProjetProgramme;
 
-uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu,
-  TypInfo, Keyboard, Classes, SysUtils;
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire,
+     GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
 var
-  position : TInformation;    //Variable qui stokera la position du personnage dans le jeu
   i : Integer;
   scenario : Integer; //Varaible qui definiera ou le joueur en est dans l'histoire
-  lancement : Boolean;
+  anciennePosition : TInformation;
+  dragonFeu : Personnage;
+  fuite : Boolean;
+
+
+  nChoix : Integer;
+
+  o1,
+  o2,
+  o3 : Objet;
+  inventairePerso : Inventaire;
+  inventaireMagasin : Inventaire;
+  indicateur : Integer; //Vraiable qui indique si le joueur a un objet equiper ou non
+  nomEquipement : String;
+
   coorMenuTexte1 : coordonnees;
   coorMenuTexte2 : coordonnees;
-//until (position.nom = Blancherive) OR (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive) OR (position.nom = Chateau_De_Blancherive);
 
 begin
-  coorMenuTexte1.x := 50;
-  coorMenuTexte1.y := 18 - 5;
+  coorMenuTexte1.x := 10;
+  coorMenuTexte1.y := 5;
 
   coorMenuTexte2.x := 50;
-  coorMenuTexte2.y := 18+5;
+  coorMenuTexte2.y := 18 + 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
-  position.nom := Blancherive;
-  InterfaceInGame(position);        //Creation de l'interface
+
+  initLieu();
+  indicateur := 0;
+  nomEquipement := '';
+  initObjet(o1,o2,o3);
+  initInventaire(inventairePerso,o1,o2,o3);
+  initInventaire(inventaireMagasin,o1,o2,o3);
+  inventaireMagasin.possession[1]:=3;
+  inventaireMagasin.possession[2]:=3;
+  inventaireMagasin.possession[3]:=3;
   scenario := 1;
-  writeln();
-  writeln('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-  writeln('Pellentesque quis aliquet elit. Donec nec mattis lorem, placerat hendrerit augue.');
-  writeln('Fusce feugiat risus quis augue bibendum, id sagittis velit commodo.');               //Affichage du scenario
-  writeln('Pellentesque sed aliquet dui. Phasellus dictum, ante eu tincidunt pharetra,');
-  writeln('nibh mi posuere diam, sit amet egestas urna nibh a mauris. ');
-  writeln();
-  writeln('Ou voulez-vous aller ?');
-  writeln();
 
-  initLieu(position);
-  writeln();
+  anciennePosition := lieu1;
 
-  repeat
-    readln(position.nom);
-  until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive);
-  effacerEcran();
+  InterfaceInGame(position); //Creation de l'interface
+
+  writelnPerso('En vous promenant devant la porte de Blancherive vous voyer un Garde mourrant');
+  writelnPerso('En allant a sa rencontre vous remarquer d''etrange brulure sur le corp...');
+  writelnPerso('Alors qu''il est au bord du malaise il vous dit :');               //Affichage du scenario
+  writelnPerso('Ils arrivent....Les dragons.....');
+  writelnPerso('Il vous tendit alors un parchemin scelle.. ');
+  writelnPerso('Vous comprirent donc qu''ils faut le livrer au Jarl de Blancherive');
+  writelnPerso();
+  deplacement();
+
 
   while scenario = 1 do
     begin
     case position.nom of
-    Porte_De_Blancherive :
-      begin
-      writeln();
-      InterfaceInGame(position);
-      writeln('Bienvenue devant la porte de Blancherive');
-      writeln('Le professeur Chen vous dit que ce n''est pas le bon moment pour faire ça');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
 
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive);
-      effacerEcran();
+    'Boutique' :
+      begin
+      redo();
+      InterfaceInGame(position);
+      writelnPerso('Que voulez-vous faire');
+      writelnPerso();
+      writelnPerso('1 Pour vendre');
+      writelnPerso('2 pour acheter');
+      writelnPerso('0 pour quitter');
+      readlnPerso(nChoix);
+
+      case nChoix of
+      0 :
+        begin
+        position := lieu1;
+        effacerEcran();
+        end;
+      1 :
+        begin
+        vente(persoChoose,inventairePerso,inventaireMagasin);
+        effacerEcran();
+        end;
+      2 :
+        begin
+        achat(persoChoose,inventairePerso,inventaireMagasin);
+        effacerEcran();
+        end;
+
+      end;
       end;
 
-    Blancherive :
+    'Menu' :
       begin
-      writeln();
+      redo();
+      gestionMenu(persoChoose,inventairePerso,indicateur,nomEquipement);
+      redo();
+      position := anciennePosition;
+      InterfaceInGame(position);
+      end;
+
+    'Porte de Blancherive' :
+      begin
+      writelnPerso();
+      anciennePosition := position;
+      InterfaceInGame(position);
+      writelnPerso('Bienvenue devant la porte de Blancherive');
+      writelnPerso('Sortir maintenant serai une perte de temps...');
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
+      end;
+
+    'Bourg de Blancherive' :
+      begin
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);   //Creation de l'interface
-      writeln('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-      writeln('Pellentesque quis aliquet elit. Donec nec mattis lorem, placerat hendrerit augue.');
-      writeln('Fusce feugiat risus quis augue bibendum, id sagittis velit commodo.');               //Affichage du scenario
-      writeln('Pellentesque sed aliquet dui. Phasellus dictum, ante eu tincidunt pharetra,');
-      writeln('nibh mi posuere diam, sit amet egestas urna nibh a mauris. ');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
+      writelnPerso('Vous revoila a l''entre de Blancherive');
+      writelnPerso('Vous devez donnez le message au jarl le plus vite possible');
 
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive);
-      effacerEcran();
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
 
-    Marche_De_Blancherive :
+    'Marche de Blancherive' :
       begin
-      writeln();
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);
-      writeln('Bienvenue au marché de Blancherive');
-      writeln('Malheuresmet il n'' a encore rien a faire ¯\_(ツ)_/¯');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
-
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive) OR (position.nom = Chateau_De_Blancherive);
-      effacerEcran();
+      writelnPerso('Bienvenue au marché de Blancherive');
+      writelnPerso('Vous voila au grand marche de Blancherive');
+      writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
-    Chateau_De_Blancherive :
+    'Chateau de Blancherive' :
       begin
-      writeln();
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);
-      writeln('Bienvenue au Chateux de Blancherive');
-      writeln('Vous avez parler au jarl de la ville il vous dit d''aller a la porte de la ville');
-      writeln('Pour aller afronter le dragon');
+      writelnPerso('Bienvenue au Chateux de Blancherive');
+      writelnPerso('En arrivant a Fort-Dragon les garde vous arrête un instant et vous laisse passer a la vu du parchemin');
+      writelnPerso('Vous donner le parchemin au jarl il vous dit alors panique a situation');
+      couleurTexte(4);
+      writelnPerso('LES DRAGONS SONT DE RETOUR');
+      couleurTexte(15);
+      writelnPerso('Vous vous proposez donc d''aller a la porte de la ville pour le retarder');
       scenario:= scenario+1;
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive);
-      effacerEcran();
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
     end;  // Fin du case
@@ -130,89 +169,124 @@ begin
   while scenario = 2 do
     begin
     case position.nom of
-    Porte_De_Blancherive :
-      begin
-      writeln();
-      InterfaceInGame(position);
-      writeln('Bienvenue devant la porte de Blancherive');
-      writeln('Un dragon vous attaque !!');
-      writeln('le Combat n''estpas tout a fait près ^^');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
 
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive);
+    'Boutique' :
+      begin
+      InterfaceInGame(position);
+      writelnPerso('Que voulez-vous faire');
+      writelnPerso();
+      writelnPerso('1 Pour vendre');
+      writelnPerso('2 pour acheter');
+      writelnPerso('0 pour quitter');
+      readlnPerso(nChoix);
+
+      case nChoix of
+      0 : position := lieu1;
+
+      1 :
+      begin
+      vente(persoChoose,inventairePerso,inventaireMagasin);
+      effacerEcran();
+      end;
+      2 :
+      begin
+      achat(persoChoose,inventairePerso,inventaireMagasin);
       effacerEcran();
       end;
 
-    Blancherive :
+      end;
+      end;
+
+    'Inventaire' :
       begin
-      writeln();
+      afficheInventaire(inventairePerso);
+      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      redo();
+      position := anciennePosition;
+      InterfaceInGame(position);
+      end;
+
+
+    'Porte de Blancherive' :
+      begin
+      writelnPerso();
+      dragonFeu.pv := 70;
+      dragonFeu.pvMax := 70;
+      dragonFeu.attaque := 20;
+      dragonFeu.pseudo := 'Dragon De Feu';
+      dragonFeu.argent := 100;
+      writelnPerso('Il est la !!!');
+      writelnPerso('Le ' + dragonFeu.pseudo + ' vous attaque !');
+      combat(persoChoose,dragonFeu,inventairePerso,fuite);
+      effacerEcran();
+      if fuite = False then
+        begin
+        writelnPerso('Vous avez accomplie l''impossible !!');
+        writelnPerso('Le jarl vous a fait chevalier d''elite de Blancherive !!');
+        couleurTexte(4);
+        writelnPerso('CONGLATURATION');
+        couleurTexte(15);
+        readln();
+        Halt(1);
+        end
+      else
+        begin
+        writelnPerso('Vous avez faillit a votre quete...');
+        writelnPerso('La ville a ete detruite...');
+        couleurTexte(4);
+        writelnPerso('FIN');
+        couleurTexte(15);
+        readln();
+        Halt(1);
+        end;
+
+      end;
+
+    'Bourg de Blancherive' :
+      begin
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);   //Creation de l'interface
-      writeln('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
-      writeln('Pellentesque quis aliquet elit. Donec nec mattis lorem, placerat hendrerit augue.');
-      writeln('Fusce feugiat risus quis augue bibendum, id sagittis velit commodo.');               //Affichage du scenario
-      writeln('Pellentesque sed aliquet dui. Phasellus dictum, ante eu tincidunt pharetra,');
-      writeln('nibh mi posuere diam, sit amet egestas urna nibh a mauris. ');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive) OR (position.nom = Porte_De_Blancherive);
-      effacerEcran();
+      writelnPerso('Vers la porte de la ville vous entender un grand bruit...');
+      couleurTexte(4);
+      writelnPerso('La BETE EST ARRIVE !');
+      couleurTexte(15);
+      writelnPerso('Si vous y aller il n''y aura plus de retour en arriere...');
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
 
-    Marche_De_Blancherive :
+    'Marche de Blancherive' :
       begin
-      writeln();
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);
-      writeln('Bienvenue au marché de Blancherive');
-      writeln('Malheuresmet il n'' a encore rien a faire ¯\_(ツ)_/¯');
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
-
-      initLieu(position);
-      writeln();
-      repeat
-        readln(position.nom);
-      until (position.nom = Blancherive) OR (position.nom = Chateau_De_Blancherive);
-      effacerEcran();
+      writelnPerso('Bienvenue au marché de Blancherive');
+      writelnPerso('Vous voila au grand marche de Blancherive');
+      writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
-    Chateau_De_Blancherive :
+    'Chateau de Blancherive' :
       begin
-      writeln();
+      writelnPerso();
+      anciennePosition := position;
       InterfaceInGame(position);
-      writeln('Bienvenue au Chateux de Blancherive');
-      writeln('Vous avez parler au jarl de la ville il vous dit d''aller a la porte de la ville');
-      writeln('Pour aller afronter le dragon');
-      scenario:= scenario+1;
-      writeln();
-      writeln('Ou voulez-vous aller ?');
-      writeln();
-
-      initLieu(position);
-      writeln();
-
-      repeat
-        readln(position.nom);
-      until (position.nom = Marche_De_Blancherive);
-      effacerEcran();
+      writelnPerso('Diriger vous au plus vite au porte de la ville !');
+      writelnPerso();
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
+      deplacement();
       end;
 
     end;  // Fin du case
-    end;  // Fin du while scenario = 2
+    end;  // Fin du while scenario = 2 
 
 
 

@@ -8,8 +8,8 @@
       <Unit0>
         <Filename Value="ProjetProgramme.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="22"/>
-        <CursorPos X="28" Y="20"/>
+        <TopLine Value="77"/>
+        <CursorPos X="30" Y="99"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,9 +17,10 @@
         <Filename Value="unitmenu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitMenu"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="166"/>
-        <CursorPos Y="96"/>
+        <TopLine Value="194"/>
+        <CursorPos X="28" Y="212"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -27,9 +28,8 @@
         <Filename Value="unitpersonnage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UnitPersonnage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="72"/>
+        <TopLine Value="44"/>
         <CursorPos X="19" Y="97"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
@@ -37,7 +37,7 @@
       <Unit3>
         <Filename Value="unitmagasin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UnitMagasin"/>
+        <UnitName Value="unitMagasin"/>
         <EditorIndex Value="5"/>
         <CursorPos X="6" Y="4"/>
         <UsageCount Value="40"/>
@@ -63,7 +63,8 @@
       <Unit6>
         <Filename Value="unitLieu.pas"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="28" Y="18"/>
+        <TopLine Value="49"/>
+        <CursorPos X="28" Y="36"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit6>
