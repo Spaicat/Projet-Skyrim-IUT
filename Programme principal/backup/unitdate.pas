@@ -1,6 +1,9 @@
 unit unitDate;
 
 interface
+
+  uses SysUtils;
+
   type
     jour =(Morndas,Tirdas,Middas,Turdas,Fredas,Loredas,Sundas);
     mois = (Primetoile,Clairciel,Semailles,Ondepluie,Plantaisons,Mi_lan,Hautzenith,Vifazur,Atrefeu,Soufflegivre,Sombreciel,Soiretoile);
@@ -20,9 +23,10 @@ interface
     end;
 
   function getDate():dateCourante;
-   procedure initDate();
+  procedure initDate();
   procedure incrementeDate();
   procedure writeDate();
+  procedure waitUneHeure();
 
 
 implementation
@@ -61,25 +65,11 @@ implementation
     else jourSuivant := Succ(j);
   end;
 
-  function jourPrecedent(j : jour) : jour;
-  begin
-    if (j = Morndas)
-    then jourPrecedent := Sundas
-    else jourPrecedent := Pred(j)
-  end;
-
   function moisSuivant(m : mois) : mois;
   begin
     if (m = Soiretoile)
     then moisSuivant := Primetoile
     else moisSuivant := Succ(m)
-  end;
-
-  function moisPrecedent(m : mois) : mois;
-  begin
-    if (m = Primetoile)
-    then moisPrecedent := Soiretoile
-    else moisPrecedent := Pred(m)
   end;
 
   function nbJours(m : mois; annee : integer) : integer;
@@ -98,8 +88,8 @@ implementation
 
   procedure incrementeDate();
   begin
-
-    temps.t.minute:=temps.t.minute+10;
+    randomize();
+    temps.t.minute:=temps.t.minute+random(5)+6;
     if temps.t.minute>=60 then
     begin
       temps.t.minute:=0;
@@ -132,6 +122,13 @@ implementation
       Loredas: write('Loredas');
       Sundas: write('Sundas');
     end;
+  end;
+  procedure waitUneHeure();
+  var
+    i:Integer;
+  begin
+    for i:=0 to 60 do
+        incrementeDate();
   end;
 
   procedure writeMois(m : mois);

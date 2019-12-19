@@ -3,7 +3,7 @@ unit unitAuberge;
 
 
 interface
-uses GestionEcran, unitPersonnage, UnitMenu, unitLieu, SysUtils;
+uses GestionEcran, unitPersonnage, UnitMenu, unitLieu, SysUtils, unitDate;
 
 procedure LancerAuberge(var perso : personnage);
 
@@ -15,6 +15,9 @@ var
   coorTexte : Coordonnees;
   coorTexte2 : Coordonnees;
   temp : Integer;
+  d:dateCourante;
+  i:Integer;
+
 begin
   coorTexte := positionCurseur();
 
@@ -23,8 +26,10 @@ begin
 
   InterfaceInGame(position);
 
-  writelnPerso('Bienvenue dans mon auberge !');
-  writelnPerso('Voulez-vous vous reposez ?');
+  if not getOuverture() then
+  begin
+    writelnPerso('Bienvenue dans mon auberge !');
+    writelnPerso('Voulez-vous vous reposez et repartir demain matin quand les lieux sont plus sûrs?');
     writelnPerso('Cela vous coutera 20 or');
     ecrireEnPosition(coorTexte,'Se Reposer');
     ecrireEnPosition(coorTexte2,'Partir');
@@ -38,6 +43,10 @@ begin
         effacerEcran();
         perso.argent := perso.argent - 20;
         perso.pv := perso.pvMax;
+        repeat
+
+          incrementeDate();
+        until date ;
         writelnPerso('Vous vous etes bien reposer vous regagner toute votre vie !');
         end
       else
@@ -51,10 +60,14 @@ begin
       effacerEcran();
       writelnPerso('Au revoir !');
       end;
-    writelnPerso('' + BoolToStr(sortie));
-    readlnPerso();
-
+  end
+  else
+  begin
+       writelnPerso('DESOLE NOUS SOMMES FERMES ! REVENEZ A PARTIR DE 20H CE SOIR');
 
   end;
+  readlnPerso();
+end;
+
 end.
 

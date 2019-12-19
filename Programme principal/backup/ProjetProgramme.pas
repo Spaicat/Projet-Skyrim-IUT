@@ -6,7 +6,7 @@ uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire
 var
   scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
   anciennePosition : TInformation;
-  dragonFeu : Personnage;
+  monstre : Personnage;
   fuite : Boolean;
 
 
@@ -79,10 +79,10 @@ begin
       begin
         writelnPerso('Que voulez-vous faire');
         writelnPerso();
-        writelnPerso('1 Pour vendre');
-        writelnPerso('2 pour acheter');
-        writelnPerso('3 pour negocier');
-        writelnPerso('0 pour quitter');
+        writelnPerso('1 - Vendre');
+        writelnPerso('2 - Acheter');
+        writelnPerso('3 - Negocier');
+        writelnPerso('0 - Quitter');
         repeat
           readlnPerso(nChoix);
         until ((nChoix>=0) and (nChoix<=3));
@@ -109,7 +109,12 @@ begin
           effacerEcran();
           end;
         end;
+
       end;
+      readlnPerso();
+      deplacement();
+
+
     end;
 
     'Menu' :
@@ -135,12 +140,12 @@ begin
 
     'Bourg de Blancherive' :
       begin
+      redo();
       writelnPerso();
       anciennePosition := position;
       InterfaceInGame(position);   //Creation de l'interface
       writelnPerso('Vous revoila a l''entre de Blancherive');
       writelnPerso('Vous devez donnez le message au jarl le plus vite possible');
-
       writelnPerso();
       writelnPerso('Ou voulez-vous aller ?');
       writelnPerso();
@@ -153,13 +158,20 @@ begin
       writelnPerso();
       anciennePosition := position;
       InterfaceInGame(position);
+
       writelnPerso('Bienvenue au marché de Blancherive');
       writelnPerso('Vous voila au grand marche de Blancherive');
       writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
       writelnPerso();
       writelnPerso('Ou voulez-vous aller ?');
       writelnPerso();
+      if not getOuverture() then
+      begin
+           monstre:=Ivrogne();
+           combat(persoChoose,monstre,inventairePerso,fuite);
+      end;
       deplacement();
+      waitUneHeure();
       end;
 
     'Chateau de Blancherive' :
@@ -180,8 +192,14 @@ begin
       writelnPerso();
       deplacement();
       end;
-
+    'Clan Drakion':
+      begin
+      redo();
+      writelnPerso('Ces gens sont qui wesh ?! shteumeule');
+      deplacement();
+      end;
     end;  // Fin du case
+
     end;  // Fin du while scenario = 1
 
   while scenario = 2 do
@@ -227,15 +245,10 @@ begin
 
     'Porte de Blancherive' :
       begin
-      writelnPerso();
-      dragonFeu.pv := 70;
-      dragonFeu.pvMax := 70;
-      dragonFeu.attaque := 20;
-      dragonFeu.pseudo := 'Dragon De Feu';
-      dragonFeu.argent := 100;
+
       writelnPerso('Il est la !!!');
-      writelnPerso('Le ' + dragonFeu.pseudo + ' vous attaque !');
-      combat(persoChoose,dragonFeu,inventairePerso,fuite);
+      writelnPerso('Le ' + monstre.pseudo + ' vous attaque !');
+      combat(persoChoose,monstre,inventairePerso,fuite);
       effacerEcran();
       if fuite = False then
         begin

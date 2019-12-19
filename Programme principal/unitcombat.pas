@@ -11,13 +11,16 @@ interface
     //Procedure gérant tous les combats
 
     function Illyar():personnage;
-    //Fonction permettant gérer le premier dragon
+    //Fonction permettant de gérer le premier dragon
 
     function Qjard():Personnage;
-    //Fonction permettant gérer le second dragon
+    //Fonction permettant de gérer le second dragon
 
     function Ksiorn():Personnage;
-    //Fonction permettant gérer le troisième dragon
+    //Fonction permettant de gérer le troisième dragon
+
+    function Ivrogne():Personnage;
+    //Fonction permettant de gérer l'Ivrogne qui est là la nuit sur la place du marché
 
 
 implementation
@@ -47,7 +50,7 @@ begin
      monstre.pseudo:= 'Qjärd';
      monstre.pv:= 125;
      monstre.pvMax:=125;
-     monstre.attaque:=10;
+     monstre.attaque:=11;
      monstre.argent:=12;
      Qjard:=monstre;
 end;
@@ -61,9 +64,20 @@ begin
      monstre.pseudo:= 'Ksïorn';
      monstre.pv:= 130;
      monstre.pvMax:=130;
-     monstre.attaque:=10;
+     monstre.attaque:=20;
      monstre.argent:=12;
      Ksiorn:=monstre;
+end;
+function Ivrogne():Personnage;
+var
+   monstre : Personnage;
+begin
+   monstre.pseudo:= 'Dede';
+   monstre.pv:= 75;
+   monstre.pvMax:=75;
+   monstre.attaque:=15;
+   monstre.argent:=30;
+   Ivrogne:=monstre;
 end;
 
 procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
@@ -81,12 +95,12 @@ randomize();
        while sortie=FALSE DO
        begin
 
-         attendre(4000);
+         attendre(5500);
          effacerEcran();
          InterfaceInGame(position);
          writelnPerso();
          writelnPerso('=============');
-         writelnPerso('PV Monstre : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
+         writelnPerso(' ' + monstre.pseudo + 'PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
          writelnPerso('=============');
          writelnPerso();
          writelnPerso('Choisissez une option : ');
