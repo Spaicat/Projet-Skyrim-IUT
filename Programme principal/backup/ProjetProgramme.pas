@@ -1,6 +1,6 @@
 program ProjetProgramme;
 
-uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate,
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate, unitAuberge,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
 var
@@ -58,8 +58,14 @@ begin
     begin
     case position.nom of
 
+    'Auberge' :
+    begin
+    LancerAuberge(persoChoose);
+    setLieu(position, lieu1);
+    end;
+
     'Boutique' :
-      begin
+    begin
       redo();
       InterfaceInGame(position);
 
@@ -104,8 +110,7 @@ begin
           end;
         end;
       end;
-
-      end;
+    end;
 
     'Menu' :
       begin

@@ -183,10 +183,9 @@ begin
     end;
   couleurTexte(White);
 
-  setLength(listeInterface, 3);
+  setLength(listeInterface, 2);
   listeInterface[0] := 'Personnage';
   listeInterface[1] := 'Inventaire';
-  listeInterface[2] := '   Test   ';
 
   posCadre1.x := 9;
   posCadre1.y := posTemp.y + 3;

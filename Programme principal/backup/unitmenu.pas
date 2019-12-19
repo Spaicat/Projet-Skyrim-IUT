@@ -162,7 +162,7 @@ begin
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'Temps : ';
+  textTemp := 'Date : ';
   ecrireEnPosition(posInterface, textTemp);
   writeDate();
   posInterface.y := posInterface.y+1;

@@ -3,7 +3,7 @@ unit unitAuberge;
 
 
 interface
-uses GestionEcran, unitPersonnage, UnitMenu;
+uses GestionEcran, unitPersonnage, UnitMenu, unitLieu, SysUtils;
 
 procedure LancerAuberge(var perso : personnage);
 
@@ -15,25 +15,21 @@ var
   coorTexte : Coordonnees;
   coorTexte2 : Coordonnees;
   temp : Integer;
-  sortie : Boolean;
 begin
-  coorTexte.x := 10;
-  coorTexte.y := 10;
+  coorTexte := positionCurseur();
 
-  coorTexte2.x := 10;
-  coorTexte2.y := 15;
+  coorTexte2.x := positionCurseur().x;
+  coorTexte2.y := positionCurseur().y + 5;
 
-  sortie := False;
+  InterfaceInGame(position);
 
-  while sortie = False do
-    begin
-    writeln('Bienvenue dans mon auberge !');
-    writeln('Voulez-vous vous reposez ?');
-    writeln('Cela vous coutera 20 or');
+  writelnPerso('Bienvenue dans mon auberge !');
+  writelnPerso('Voulez-vous vous reposez ?');
+    writelnPerso('Cela vous coutera 20 or');
     ecrireEnPosition(coorTexte,'Se Reposer');
     ecrireEnPosition(coorTexte2,'Partir');
 
-    temp := selectionMenu(coorTexte,2,5,3,15);
+    temp := selectionMenu(coorTexte,2,5, 20, 3,15);
 
     if temp <> 1 then
       begin
@@ -42,24 +38,22 @@ begin
         effacerEcran();
         perso.argent := perso.argent - 20;
         perso.pv := perso.pvMax;
-        writeln('Vous vous etes bien reposer vous regagner toute votre vie !');
-        sortie := True;
+        writelnPerso('Vous vous etes bien reposer vous regagner toute votre vie !');
         end
-    else
-       begin
-       effacerEcran();
-       writeln('Vous n''avez pas asser d''or...');
-       end;
+      else
+         begin
+         effacerEcran();
+         writelnPerso('Vous n''avez pas asser d''or...');
+         end;
        end
     else
       begin
       effacerEcran();
-      writeln('Au revoir !');
-      sortie:= True;
+      writelnPerso('Au revoir !');
       end;
+    readlnPerso();
 
 
-  end;
   end;
 end.
 

@@ -1,6 +1,6 @@
 program ProjetProgramme;
 
-uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate,
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate, unitAuberge,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
 var
@@ -58,6 +58,12 @@ begin
     begin
     case position.nom of
 
+    'Auberge' :
+    begin
+    LancerAuberge(persoChoose);
+    setLieu(position, lieu1);
+    end;
+
     'Boutique' :
     begin
       redo();
@@ -73,10 +79,10 @@ begin
       begin
         writelnPerso('Que voulez-vous faire');
         writelnPerso();
-        writelnPerso('1 Pour vendre');
-        writelnPerso('2 pour acheter');
-        writelnPerso('3 pour negocier');
-        writelnPerso('0 pour quitter');
+        writelnPerso('1 - Vendre');
+        writelnPerso('2 - Acheter');
+        writelnPerso('3 - Negocier');
+        writelnPerso('0 - Quitter');
         repeat
           readlnPerso(nChoix);
         until ((nChoix>=0) and (nChoix<=3));
