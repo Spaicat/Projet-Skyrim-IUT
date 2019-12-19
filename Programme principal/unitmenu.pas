@@ -1,7 +1,7 @@
 unit UnitMenu;
 
 interface
-uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils, unitInventaire;
+uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils, unitInventaire, unitDate;
 
 //Procédure qui affiche le menu initial
 procedure menuInitial();
@@ -160,6 +160,11 @@ begin
 
   textTemp := 'Position : ' + position.nom;
   ecrireEnPosition(posInterface, textTemp);
+  posInterface.y := posInterface.y+1;
+
+  textTemp := 'Date : ';
+  ecrireEnPosition(posInterface, textTemp);
+  writeDate();
   posInterface.y := posInterface.y+1;
 
   posCadre1.y := posInterface.y+2;

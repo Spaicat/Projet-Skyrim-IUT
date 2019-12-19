@@ -3,7 +3,7 @@ unit unitLieu;
 interface
 
 uses
-    SysUtils,unitPersonnage,unitCombat,unitMagasin,unitInventaire,GestionEcran, TypInfo;
+    SysUtils, unitPersonnage, unitCombat, unitMagasin, unitInventaire, unitDate, GestionEcran, TypInfo;
 
 type
   cateLieu = (magasin,fight,autre);
@@ -19,10 +19,12 @@ type
 var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, position : TInformation;
 
 function GetChoixMenu() : Integer;
+function getOuverture() : boolean;
+function getPosition() : TInformation;
+procedure updateOuverture();
 procedure initLieu();
 procedure deplacement();
 function afficheLieuxPossibles() : Integer;
-procedure actionLieu();
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 
 implementation
@@ -30,10 +32,32 @@ uses unitMenu;
 
 var
   choixMenu : Integer;
+  ouvert : Boolean;
 
 function GetChoixMenu() : Integer;
 begin
   GetChoixMenu := choixMenu;
+end;
+
+function getOuverture():boolean;
+begin
+  getOuverture:=ouvert;
+end;
+
+function getPosition():TInformation;
+begin
+  getPosition:=position;
+end;
+
+procedure updateOuverture();
+var
+  d : dateCourante;
+begin
+  d := getDate();
+  if (d.t.heure<=7) or (d.t.heure>=20) then
+    ouvert := false
+  else
+     ouvert := true;
 end;
 
 procedure setLieu(var lieuAAffect,lieu:TInformation);
@@ -63,7 +87,7 @@ begin
       if position.possibiliteLieu[i] then
         case i of
           1:begin writelnPerso(lieu1.nom); listePos := listePos + IntToStr(i);end; //Blancherive
-          2:begin writelnPerso(lieu2.nom); listePos := listePos + IntToStr(i);end; //Marché de Blacherive
+          2:begin writelnPerso(lieu2.nom); listePos := listePos + IntToStr(i);end; //Marché de Blancherive
           3:begin writelnPerso(lieu3.nom); listePos := listePos + IntToStr(i);end; //Chateau
           4:begin writelnPerso(lieu4.nom); listePos := listePos + IntToStr(i);end; //Porte de la ville
           5:begin writelnPerso(lieu5.nom); listePos := listePos + IntToStr(i);end; //Boutique
@@ -84,44 +108,18 @@ var
 begin
   choix := afficheLieuxPossibles();
   case choix of
-       1:setLieu(position,lieu1);
-       2:setLieu(position,lieu2);
-       3:setLieu(position,lieu3);
-       4:setLieu(position,lieu4);
-       5:setLieu(position,lieu5);
+       1:setLieu(position,lieu1); //Blancherive
+       2:setLieu(position,lieu2); //Marché de Blancherive
+       3:setLieu(position,lieu3); //Chateau
+       4:setLieu(position,lieu4); //Porte de la ville
+       5:setLieu(position,lieu5); //Boutique
        else
          if choix < 0 then
-           setLieu(position,lieu6);
+           setLieu(position,lieu6); //Menu
   end;
-
-  {writeln('Vous allez à ',position.nom);
-  repeat
-  writeln('Souhaitez vous rester ici pour voir ce qu''il y a a faire(1) ou souhaitez vous continuer votre chemin(2) ?');
-  readln(choix);
-  until(choix>=1) and (choix<=2);
-  case choix of
-       1:actionLieu();
-       2:writeln('Continuons notre chemin');
-  end;}
-
-
+  incrementeDate();
+  updateOuverture();
 end;
-
-procedure actionLieu();
-var
-  choix:Integer;
-
-begin
-     case position.cate of
-          magasin:;//appeler procedure du marche pour acheter et vendre;
-          autre:writelnPerso('Bon voyage ! autre');
-          fight:writelnPerso('Combat');
-     end;
-end;
-
-
-
-
 
 procedure initLieu();
 begin

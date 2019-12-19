@@ -1,11 +1,10 @@
 program ProjetProgramme;
 
-uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire,
+uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
 var
-  i : Integer;
-  scenario : Integer; //Varaible qui definiera ou le joueur en est dans l'histoire
+  scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
   anciennePosition : TInformation;
   dragonFeu : Personnage;
   fuite : Boolean;
@@ -18,18 +17,14 @@ var
   o3 : Objet;
   inventairePerso : Inventaire;
   inventaireMagasin : Inventaire;
-  indicateur : Integer; //Vraiable qui indique si le joueur a un objet equiper ou non
+  indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
 
   coorMenuTexte1 : coordonnees;
-  coorMenuTexte2 : coordonnees;
 
 begin
   coorMenuTexte1.x := 10;
   coorMenuTexte1.y := 5;
-
-  coorMenuTexte2.x := 50;
-  coorMenuTexte2.y := 18 + 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
 
@@ -42,6 +37,7 @@ begin
   inventaireMagasin.possession[1]:=3;
   inventaireMagasin.possession[2]:=3;
   inventaireMagasin.possession[3]:=3;
+  initDate();
   scenario := 1;
 
   anciennePosition := lieu1;
@@ -66,38 +62,55 @@ begin
       begin
       redo();
       InterfaceInGame(position);
-      writelnPerso('Que voulez-vous faire');
-      writelnPerso();
-      writelnPerso('1 Pour vendre');
-      writelnPerso('2 pour acheter');
-      writelnPerso('0 pour quitter');
-      readlnPerso(nChoix);
 
-      case nChoix of
-      0 :
-        begin
-        position := lieu1;
-        effacerEcran();
-        end;
-      1 :
-        begin
-        vente(persoChoose,inventairePerso,inventaireMagasin);
-        effacerEcran();
-        end;
-      2 :
-        begin
-        achat(persoChoose,inventairePerso,inventaireMagasin);
-        effacerEcran();
-        end;
+      if not(getOuverture()) then
+      begin
+           writeln('LE MAGASIN EST FERME ! REVENEZ A 8H DEMAIN MATIN !');
+           readln();
+           effacerEcran();
+      end
+      else
+      begin
+        writelnPerso('Que voulez-vous faire');
+        writelnPerso();
+        writelnPerso('1 Pour vendre');
+        writelnPerso('2 pour acheter');
+        writelnPerso('3 pour negocier');
+        writelnPerso('0 pour quitter');
+        repeat
+          readlnPerso(nChoix);
+        until ((nChoix>=0) and (nChoix<=3));
 
+        case nChoix of
+        0 :
+          begin
+          position := lieu1;
+          effacerEcran();
+          end;
+        1 :
+          begin
+          vente(persoChoose,inventairePerso,inventaireMagasin);
+          effacerEcran();
+          end;
+        2 :
+          begin
+          achat(persoChoose,inventairePerso,inventaireMagasin);
+          effacerEcran();
+          end;
+        3 :
+          begin
+          negociation();
+          effacerEcran();
+          end;
+        end;
       end;
+
       end;
 
     'Menu' :
       begin
       redo();
       gestionMenu(persoChoose,inventairePerso,indicateur,nomEquipement);
-      redo();
       position := anciennePosition;
       InterfaceInGame(position);
       end;
