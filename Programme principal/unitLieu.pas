@@ -181,9 +181,9 @@ begin
   lieu6.possibiliteLieu[2] := True;
   lieu6.possibiliteLieu[3] := True;
   lieu6.possibiliteLieu[4] := True;
-  lieu6.possibiliteLieu[5] := False;
+  lieu6.possibiliteLieu[5] := True;
   lieu6.possibiliteLieu[6] := False;
-  lieu6.possibiliteLieu[7] := False;
+  lieu6.possibiliteLieu[7] := True;
 
   lieu7.nom := 'Auberge';
   lieu7.indice:=7;
