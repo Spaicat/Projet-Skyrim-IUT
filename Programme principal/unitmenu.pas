@@ -56,10 +56,10 @@ var
 
 begin
   coorT.x := 96;      //Coor Texte
-  coorT.y := 30 - 5;
+  coorT.y := 35;
 
-  coorTTest.x := 38;
-  coorTTest.y := 20;
+  coorTTest.x := 40;
+  coorTTest.y := 5;
 
   redo();
   couleurTexte(White);
@@ -84,14 +84,12 @@ begin
   asciiText := asciiText + '                           /#######  /#   #####/                                    /                                 ';
   asciiText := asciiText + '                          /      ###/       ###                                    /                                  ';
   ecrireTexte(coorTTest, asciiText, 118);
-  readln;
-  redo();
 
   setLength(ListeMenuInitial, 2);
   ListeMenuInitial[0] := 'Jouer ?';
   ListeMenuInitial[1] := 'Quitter ?';
   afficherListeMenu(ListeMenuInitial, coorT, 5);
-  choiceMenu := selectionMenu(coorT, 2, 5, 10, LightBlue, White);
+  choiceMenu := selectionMenu(coorT, 2, 5, 8, LightBlue, White);
 
   if choiceMenu = 0 then
     LaunchGame()
@@ -346,10 +344,10 @@ begin
 
 
   coordTempInterface.x := 7;
-  coordTempInterface.y := 14;
+  coordTempInterface.y := 15;
   coordMinInterface := coordTempInterface;
   coordMaxInterface.x := coordTempInterface.x;
-  coordMaxInterface.y := coordTempInterface.y + 5*2;
+  coordMaxInterface.y := coordTempInterface.y + 5;
   menuSelectionne := 0;
 
   repeat
