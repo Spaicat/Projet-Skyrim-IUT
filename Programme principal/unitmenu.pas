@@ -140,19 +140,19 @@ begin
   posInterface.y := 4;
   posCadre1.x := 3;
 
-  textTemp := 'Pseudo : ' + persoChoose.pseudo;
+  textTemp := 'Pseudo : ' + getPersonnage().pseudo;
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'Race : ' + GetEnumName(TypeInfo(race), Ord(persoChoose.race));
+  textTemp := 'Race : ' + GetEnumName(TypeInfo(race), Ord(getPersonnage().race));
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'PV : ' + IntToStr(persoChoose.pv) + ' / ' + IntToStr(persoChoose.pvMax);
+  textTemp := 'PV : ' + IntToStr(getPersonnage().pv) + ' / ' + IntToStr(getPersonnage().pvMax);
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'Bourse : ' + IntToStr(persoChoose.argent) + ' Gold';
+  textTemp := 'Bourse : ' + IntToStr(getPersonnage().argent) + ' Gold';
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
@@ -197,13 +197,13 @@ end;
 procedure afficheMenuPersonnage();
 begin
   InterfaceInGame(position);
-  writelnPerso('Pseudo : ' + persoChoose.pseudo);
-  writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(persoChoose.race)));
-  writelnPerso('PV : ' + IntToStr(persoChoose.pv) + ' / ' + IntToStr(persoChoose.pvMax));
-  writelnPerso('Bourse : ' + IntToStr(persoChoose.argent) + ' Gold');
+  writelnPerso('Pseudo : ' + getPersonnage().pseudo);
+  writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(getPersonnage().race)));
+  writelnPerso('PV : ' + IntToStr(getPersonnage().pv) + ' / ' + IntToStr(getPersonnage().pvMax));
+  writelnPerso('Bourse : ' + IntToStr(getPersonnage().argent) + ' Gold');
   writelnPerso();
-  writelnPerso('Attaque : ' + IntToStr(persoChoose.attaque));
-  writelnPerso('Defense : ' + IntToStr(persoChoose.defense));
+  writelnPerso('Attaque : ' + IntToStr(getPersonnage().attaque));
+  writelnPerso('Defense : ' + IntToStr(getPersonnage().defense));
   readlnPerso();
 end;
 
@@ -215,7 +215,7 @@ begin
     begin
       InterfaceInGame(position);
       afficheInventaire(inventairePerso);
-      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      equipement(perso,inventairePerso,indicateur,nomEquipement);
       readlnPerso();
     end;
 end;

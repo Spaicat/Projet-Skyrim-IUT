@@ -6,6 +6,7 @@ uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire
 var
   scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
   anciennePosition : TInformation;
+  persoTemp, //Variable personnage pour pouvoir effectuer des actions sur le personnage
   monstre : Personnage;
   fuite : Boolean;
 
@@ -27,6 +28,7 @@ begin
   coorMenuTexte1.y := 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
+  persoTemp := getPersonnage();
 
   initLieu();
   indicateur := 0;
@@ -60,7 +62,8 @@ begin
 
     'Auberge' :
     begin
-    LancerAuberge(persoChoose);
+    LancerAuberge(persoTemp);
+    setPersonnage(persoTemp);
     setLieu(position, lieu1);
     end;
 
@@ -95,12 +98,14 @@ begin
           end;
         1 :
           begin
-          vente(persoChoose,inventairePerso,inventaireMagasin);
+          vente(persoTemp,inventairePerso,inventaireMagasin);
+          setPersonnage(persoTemp);
           effacerEcran();
           end;
         2 :
           begin
-          achat(persoChoose,inventairePerso,inventaireMagasin);
+          achat(persoTemp,inventairePerso,inventaireMagasin);
+          setPersonnage(persoTemp);
           effacerEcran();
           end;
         3 :
@@ -120,7 +125,8 @@ begin
     'Menu' :
       begin
       redo();
-      gestionMenu(persoChoose,inventairePerso,indicateur,nomEquipement);
+      gestionMenu(persoTemp,inventairePerso,indicateur,nomEquipement);
+      setPersonnage(persoTemp);
       position := anciennePosition;
       InterfaceInGame(position);
       end;
@@ -168,7 +174,8 @@ begin
       if not getOuverture() then
       begin
            monstre:=Ivrogne();
-           combat(persoChoose,monstre,inventairePerso,fuite);
+           combat(persoTemp,monstre,inventairePerso,fuite);
+           setPersonnage(persoTemp);
       end;
       deplacement();
       waitUneHeure();
@@ -221,12 +228,14 @@ begin
 
       1 :
       begin
-      vente(persoChoose,inventairePerso,inventaireMagasin);
+      vente(persoTemp,inventairePerso,inventaireMagasin);
+      setPersonnage(persoTemp);
       effacerEcran();
       end;
       2 :
       begin
-      achat(persoChoose,inventairePerso,inventaireMagasin);
+      achat(persoTemp,inventairePerso,inventaireMagasin);
+      setPersonnage(persoTemp);
       effacerEcran();
       end;
 
@@ -236,7 +245,8 @@ begin
     'Inventaire' :
       begin
       afficheInventaire(inventairePerso);
-      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      equipement(persoTemp,inventairePerso,indicateur,nomEquipement);
+      setPersonnage(persoTemp);
       redo();
       position := anciennePosition;
       InterfaceInGame(position);
@@ -248,7 +258,8 @@ begin
 
       writelnPerso('Il est la !!!');
       writelnPerso('Le ' + monstre.pseudo + ' vous attaque !');
-      combat(persoChoose,monstre,inventairePerso,fuite);
+      combat(persoTemp,monstre,inventairePerso,fuite);
+      setPersonnage(persoTemp);
       effacerEcran();
       if fuite = False then
         begin
