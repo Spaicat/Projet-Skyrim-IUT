@@ -88,18 +88,22 @@ uses UnitMenu;
      end;
    end;
 
-   procedure equipement(var perso : Personnage;var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
+   procedure equipement(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
    var
      option : Integer;
      sortie : Boolean;
    begin
    sortie := False;
-   writelnPerso('De quel objet voulez-vous vous equiper ?');
-   writelnPerso();
-   writelnPerso('1 - Epee');
-   writelnPerso('2 - Bouclier');
-   writelnPerso('3 - Potion');
-   readlnPerso(option);
+   repeat
+     redo();
+     writelnPerso('De quel objet voulez-vous vous equiper ?');
+     writelnPerso();
+     writelnPerso('1 - Epee');
+     writelnPerso('2 - Bouclier');
+     writelnPerso('3 - Potion');
+     writelnPerso('0 - Partir');
+     readlnPerso(option);
+   until (option = 0) OR (option = 1) OR (option = 2) OR (option = 3);
 
    while sortie = False do
    begin

@@ -89,7 +89,7 @@ begin
   ListeMenuInitial[0] := 'Jouer ?';
   ListeMenuInitial[1] := 'Quitter ?';
   afficherListeMenu(ListeMenuInitial, coorT, 5);
-  choiceMenu := selectionMenu(coorT, 2, 5, 8, LightBlue, White);
+  choiceMenu := selectionMenu(coorT, 2, 5, 10, LightBlue, White);
 
   if choiceMenu = 0 then
     LaunchGame()

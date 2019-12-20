@@ -18,26 +18,28 @@ interface
 
   //Procédure pour créer le personnage
   procedure createCharacter();
-  function getPersonnage() : personnage;
+  function getPersonnage() : Personnage;
   procedure setPersonnage(perso : personnage);
 
 implementation
   uses unitMenu;
 
+
   var
     persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
 
   //Fonction qui défini le personnage
-  procedure setPersonnage(perso : personnage);
-  begin
-    persoChoose := perso;
-  end;
+   procedure setPersonnage(perso : personnage);
+   begin
+     persoChoose := perso;
+   end;
 
-  //Fonction qui renvoie le personnage
-  function getPersonnage() : personnage;
-  begin
-    getPersonnage := persoChoose;
-  end;
+
+   //Fonction qui renvoie le personnage
+   function getPersonnage() : personnage;
+   begin
+     getPersonnage := persoChoose;
+   end;
 
   //Procédure pour créer le personnage
   procedure createCharacter();

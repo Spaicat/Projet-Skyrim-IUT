@@ -72,7 +72,7 @@ function Ivrogne():Personnage;
 var
    monstre : Personnage;
 begin
-   monstre.pseudo:= 'Dede';
+   monstre.pseudo:= 'L''Ivrogne';
    monstre.pv:= 75;
    monstre.pvMax:=75;
    monstre.attaque:=15;
@@ -95,12 +95,12 @@ randomize();
        while sortie=FALSE DO
        begin
 
-         attendre(7000);
+         attendre(4000);
          effacerEcran();
          InterfaceInGame(position);
          writelnPerso();
          writelnPerso('=============');
-         writelnPerso(' ' + monstre.pseudo + 'PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
+         writelnPerso(' ' + monstre.pseudo + ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
          writelnPerso('=============');
          writelnPerso();
          writelnPerso('Choisissez une option : ');

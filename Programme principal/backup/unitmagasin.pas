@@ -50,13 +50,13 @@ uses UnitMenu;
        writelnPerso();
 
        repeat
-       writeln('Faites votre choix (pour sortir saisir 0) :');
+       writelnPerso('Faites votre choix (pour sortir saisir 0) :');
        if remise then
        begin
-          writeln('N''oublier pas ! Vous avez 30% de remise sur un article au choix.');
+          writelnPerso('N''oublier pas ! Vous avez 30% de remise sur un article au choix.');
 
        end;
-       readln(nChoix);
+       readlnPerso(nChoix);
        until((nChoix>=0) and (nChoix<=3));
        if (nChoix=0) then
           sortie:=true

@@ -53,7 +53,7 @@ uses UnitMenu;
        writelnPerso('Faites votre choix (pour sortir saisir 0) :');
        if remise then
        begin
-          writelnPerso('N''oublier pas ! Vous avez 30% de remise sur un article au choix.');
+          writelnPerso('N''oubliez pas ! Vous avez 30% de remise sur un article au choix.');
 
        end;
        readlnPerso(nChoix);
