@@ -5,7 +5,8 @@ uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire
 
 var
   scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
-  anciennePosition : TInformation;
+  anciennePosition,
+  posTemp : TInformation;
   persoTemp,
   monstre : Personnage;
   fuite : Boolean;
@@ -47,7 +48,7 @@ begin
 
   anciennePosition := getLieu1();
 
-  InterfaceInGame(position); //Creation de l'interface
+  InterfaceInGame(); //Creation de l'interface
 
   writelnPerso('Vous etes un habitant de Blancherive, votre femme, Alnya, vit aupres de vous depuis plusieurs annees.');
   writelnPerso('Vous revenez de la chasse de la semaine. Un homme en fine armure se tient face a votre maison, tenant une hache couverte de sang');
@@ -64,20 +65,23 @@ begin
 
   while (fin = False) do
     begin
-    case position.nom of
+    posTemp := getPosition();
+    case getPosition().nom of
 
     'Auberge' :
     begin
     LancerAuberge(persoTemp);
     setPersonnage(persoTemp);
     lieuBourg := getLieu1();
-    setLieu(position, lieuBourg);
+    posTemp := getPosition();
+    setLieu(posTemp, lieuBourg);
+    setPosition(posTemp);
     end;
 
     'Boutique' :
     begin
 
-      InterfaceInGame(position);
+      InterfaceInGame();
 
       if not(getOuverture()) then
       begin
@@ -100,7 +104,7 @@ begin
         case nChoix of
         0 :
           begin
-          position := getLieu1();
+          setPosition(getLieu1());
           effacerEcran();
           end;
         1 :
@@ -123,7 +127,7 @@ begin
         end;
 
       end;
-      //readlnPerso();
+      InterfaceInGame();
       deplacement();
 
 
@@ -134,8 +138,8 @@ begin
       redo();
       gestionMenu(persoTemp,inventairePerso,indicateur,nomEquipement);
       setPersonnage(persoTemp);
-      position := anciennePosition;
-      InterfaceInGame(position);
+      setPosition(anciennePosition);
+      InterfaceInGame();
       end;
 
     'Porte de Blancherive' :
@@ -143,8 +147,8 @@ begin
       if scenario = 1 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Bienvenue devant la porte de Blancherive');
         writelnPerso('Sortir maintenant serai une perte de temps...');
         writelnPerso();
@@ -155,8 +159,8 @@ begin
       else if scenario = 2 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         scenario := scenario + 1;
         writelnPerso('Vous patrouillez autour de la ville pres de la foret.');
         writelnPerso('Un bruit retentit de derriere les fourres, vous decidez de vous approcher mais un coup violent vous ejecte en arriere,');
@@ -176,8 +180,8 @@ begin
       else if scenario = 3 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous devez faire votre rapport au Jarl !');
 
         writelnPerso();
@@ -188,8 +192,8 @@ begin
       else
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous etes un deserteur vous n''avez plus de raison de revenir ici...');
 
         writelnPerso();
@@ -205,8 +209,8 @@ begin
         begin
         redo();
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);   //Creation de l'interface
+        anciennePosition := getPosition();
+        InterfaceInGame();   //Creation de l'interface
         writelnPerso('Souhaitant vous debarrassez du corps sans vie de l''ennemi Sombrage,');
         writelnPerso('vous decouvrez un plan stratégique expliquant le déroulement d''une prochaine attaque de Blancherive. ');
         writelnPerso('Vous devez vous présentez au Jarl situe dans le chateau de la ville pour lui remettre ce plan. ');
@@ -218,8 +222,8 @@ begin
       else if (scenario = 2) OR (scenario = 3) then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous voila en charge de la patrouille officiel de Blancherive');
         writelnPerso('Votre patrouille a lieu pres de la porte de la ville');
         writelnPerso();
@@ -230,8 +234,8 @@ begin
       else
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous etes un deserteur vous n''avez plus de raison de revenir ici...');
 
         writelnPerso();
@@ -245,8 +249,8 @@ begin
     'Marche de Blancherive' :
       begin
       writelnPerso();
-      anciennePosition := position;
-      InterfaceInGame(position);
+      anciennePosition := getPosition();
+      InterfaceInGame();
 
       writelnPerso('Vous voila au grand marche de Blancherive');
       writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
@@ -269,8 +273,8 @@ begin
       if scenario = 1 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         scenario:= scenario+1;
         writelnPerso('Vous vous approchez du Jarl et vous agenouillez devant lui.');
         writelnPerso('"Je me presente à vous pour vous remettre un plan decouvert sur le corps d''un Sombrage. Celui-ci vise à attaquer notre ville. "');
@@ -287,8 +291,8 @@ begin
       else if scenario = 2 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous etes maintenant de patrouille devant la porte de la ville');
         writelnPerso('Vous feriz mieux d''y aller');
         writelnPerso();
@@ -299,8 +303,8 @@ begin
       else if scenario = 3 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         scenario := scenario +1;
         writelnPerso('Vous approchez du Jarl et lui faites votre rapport. Celui-ci décide de lancer une chasse contre le dragon.');
         writelnPerso('Vous refusez d''obeir a ses ordres et tentez de le convaincre, il vous menace de mise a mort mais vous decidez de partir tout de même.');
@@ -315,8 +319,8 @@ begin
        else
          begin
          writelnPerso();
-         anciennePosition := position;
-         InterfaceInGame(position);
+         anciennePosition := getPosition();
+         InterfaceInGame();
          writelnPerso('Vous etes un deserteur vous n''avez plus de raison de revenir ici...');
 
          writelnPerso();
@@ -330,8 +334,8 @@ begin
       if scenario <> 4 then
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
         writelnPerso('Vous n''avez aucune raison d''y aller maintenant');
         writelnPerso();
         writelnPerso('Ou voulez-vous aller ?');
@@ -341,8 +345,8 @@ begin
       else
         begin
         writelnPerso();
-        anciennePosition := position;
-        InterfaceInGame(position);
+        anciennePosition := getPosition();
+        InterfaceInGame();
 
         writelnPerso('Les membres du clan preparent votre rituel d’initiation, vous vous placez au centre des runes nordiques dessiner au sol. ');
         writelnPerso('Ils entreprennent un chant dans la langue draconienne.');
@@ -358,7 +362,7 @@ begin
         writelnPerso('Tu dois a present assumer tes responsabilites, et suivre notre voie');
         writelnPerso('Je t’en prie, accepte-nous en tant que compagnon, nous serons a tes cotes pendant la destruction de ce monde.');
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
         writelnPerso();
         writelnPerso('Vous restez interloque jusqu’a entendre le mot ‘destruction’.');
         writelnPerso('Ils vous expliquent alors que vous etes voue a assouvir leur desir de destruction');
@@ -375,7 +379,7 @@ begin
         writelnPerso('d’apprendre a voir la beaute de ces terres et acceptez, a mes cotes, de vaincre le mal qui ronge celles-ci.');
         writelnPerso('Apprenez le pardon aupres de nos Dieux et accompagnez-moi.');
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('Orya vous regarde avant de fixer ses yeux sur Alduin, qui observe les alentours. ');
         writelnPerso('Il transforme son esprit sous forme humaine avant de venir poser sa main sur votre visage');
@@ -384,7 +388,7 @@ begin
         writelnPerso('Alduin : Si tu tiens tant a ce monde, alors j’accepte de t’accompagner dans cette quete, mon fils.');
         writelnPerso('Nous te suivrons et t’offrirons notre force lors de tes combats. Nous serons toujours aupres de toi, ne l’oublie pas.');
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('L’esprit d’Alduin et Orya quitte ce monde afin de partir demander le pardon des Dieux.');
         writelnPerso('Ceux-ci leur accorde une seconde chance et decide de vous observer durant votre quete.');
@@ -395,7 +399,7 @@ begin
         writelnPerso('Le clan vous aide a invoquer Illyar, le premier dragon. Il apparait et vous devez le combattre.');
 
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('Illyar Vous attaque');
         monstre := Illyar();
@@ -406,7 +410,7 @@ begin
         setPersonnage(persoTemp);
 
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('Qjard a ete invoque');
         writelnPerso('Qjard Vous attaque');
@@ -418,7 +422,7 @@ begin
         setPersonnage(persoTemp);
 
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('Ksiorn a ete invoque');
         writelnPerso('Ksiorn Vous attaque');
@@ -430,7 +434,7 @@ begin
         setPersonnage(persoTemp);
 
         readlnPerso();
-        InterfaceInGame(position);
+        InterfaceInGame();
 
         writelnPerso('Vous avez reussi a battre tous les dragons.');
         writelnPerso('Les Dieux vous promettent l''entree au Valhalla lorsque votre heure sera venue. ');

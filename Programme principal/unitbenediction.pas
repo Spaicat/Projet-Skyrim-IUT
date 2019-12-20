@@ -8,8 +8,8 @@ uses unitpersonnage, UnitMenu,GestionEcran;
 procedure Benediction(var perso: personnage);
 //Permet, en fin de combat, de choisir une bénédiction des Dieux nordiques.
 
-implementation
 
+implementation
 
 procedure Benediction(var perso: personnage);
 

@@ -44,9 +44,9 @@ begin
         perso.argent := perso.argent - 20;
         perso.pv := perso.pvMax;
         repeat
-
+          d:=getDate();
           incrementeDate();
-        until date ;
+        until (d.t.heure<8) ;
         writelnPerso('Vous vous etes bien reposer vous regagner toute votre vie !');
         end
       else

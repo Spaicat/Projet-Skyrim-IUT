@@ -6,7 +6,7 @@ uses
     SysUtils, unitPersonnage, unitCombat, unitMagasin, unitInventaire, unitDate, GestionEcran, TypInfo;
 
 type
-  TTableau = array [1..8] of Boolean;       // 1 = Blancherive // 2 = Marché de Blancherive // 3 = Chateau //4 = Porte de la ville // 5 = Boutique // 6 = Inventaire
+  TTableau = array [1..8] of Boolean;       // 1 = Blancherive // 2 = Marché de Blancherive // 3 = Chateau //4 = Porte de la ville // 5 = Boutique // 6 = Menu // 7 = Auberge // 8 = Clan Drakion
 
 type
   TInformation = record
@@ -14,55 +14,29 @@ type
     indice:Integer;
     possibiliteLieu : TTableau;
   end;
-var position : TInformation;
 
 function GetChoixMenu() : Integer;
 function getLieu1() : TInformation;
+procedure setLieu(var lieuAAffect,lieu:TInformation);
 function getOuverture() : boolean;
 function getPosition() : TInformation;
+procedure setPosition(pos : TInformation);
 procedure updateOuverture();
-procedure initLieu();
-procedure deplacement();
 function afficheLieuxPossibles() : Integer;
-procedure setLieu(var lieuAAffect,lieu:TInformation);
+procedure deplacement();
+procedure initLieu();
 
 implementation
 uses unitMenu;
 
-var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8 : TInformation;
-
-  choixMenu : Integer;
-  ouvert : Boolean;
+var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8,
+    position : TInformation;
+    choixMenu : Integer;
+    ouvert : Boolean;
 
 function getLieu1() : TInformation;
 begin
   getLieu1 := lieu1;
-end;
-
-function GetChoixMenu() : Integer;
-begin
-  GetChoixMenu := choixMenu;
-end;
-
-function getOuverture():boolean;
-begin
-  getOuverture:=ouvert;
-end;
-
-function getPosition():TInformation;
-begin
-  getPosition:=position;
-end;
-
-procedure updateOuverture();
-var
-  d : dateCourante;
-begin
-  d := getDate();
-  if (d.t.heure<=7) or (d.t.heure>=20) then
-    ouvert := false
-  else
-     ouvert := true;
 end;
 
 procedure setLieu(var lieuAAffect,lieu:TInformation);
@@ -75,6 +49,37 @@ begin
    begin
      lieuAAffect.possibiliteLieu[i]:=lieu.possibiliteLieu[i];
    end;
+end;
+
+function GetChoixMenu() : Integer;
+begin
+  GetChoixMenu := choixMenu;
+end;
+
+function getOuverture():boolean;
+begin
+  getOuverture := ouvert;
+end;
+
+function getPosition():TInformation;
+begin
+  getPosition := position;
+end;
+
+procedure setPosition(pos : TInformation);
+begin
+  position := pos;
+end;
+
+procedure updateOuverture();
+var
+  d : dateCourante;
+begin
+  d := getDate();
+  if (d.t.heure<=7) or (d.t.heure>=20) then
+    ouvert := false
+  else
+     ouvert := true;
 end;
 
 function afficheLieuxPossibles() : Integer;

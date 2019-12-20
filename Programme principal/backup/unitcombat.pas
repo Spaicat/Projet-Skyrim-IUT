@@ -33,7 +33,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Illÿar';
+     monstre.pseudo:= 'Illyar';
      monstre.pv:= 120;
      monstre.pvMax:=120;
      monstre.attaque:=10;
@@ -47,7 +47,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Qjärd';
+     monstre.pseudo:= 'Qjard';
      monstre.pv:= 125;
      monstre.pvMax:=125;
      monstre.attaque:=11;
@@ -61,7 +61,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Ksïorn';
+     monstre.pseudo:= 'Ksiorn';
      monstre.pv:= 130;
      monstre.pvMax:=130;
      monstre.attaque:=20;

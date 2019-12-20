@@ -10,7 +10,7 @@ procedure LaunchGame();
 //Procédure pour quitter le jeu
 procedure QuitGame();
 //Procédure pour afficher l'interface du jeu
-procedure InterfaceInGame(position : TInformation);
+procedure InterfaceInGame();
 procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 //Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
 procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
@@ -126,7 +126,7 @@ begin
   Halt(1);
 end;
 
-procedure InterfaceInGame(position : TInformation);
+procedure InterfaceInGame();
 var
   posTemp,
   posInterface, //Position du contenu de l'interface
@@ -156,7 +156,7 @@ begin
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
-  textTemp := 'Position : ' + position.nom;
+  textTemp := 'Position : ' + getPosition().nom;
   ecrireEnPosition(posInterface, textTemp);
   posInterface.y := posInterface.y+1;
 
@@ -196,7 +196,7 @@ end;
 
 procedure afficheMenuPersonnage();
 begin
-  InterfaceInGame(position);
+  InterfaceInGame();
   writelnPerso('Pseudo : ' + getPersonnage().pseudo);
   writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(getPersonnage().race)));
   writelnPerso('PV : ' + IntToStr(getPersonnage().pv) + ' / ' + IntToStr(getPersonnage().pvMax));
@@ -213,7 +213,7 @@ begin
     afficheMenuPersonnage()
   else if GetChoixMenu() = -2 then
     begin
-      InterfaceInGame(position);
+      InterfaceInGame();
       afficheInventaire(inventairePerso);
       equipement(perso,inventairePerso,indicateur,nomEquipement);
       readlnPerso();
