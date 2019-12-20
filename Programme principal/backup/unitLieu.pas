@@ -14,7 +14,7 @@ type
     indice:Integer;
     possibiliteLieu : TTableau;
   end;
-var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8, position : TInformation;
+var position : TInformation;
 
 function GetChoixMenu() : Integer;
 function getOuverture() : boolean;
@@ -28,7 +28,8 @@ procedure setLieu(var lieuAAffect,lieu:TInformation);
 implementation
 uses unitMenu;
 
-var
+var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8 : TInformation;
+
   choixMenu : Integer;
   ouvert : Boolean;
 
@@ -136,7 +137,7 @@ begin
   lieu1.possibiliteLieu[5] := True;
   lieu1.possibiliteLieu[6] := True;
   lieu1.possibiliteLieu[7] := True;
-  lieu8.possibiliteLieu[8] := False;
+  lieu1.possibiliteLieu[8] := False;
 
   lieu2.nom := 'Marche de Blancherive';
   lieu2.indice:=2;
@@ -147,7 +148,7 @@ begin
   lieu2.possibiliteLieu[5] := False;
   lieu2.possibiliteLieu[6] := True;
   lieu2.possibiliteLieu[7] := False;
-  lieu8.possibiliteLieu[8] := False;
+  lieu2.possibiliteLieu[8] := False;
 
   lieu3.nom := 'Chateau de Blancherive';
   lieu3.indice:=3;
@@ -158,7 +159,7 @@ begin
   lieu3.possibiliteLieu[5] := False;
   lieu3.possibiliteLieu[6] := True;
   lieu3.possibiliteLieu[7] := False;
-  lieu8.possibiliteLieu[8] := False;
+  lieu3.possibiliteLieu[8] := False;
 
   lieu4.nom := 'Porte de Blancherive';
   lieu4.indice:=4;
@@ -169,7 +170,7 @@ begin
   lieu4.possibiliteLieu[5] := False;
   lieu4.possibiliteLieu[6] := True;
   lieu4.possibiliteLieu[7] := False;
-  lieu8.possibiliteLieu[8] := True;
+  lieu4.possibiliteLieu[8] := True;
 
   lieu5.nom := 'Boutique';
   lieu5.indice:=5;
@@ -180,7 +181,7 @@ begin
   lieu5.possibiliteLieu[5] := False;
   lieu5.possibiliteLieu[6] := False;
   lieu5.possibiliteLieu[7] := False;
-  lieu8.possibiliteLieu[8] := False;
+  lieu5.possibiliteLieu[8] := False;
 
   lieu6.nom := 'Menu';
   lieu6.indice:=6;
@@ -191,7 +192,7 @@ begin
   lieu6.possibiliteLieu[5] := True;
   lieu6.possibiliteLieu[6] := False;
   lieu6.possibiliteLieu[7] := True;
-  lieu8.possibiliteLieu[8] := False;
+  lieu6.possibiliteLieu[8] := False;
 
   lieu7.nom := 'Auberge';
   lieu7.indice:=7;
@@ -202,7 +203,7 @@ begin
   lieu7.possibiliteLieu[5] := False;
   lieu7.possibiliteLieu[6] := False;
   lieu7.possibiliteLieu[7] := False;
-  lieu8.possibiliteLieu[8] := False;
+  lieu7.possibiliteLieu[8] := False;
 
   lieu8.nom := 'Clan Drakion';
   lieu8.indice:=8;

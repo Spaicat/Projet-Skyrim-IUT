@@ -111,45 +111,57 @@ implementation
       end;
     end;
   end;
-  procedure writeJour(j : jour);
+ function strJour(j : jour):String;
+
+  var
+     res:String;
   begin
     case j of
-      Morndas: write('Morndas');
-      Tirdas: write('Tirdas');
-      Middas: write('Middas');
-      Turdas: write('Turdas');
-      Fredas: write('Fredas');
-      Loredas: write('Loredas');
-      Sundas: write('Sundas');
+      Morndas: res:='Morndas';
+      Tirdas: res:='Tirdas';
+      Middas: res:='Middas';
+      Turdas: res:='Turdas';
+      Fredas: res:='Fredas';
+      Loredas: res:='Loredas';
+      Sundas: res:='Sundas';
     end;
+    strJour:=res;
   end;
   procedure waitUneHeure();
   begin
     temps.t.heure:=temps.t.heure+1;
   end;
 
-  procedure writeMois(m : mois);
+  function strMois(m : mois):String;
+  var
+     res:String;
   begin
     case m  of
-      Primetoile: write('Primetoile');
-      Clairciel: write('Clairciel');
-      Semailles: write('Semailles');
-      Ondepluie: write('Ondepluie');
-      Plantaisons: write('Plantaisons');
-      Mi_lan: write('Mi_lan');
-      Hautzenith: write('Hautzenith');
-      Vifazur: write('Vifazur');
-      Atrefeu: write('Atrefeu');
-      Soufflegivre: write('Soufflegivre');
-      Sombreciel: write('Sombreciel');
-      Soiretoile: write('Soiretoile');
+      Primetoile: res:='Primetoile';
+      Clairciel: res:='Clairciel';
+      Semailles: res:='Semailles';
+      Ondepluie: res:='Ondepluie';
+      Plantaisons: res:='Plantaisons';
+      Mi_lan: res:='Mi_lan';
+      Hautzenith: res:='Hautzenith';
+      Vifazur: res:='Vifazur';
+      Atrefeu: res:='Atrefeu';
+      Soufflegivre: res:='Soufflegivre';
+      Sombreciel: res:='Sombreciel';
+      Soiretoile: res:='Soiretoile';
     end;
+    strMois:=res;
   end;
 
   procedure writeDate();
+  var
+     res:String;
   begin
-    writeJour(temps.j);write(' ',temps.i,' ');write(temps.m);writelnPerso(' de l''an ' + IntToStr(temps.a));
-    writelnPerso(IntToStr(temps.t.heure) + 'h' + IntToStr(temps.t.minute));
+    res:=strJour(temps.j)+' '+IntToStr(temps.i)+' '+strMois(temps.m)+' de l''an '+IntToStr(temps.a)+' '+IntToStr(temps.t.heure)+'h';
+    if temps.t.minute<10 then
+       res:=res+'0';
+    res:=res+IntToStr(temps.t.minute);
+    write(res);
   end;
 
 end.

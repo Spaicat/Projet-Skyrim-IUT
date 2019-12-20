@@ -14,9 +14,10 @@ type
     indice:Integer;
     possibiliteLieu : TTableau;
   end;
-var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8, position : TInformation;
+var position : TInformation;
 
 function GetChoixMenu() : Integer;
+function getLieu1() : TInformation;
 function getOuverture() : boolean;
 function getPosition() : TInformation;
 procedure updateOuverture();
@@ -28,9 +29,15 @@ procedure setLieu(var lieuAAffect,lieu:TInformation);
 implementation
 uses unitMenu;
 
-var
+var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, lieu7, lieu8 : TInformation;
+
   choixMenu : Integer;
   ouvert : Boolean;
+
+function getLieu1() : TInformation;
+begin
+  getLieu1 := lieu1;
+end;
 
 function GetChoixMenu() : Integer;
 begin

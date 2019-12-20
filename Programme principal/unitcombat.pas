@@ -33,7 +33,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Illÿar';
+     monstre.pseudo:= 'Illyar';
      monstre.pv:= 120;
      monstre.pvMax:=120;
      monstre.attaque:=10;
@@ -47,7 +47,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Qjärd';
+     monstre.pseudo:= 'Qjard';
      monstre.pv:= 125;
      monstre.pvMax:=125;
      monstre.attaque:=11;
@@ -61,7 +61,7 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Ksïorn';
+     monstre.pseudo:= 'Ksiorn';
      monstre.pv:= 130;
      monstre.pvMax:=130;
      monstre.attaque:=20;
@@ -104,12 +104,14 @@ randomize();
          writelnPerso(' ' + monstre.pseudo + ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
          writelnPerso('=============');
          writelnPerso();
-         writelnPerso('Choisissez une option : ');
-         writelnPerso('1 - Attaquer');
-         writelnPerso('2 - Se defendre');
-         writelnPerso('3 - Utiliser une potion');
-         writelnPerso('4 - Fuite');
-         readlnPerso(choix);
+         repeat
+           writelnPerso('Choisissez une option : ');
+           writelnPerso('1 - Attaquer');
+           writelnPerso('2 - Se defendre');
+           writelnPerso('3 - Utiliser une potion');
+           writelnPerso('4 - Fuite');
+           readlnPerso(choix);
+         until (choix = 1) OR (choix = 2) OR (choix = 3) OR (choix = 4);
          case choix of
               1:
               begin
@@ -142,9 +144,9 @@ randomize();
                 else
                   begin
                   writelnPerso('Vous consommer une potion !');
-                  writelnPerso('Vous regagnez 30 PV !');
+                  writelnPerso('Vous regagnez 100 PV !');
                   inventairePerso.possession[3] := inventairePerso.possession[3]-1;
-                  perso.pv := perso.pv + 30;
+                  perso.pv := perso.pv + 100;
                   if perso.pv > perso.pvMax then
                     perso.pv := perso.pvMax;
                   attaque:= monstre.attaque + random(monstre.attaque div 2);
