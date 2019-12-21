@@ -1,5 +1,7 @@
 program ProjetProgramme;
 
+{$codepage utf8}
+
 uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate, unitAuberge,unitbenediction,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
@@ -23,44 +25,43 @@ var
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
 
-  coorMenuTexte1 : coordonnees;
-
 begin
-  coorMenuTexte1.x := 10;
-  coorMenuTexte1.y := 5;
-
-  menuInitial();            //Creation du Menu Principal avec selection du personnage
-  persoTemp := getPersonnage();
-
-  initLieu();
-  indicateur := 0;
-  nomEquipement := '';
-  fuite := False;
   fin := False;
-  initObjet(o1,o2,o3);
-  initInventaire(inventairePerso,o1,o2,o3);
-  initInventaire(inventaireMagasin,o1,o2,o3);
-  inventaireMagasin.possession[1]:=3;
-  inventaireMagasin.possession[2]:=3;
-  inventaireMagasin.possession[3]:=3;
-  initDate();
-  scenario := 1;
+  menuInitial(fin);            //Creation du Menu Principal avec selection du personnage
 
-  anciennePosition := getLieu1();
+  if (fin = False) then
+    begin
+    persoTemp := getPersonnage();
 
-  InterfaceInGame(); //Creation de l'interface
+    initLieu();
+    indicateur := 0;
+    nomEquipement := '';
+    fuite := False;
+    initObjet(o1,o2,o3);
+    initInventaire(inventairePerso,o1,o2,o3);
+    initInventaire(inventaireMagasin,o1,o2,o3);
+    inventaireMagasin.possession[1]:=3;
+    inventaireMagasin.possession[2]:=3;
+    inventaireMagasin.possession[3]:=3;
+    initDate();
+    scenario := 1;
 
-  writelnPerso('Vous etes un habitant de Blancherive, votre femme, Alnya, vit aupres de vous depuis plusieurs annees.');
-  writelnPerso('Vous revenez de la chasse de la semaine. Un homme en fine armure se tient face a votre maison, tenant une hache couverte de sang');
-  writelnPerso('Vous abandonnez toutes vos affaires sur le sol en voyant les cheveux d’Alnya noyes dans son sang aux pieds de l''homme. ');               //Affichage du scenario
-  writelnPerso('Vous ne gardez que votre epee et courez pour vous jeter sur le meurtrier de votre bien aime.');
-  writelnPerso('Vous tranchez le corps de l''ennemi qui s''averait etre un soldat sombrage, il meurt sur le coup sans avoir le temps de se retourner.  ');
-  writelnPerso();
-  writelnPerso('Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
-  writelnPerso('Vous lui rendez hommage en immolant son corps et jetant ses cendres dans la riviere qu''elle adorait');
-  writelnPerso('Vous gardez son talisman pres de votre coeur. ');
-  writelnPerso();
-  deplacement();
+    anciennePosition := getLieu1();
+
+    InterfaceInGame(); //Creation de l'interface
+
+    writelnPerso('Vous etes un habitant de Blancherive, votre femme, Alnya, vit aupres de vous depuis plusieurs annees.');
+    writelnPerso('Vous revenez de la chasse de la semaine. Un homme en fine armure se tient face a votre maison, tenant une hache couverte de sang');
+    writelnPerso('Vous abandonnez toutes vos affaires sur le sol en voyant les cheveux d’Alnya noyes dans son sang aux pieds de l''homme. ');               //Affichage du scenario
+    writelnPerso('Vous ne gardez que votre epee et courez pour vous jeter sur le meurtrier de votre bien aime.');
+    writelnPerso('Vous tranchez le corps de l''ennemi qui s''averait etre un soldat sombrage, il meurt sur le coup sans avoir le temps de se retourner.  ');
+    writelnPerso();
+    writelnPerso('Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
+    writelnPerso('Vous lui rendez hommage en immolant son corps et jetant ses cendres dans la riviere qu''elle adorait');
+    writelnPerso('Vous gardez son talisman pres de votre coeur. ');
+    writelnPerso();
+    deplacement();
+    end;
 
 
   while (fin = False) do
@@ -244,7 +245,7 @@ begin
       InterfaceInGame();
 
       writelnPerso('Vous voila au grand marche de Blancherive');
-      writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
+      writelnPerso('D''ici vous pouvez voir le Chateau emblematique de Blancherive : Fort-Dragon');
       writelnPerso();
       writelnPerso('Ou voulez-vous aller ?');
       writelnPerso();
@@ -254,6 +255,7 @@ begin
            monstre:=Ivrogne();
            combat(persoTemp,monstre,inventairePerso,fuite);
            setPersonnage(persoTemp);
+           InterfaceInGame();
       end;
       deplacement();
       waitUneHeure();
@@ -396,6 +398,14 @@ begin
         monstre := Illyar();
         combat(persoTemp,monstre,inventairePerso,fuite);
         setPersonnage(persoTemp);
+        InterfaceInGame();
+
+        repeat
+          writelnPerso('Illyar Vous attaque');
+          monstre := Illyar();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);
@@ -408,6 +418,15 @@ begin
         monstre := Qjard();
         combat(persoTemp,monstre,inventairePerso,fuite);
         setPersonnage(persoTemp);
+        InterfaceInGame();
+
+        repeat
+          writelnPerso('Qjard a ete invoque');
+          writelnPerso('Qjard Vous attaque');
+          monstre := Qjard();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);
@@ -420,6 +439,15 @@ begin
         monstre := Ksiorn();
         combat(persoTemp,monstre,inventairePerso,fuite);
         setPersonnage(persoTemp);
+        InterfaceInGame();
+
+        repeat
+          writelnPerso('Ksiorn a ete invoque');
+          writelnPerso('Ksiorn Vous attaque');
+          monstre := Ksiorn();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);

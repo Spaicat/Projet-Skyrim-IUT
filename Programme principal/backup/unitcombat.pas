@@ -87,10 +87,15 @@ var
    choix: Integer;
    attaque: Integer;
    rng : Integer;
+
 begin
-randomize;
-sortie := False;
-randomize();
+      randomize;
+      sortie := False;
+<<<<<<< HEAD
+=======
+      fuite := False;
+>>>>>>> 8bfb6b28071ac7e6b1ad2e75bc5f1bc9934e6e2e
+      randomize();
 
        while sortie=FALSE DO
        begin
@@ -102,14 +107,14 @@ randomize();
          writelnPerso(' ' + monstre.pseudo + ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
          writelnPerso('=============');
          writelnPerso();
-         repeat
-           writelnPerso('Choisissez une option : ');
-           writelnPerso('1 - Attaquer');
-           writelnPerso('2 - Se defendre');
-           writelnPerso('3 - Utiliser une potion');
-           writelnPerso('4 - Fuite');
-           readlnPerso(choix);
-         until (choix >= 1) and (choix <= 4);
+
+         writelnPerso('Choisissez une option : ');
+         writelnPerso(' >  Attaquer');
+         writelnPerso(' >  Se defendre');
+         writelnPerso(' >  Utiliser une potion');
+         writelnPerso(' >  Fuite');
+         choix := selectionMenu(posXY(positionCurseur().x, positionCurseur().y-3), 4, 1, 2, LightBlue, White) + 1;
+
          case choix of
               1:
               begin
@@ -119,9 +124,12 @@ randomize();
                   monstre.pv :=  0;
                 writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
                 attaque:= monstre.attaque + random(monstre.attaque div 2);
+                if attaque < 0 then
+                  attaque := 0;
                 perso.pv:= perso.pv - attaque;
                 writelnPerso();
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                readlnPerso();
               end;
               2:
               begin
@@ -129,8 +137,11 @@ randomize();
                 monstre.pv := monstre.pv - attaque;
                 writelnPerso('Vous contrez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + '. Il lui reste ' + IntToStr(monstre.pv));
                 attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
+                if attaque < 0 then
+                  attaque := 0;
                 perso.pv:= perso.pv - attaque;
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                readlnPerso();
               end;
               3:
               begin
@@ -152,6 +163,7 @@ randomize();
                   writelnPerso();
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
+                readlnPerso();
               end;
               4:
               begin
@@ -159,7 +171,7 @@ randomize();
                 if rng = 1 then
                   begin
                   writelnPerso('Vous vous enfuyez !');
-                  sortie:=TRUE;
+                  sortie:= True;
                   fuite := True;
                   end
                 else
@@ -169,6 +181,7 @@ randomize();
                   perso.pv:= perso.pv - attaque;
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
+                readlnPerso();
               end;
        end;
          if monstre.pv<=0 then
@@ -177,11 +190,16 @@ randomize();
              writelnPerso('Vous avez gagnez !!');
              writelnPerso('Vous gagnez ' + IntToStr(monstre.argent) + ' or !');
              perso.argent := perso.argent + monstre.argent;
+<<<<<<< HEAD
+             readlnPerso();
+=======
+>>>>>>> 8bfb6b28071ac7e6b1ad2e75bc5f1bc9934e6e2e
+           end;
          if perso.pv <= 0 then
            begin
            writelnPerso('Vous êtes mort...');
-           // QuitGame();
-           end;
+           readlnPerso();
+           Halt(1);
            end;
          writelnPerso();
        end;
