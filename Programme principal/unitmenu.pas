@@ -94,8 +94,11 @@ begin
   asciiText := asciiText + '                          /      ###/       ###                                                                       ';
   ecrireTexte(coorTTest, asciiText, 118);
   setLength(ListeMenuInitial, 2);
+
   ListeMenuInitial[0] := '    Jouer    ';
+  dessinercadre(posXY(coorT.x-5, coorT.y-2), posXY(coorT.x+length(ListeMenuInitial[0])+4,coorT.y+2), double, White, Black);
   ListeMenuInitial[1] := '   Quitter   ';
+  dessinercadre(posXY(coorT.x-5, coorT.y-2+5), posXY(coorT.x+length(ListeMenuInitial[1])+4,coorT.y+2+5), double, White, Black);
   afficherListeMenu(ListeMenuInitial, coorT, 5);
   choiceMenu := selectionMenu(coorT, 2, 5, 12, LightBlue, White);
 
@@ -133,8 +136,7 @@ begin
   rep := selectionMenu(coordOrigin, 2, 2, 4, LightBlue, White);
   if rep = 0 then
     begin
-    ecrireEnPosition(posXY(88, coordOrigin.y+4), 'Au plaisir de vous revoir');
-    readlnPerso();
+    ecrireEnPosition(posXY(88, coordOrigin.y+4), 'Au plaisir de vous revoir !');
     fin := true;
     end
   else
