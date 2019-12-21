@@ -4,17 +4,18 @@ interface
 uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtils, unitInventaire, unitDate;
 
 //Procédure qui affiche le menu initial
-procedure menuInitial();
+procedure menuInitial(var fin : Boolean);
 
 //Procédure pour lancer le jeu
 procedure LaunchGame();
 
 //Procédure pour quitter le jeu
-procedure QuitGame();
+procedure QuitGame(var fin : Boolean);
 
 //Procédure pour afficher l'interface du jeu
 procedure InterfaceInGame();
 
+//Affiche le choix effectué par l'utilisateur dans le menu du jeu (Menu sur la gauche)
 procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 
 function Key() : TKeyEvent;
@@ -25,10 +26,13 @@ procedure redo();
 //Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
 procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
 
+//Affiche une selection pour un menu (Pour l'esthetique du choix et pour savoir quel choix est selectionné)
 function selectionMenu(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 
+//Affiche une selection pour un menu (Pour l'esthetique du choix et pour savoir quel choix est selectionné) et en plus affiche le menu du jeu (Quêtes, Inventaire ...) (suivant le même fonctionnement)
 function selectionMenuEtInterface(coordMin : coordonnees; nbText, distanceEntreTexte, distanceDuFond, couleurFondTexte, couleurTexte : Integer) : Integer;
 
+//Procédure pour écrire un texte sur une largeur donnée (justifié)
 procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : Integer);
 
 //Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe (juste pour sauter une ligne)
@@ -52,90 +56,89 @@ function posXY(x, y : Integer) : coordonnees;
 implementation
 
 //Procédure qui affiche le menu initial
-procedure menuInitial();
+procedure menuInitial(var fin : Boolean);
 var
-  rep : Integer;
   coorT : coordonnees;
   coorTTest : coordonnees;
-  coorT3 : coordonnees;
-  volonte : Integer;
-  lancement : Boolean;
-  touche : TKeyEvent;
   ListeMenuInitial : array of String;
   choiceMenu : Integer;
   asciiText : String;
-
- // personnageCree : personnageStat;
-
 begin
-  coorT.x := 96;      //Coor Texte
-  coorT.y := 35;
+  coorT.x := 94;      //Coor Texte
+  coorT.y := 38;
 
   coorTTest.x := 40;
-  coorTTest.y := 5;
+  coorTTest.y := 10;
 
   redo();
   couleurTexte(White);
 
   asciiText :=             '      #######      /                            ##### ##                                                              ';
-  asciiText := asciiText + '    /       ###  #/                          ######  /###                          #                                  ';
-  asciiText := asciiText + '   /         ##  ##                         /#   /  /  ###                        ###                           #     ';
-  asciiText := asciiText + '   ##        #   ##                        /    /  /    ###                        #                           ##     ';
-  asciiText := asciiText + '    ###          ##                            /  /      ##                                                    ##     ';
-  asciiText := asciiText + '   ## ###        ##  /##  ##   ####           ## ##      ## ###  /###     /###   ###      /##       /###     ######## ';
-  asciiText := asciiText + '    ### ###      ## / ###  ##    ###  /       ## ##      ##  ###/ #### / / ###  / ###    / ###     / ###  / ########  ';
-  asciiText := asciiText + '      ### ###    ##/   /   ##     ###/      /### ##      /    ##   ###/ /   ###/   ##   /   ###   /   ###/     ##     ';
-  asciiText := asciiText + '        ### /##  ##   /    ##      ##      / ### ##     /     ##       ##    ##    /   ##    ### ##            ##     ';
-  asciiText := asciiText + '          #/ /## ##  /     ##      ##         ## ######/      ##       ##    ##   /    ########  ##            ##     ';
-  asciiText := asciiText + '           #/ ## ## ##     ##      ##         ## ######       ##       ##    ##  ###   #######   ##            ##     ';
-  asciiText := asciiText + '            # /  ######    ##      ##         ## ##           ##       ##    ##   ###  ##        ##            ##     ';
-  asciiText := asciiText + '  /##        /   ##  ###   ##      ##         ## ##           ##       ##    ##    ### ####    / ###     /     ##     ';
-  asciiText := asciiText + ' /  ########/    ##   ### / #########         ## ##           ###       ######      ### ######/   ######/      ##     ';
-  asciiText := asciiText + '/     #####       ##   ##/    #### ###   ##   ## ##            ###       ####        ##  #####     #####        ##    ';
-  asciiText := asciiText + '|                                   ### ###   #  /                                   ##                               ';
-  asciiText := asciiText + ' \)                          #####   ### ###    /                                    /                                ';
-  asciiText := asciiText + '                           /#######  /#   #####/                                    /                                 ';
-  asciiText := asciiText + '                          /      ###/       ###                                    /                                  ';
+  asciiText := asciiText + '    /       ###  #/                          ###### #####                          #                                  ';
+  asciiText := asciiText + '   /         ##  ##                         /#   / ##  ###                        ###                           #     ';
+  asciiText := asciiText + '   ##        #   ##                        /    / ##    ###                        #                           ##     ';
+  asciiText := asciiText + '    ###          ##                            / ##      ##                                                    ##     ';
+  asciiText := asciiText + '   ## ###        ##   ##  ##   ####           ## ##      ## ###  /###     /###   ###      /##       /###     ######## ';
+  asciiText := asciiText + '    ### ###      ##   ###  ##    ###  /       ## ##      ##  ###/ #### / / ###  / ###    / ###     / ###  / ########  ';
+  asciiText := asciiText + '      ### ###    ##    #   ##     ###/      /### ##      /    ##   ###/ /   ###/  ###   /   ###   /   ###/     ##     ';
+  asciiText := asciiText + '        ### /##  ##   #    ##      ##      / ### ##     /     ##       ##    ##   ##   ##    ### ##            ##     ';
+  asciiText := asciiText + '          #/ /## ##  #     ##      ##         ## ######/      ##       ##    ##   ##   ########  ##            ##     ';
+  asciiText := asciiText + '           #/ ## ## ##     ##      ##         ## ######       ##       ##    ##   ##   #######   ##            ##     ';
+  asciiText := asciiText + '            # /  ######    ##      ##         ## ##           ##       ##    ##   ##   ##        ##            ##     ';
+  asciiText := asciiText + '  /##        /   ##  ###   ##      ##         ## ##           ##       ##    ##   ##   ####    / ###     /     ##     ';
+  asciiText := asciiText + ' /  ########/    ##   ### / #########         ## ##           ###       ######   /##    ######/   ######/      ##     ';
+  asciiText := asciiText + '/     #####       ##   ##/    #### ###        ## ##            ###       ####    ##/     #####     #####        ##    ';
+  asciiText := asciiText + '|                                   ###       #  ##                              ##                                   ';
+  asciiText := asciiText + ' \)                          #####   ###        ##                              #/                                    ';
+  asciiText := asciiText + '                           /#######  /#        ##                             #/                                      ';
+  asciiText := asciiText + '                          /      ###/       ###                                                                       ';
   ecrireTexte(coorTTest, asciiText, 118);
   setLength(ListeMenuInitial, 2);
-  ListeMenuInitial[0] := 'Jouer ?';
-  ListeMenuInitial[1] := 'Quitter ?';
+  ListeMenuInitial[0] := '    Jouer    ';
+  ListeMenuInitial[1] := '   Quitter   ';
   afficherListeMenu(ListeMenuInitial, coorT, 5);
-  choiceMenu := selectionMenu(coorT, 2, 5, 10, LightBlue, White);
+  choiceMenu := selectionMenu(coorT, 2, 5, 12, LightBlue, White);
 
   if choiceMenu = 0 then
     LaunchGame()
   else
-    QuitGame();
+    QuitGame(fin);
 end;
 
 
 //Procédure pour quitter le jeu
 procedure LaunchGame();
 begin
-  redo();
   createCharacter();
 end;
 
 //Procédure pour quitter le jeu
-procedure QuitGame();
+procedure QuitGame(var fin : Boolean);
 var
-  rep : Char;
+  rep : Integer;
+  coordOrigin : coordonnees;
+  listeTexte : array of String;
 begin
-  repeat
-  effacerEcran();
-  write('Etes vous sur de vouloir quitter ? [o/n] : ');
-  readln(rep);
-  if rep ='o' then
-     writeln('Au plaisir de vous revoir')
-  else if rep<>'n' then
-      begin
-      writeln('Veuillez saisir une réponse valide');
-      attendre(1000);
-      end;
-  until (rep = 'o') OR (rep = 'n');
-  effacerEcran();
-  Halt(1);
+  redo();
+
+  coordOrigin.x := 97;
+  coordOrigin.y := 29;
+  
+  ecrireEnPosition(posXY(83, coordOrigin.y-2), 'Etes vous sur de vouloir quitter ?');
+
+  setLength(listeTexte, 2);
+  listeTexte[0] := ' oui ';
+  listeTexte[1] := ' non ';
+  afficherListeMenu(listeTexte, coordOrigin, 2);
+  rep := selectionMenu(coordOrigin, 2, 2, 4, LightBlue, White);
+  if rep = 0 then
+    begin
+    ecrireEnPosition(posXY(88, coordOrigin.y+4), 'Au plaisir de vous revoir');
+    readlnPerso();
+    fin := true;
+    end
+  else
+     menuInitial(fin);
 end;
 
 procedure InterfaceInGame();
@@ -219,16 +222,16 @@ begin
   readlnPerso();
 end;
 
+//Affiche le choix effectué par l'utilisateur dans le menu du jeu (Menu sur la gauche)
 procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 begin
-  if GetChoixMenu() = -1 then
+  if GetChoixMenu() = -1 then //Affiche les informations du personnage
     afficheMenuPersonnage()
-  else if GetChoixMenu() = -2 then
+  else if GetChoixMenu() = -2 then //Affiche l'inventaire du personnage
     begin
       InterfaceInGame();
       afficheInventaire(inventairePerso);
       equipement(perso,inventairePerso,indicateur,nomEquipement);
-      readlnPerso();
     end;
 end;
 
@@ -509,8 +512,7 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
-  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
-  readln(ligneAEnregistrer);
+  read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
 end;
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour un entier)
@@ -520,11 +522,10 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
-  deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
-  readln(ligneAEnregistrer);
+  read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
 end;
-
+//Renvoie une coordonnée située en x et y
 function posXY(x, y : Integer) : coordonnees;
 var
   coordTemp : coordonnees;

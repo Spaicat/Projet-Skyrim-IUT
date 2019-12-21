@@ -2,7 +2,7 @@ unit unitInventaire;
 
 
 interface
-  uses unitPersonnage, SysUtils, TypInfo;
+  uses GestionEcran, unitPersonnage, SysUtils, TypInfo;
   // TYPES
 
   type categorie=(Soin,Protection,Degats);
@@ -92,118 +92,114 @@ uses UnitMenu;
      option : Integer;
      sortie : Boolean;
    begin
-   sortie := False;
-   repeat
-     writelnPerso('De quel objet voulez-vous vous equiper ?');
-     writelnPerso();
-     writelnPerso('1 - Epee');
-     writelnPerso('2 - Bouclier');
-     writelnPerso('3 - Potion');
-     writelnPerso('0 - Partir');
-     readlnPerso(option);
-   until (option = 0) OR (option = 1) OR (option = 2) OR (option = 3);
-
-   while sortie = False do
-   begin
-   case option of
-   0: sortie := True;
-
-   1 :
+     sortie := False;
+     while sortie = False do
      begin
-     if inventairePerso.possession[1] > 0 then
-     begin
-       if indicateur = 1 then
-         begin
-         if nomEquipement = 'Epee' then
+       writelnPerso('De quel objet voulez-vous vous equiper ?');
+       writelnPerso();
+       writelnPerso(' >  Epee');
+       writelnPerso(' >  Bouclier');
+       writelnPerso(' >  Potion');
+       writelnPerso(' >  Partir');
+       option := selectionMenu(posXY(positionCurseur().x, positionCurseur().y-3), 4, 1, 2, LightBlue, White) + 1;
+       case option of
+         1 :
            begin
-           writelnPerso('Elle est deja equiper');
-           sortie := True;
-           end
-         else
+           if inventairePerso.possession[1] > 0 then
            begin
-           writelnPerso('Vous vous en Equiper');
-           readlnPerso();
-           perso.defense := perso.defense - 10;
-           perso.attaque := perso.attaque + 20;
-           indicateur := indicateur + 1;
-           nomEquipement := 'Epee';
-           sortie := True;
+             if indicateur = 1 then
+               begin
+               if nomEquipement = 'Epee' then
+                 begin
+                 writelnPerso('Elle est deja equiper');
+                 sortie := True;
+                 end
+               else
+                 begin
+                 writelnPerso('Vous vous en Equiper');
+                 readlnPerso();
+                 perso.defense := perso.defense - 10;
+                 perso.attaque := perso.attaque + 20;
+                 indicateur := indicateur + 1;
+                 nomEquipement := 'Epee';
+                 sortie := True;
+                 end;
+               end
+             else
+               begin
+               writelnPerso('Vous vous equiper de l''epee !');
+               readlnPerso();
+               perso.attaque := perso.attaque + 20;
+               indicateur := indicateur + 1;
+               nomEquipement := 'Epee';
+               sortie := True;
+               end;
+            end
+           else
+             begin
+             writelnPerso('Vous n''avez pas cet objet...');
+             sortie := True;
+             end;
            end;
-         end
-       else
-         begin
-         writelnPerso('Vous vous equiper de l''epee !');
-         readlnPerso();
-         perso.attaque := perso.attaque + 20;
-         indicateur := indicateur + 1;
-         nomEquipement := 'Epee';
-         sortie := True;
-         end;
-      end
-     else
-       begin
-       writelnPerso('Vous n''avez pas cet objet...');
-       sortie := True;
+         2 :
+           begin
+           if inventairePerso.possession[2] > 0 then
+             begin
+             if indicateur = 1 then
+               begin
+               if nomEquipement = 'Bouclier' then
+                 begin
+                 writelnPerso('Elle est deja equiper');
+                 sortie := True;
+                 end
+               else
+                 begin
+                 writelnPerso('Vous vous en Equiper');
+                 readlnPerso();
+                 perso.defense := perso.defense + 10;
+                 perso.attaque := perso.attaque - 20;
+                 indicateur := indicateur + 1;
+                 nomEquipement := 'Bouclier';
+                 sortie := True;
+                 end;
+               end
+             else
+               begin
+               writelnPerso('Vous vous equiper du Bouclier !');
+               readlnPerso();
+               perso.defense := perso.defense + 10;
+               indicateur := indicateur + 1;
+               nomEquipement := 'Bouclier';
+               sortie := True;
+               end;
+
+             end
+            else
+               begin
+               writelnPerso('Vous n''avez pas cet objet...');
+               sortie := True;
+               end;
+           end;
+         3 :
+           begin
+           if inventairePerso.possession[3] > 0 then
+             begin
+             sortie := True;
+             writelnPerso('Vous consommer une potion !');
+             writelnPerso('Vous regagner 30 PV !');
+             perso.pv := perso.pv + 30;
+             if perso.pv > perso.pvMax then
+               perso.pv := perso.pvMax;
+             inventairePerso.possession[3] := inventairePerso.possession[3]-1
+             end
+           else
+             begin
+             sortie := True;
+             writelnPerso('Vous n''avez pas de potion...');
+             end;
+           end;
+         4 : sortie := True;
        end;
      end;
-   2 :
-     begin
-     if inventairePerso.possession[2] > 0 then
-       begin
-       if indicateur = 1 then
-         begin
-         if nomEquipement = 'Bouclier' then
-           begin
-           writelnPerso('Elle est deja equiper');
-           sortie := True;
-           end
-         else
-           begin
-           writelnPerso('Vous vous en Equiper');
-           readlnPerso();
-           perso.defense := perso.defense + 10;
-           perso.attaque := perso.attaque - 20;
-           indicateur := indicateur + 1;
-           nomEquipement := 'Bouclier';
-           sortie := True;
-           end;
-         end
-       else
-         begin
-         writelnPerso('Vous vous equiper du Bouclier !');
-         readlnPerso();
-         perso.defense := perso.defense + 10;
-         indicateur := indicateur + 1;
-         nomEquipement := 'Bouclier';
-         sortie := True;
-         end;
-
-       end
-      else
-         begin
-         writelnPerso('Vous n''avez pas cet objet...');
-         sortie := True;
-         end;
-     end;
-  3 :
-    begin
-    if inventairePerso.possession[3] > 0 then
-      begin
-      sortie := True;
-      writelnPerso('Vous consommer une potion !');
-      writelnPerso('Vous regagner 30 PV !');
-      perso.pv := perso.pv + 30;
-      if perso.pv > perso.pvMax then
-        perso.pv := perso.pvMax;
-      inventairePerso.possession[3] := inventairePerso.possession[3]-1
-      end
-    else
-      begin
-      sortie := True;
-      writelnPerso('Vous n''avez pas de potion...');
-      end;
-    end;
-   end;
-   end;
    end;
 end.
