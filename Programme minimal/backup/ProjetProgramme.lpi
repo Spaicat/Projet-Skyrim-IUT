@@ -44,7 +44,7 @@
       <Unit3>
         <Filename Value="unitmagasin.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="UnitMagasin"/>
+        <UnitName Value="unitMagasin"/>
       </Unit3>
       <Unit4>
         <Filename Value="unitcombat.pas"/>

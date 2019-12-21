@@ -16,15 +16,23 @@ type
     possibiliteLieu : TTableau;
     cate:cateLieu;
   end;
-var lieu1, lieu2, lieu3, lieu4,lieu5,lieu6,position : TInformation;
 
-procedure initLieu();
-procedure deplacement();
-procedure afficheLieuxPossibles();
-procedure actionLieu();
+function getLieu1() : TInformation;
 procedure setLieu(var lieuAAffect,lieu:TInformation);
+function getPosition() : TInformation;
+procedure setPosition(pos : TInformation);
+procedure afficheLieuxPossibles();
+procedure deplacement();
+procedure initLieu();
 
 implementation
+var lieu1, lieu2, lieu3, lieu4, lieu5, lieu6, position : TInformation;
+
+function getLieu1() : TInformation;
+begin
+  getLieu1 := lieu1;
+end;
+
 procedure setLieu(var lieuAAffect,lieu:TInformation);
 var
   i:Integer;//indice de parcours du tableau
@@ -36,6 +44,16 @@ begin
    begin
      lieuAAffect.possibiliteLieu[i]:=lieu.possibiliteLieu[i];
    end;
+end;
+
+function getPosition():TInformation;
+begin
+  getPosition := position;
+end;
+
+procedure setPosition(pos : TInformation);
+begin
+  position := pos;
 end;
 
 procedure afficheLieuxPossibles();
@@ -78,37 +96,7 @@ begin
        5:setLieu(position,lieu5);
        6:setLieu(position,lieu6);
   end;
-
-  {writeln('Vous allez à ',position.nom);
-  repeat
-  writeln('Souhaitez vous rester ici pour voir ce qu''il y a a faire(1) ou souhaitez vous continuer votre chemin(2) ?');
-  readln(choix);
-  until(choix>=1) and (choix<=2);
-  case choix of
-       1:actionLieu();
-       2:writeln('Continuons notre chemin');
-  end;}
-
-
-
-
 end;
-
-procedure actionLieu();
-var
-  choix:Integer;
-
-begin
-     case position.cate of
-          magasin:;//appeler procedure du marche pour acheter et vendre;
-          autre:writeln('Bon voyage ! autre');
-          fight:writeln('Combat');
-     end;
-end;
-
-
-
-
 
 procedure initLieu();
 begin

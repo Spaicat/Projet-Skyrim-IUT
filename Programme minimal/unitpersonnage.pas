@@ -15,13 +15,26 @@ interface
                   defense : Integer;
                   end;
 
-  var
-    persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
-
+  function getPersonnage() : Personnage;
+  procedure setPersonnage(perso : personnage);
   //Procédure pour créer le personnage
   procedure createCharacter();
 
 implementation
+  var
+    persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
+
+  procedure setPersonnage(perso : personnage);
+  begin
+    persoChoose := perso;
+  end;
+
+
+  //Fonction qui renvoie le personnage
+  function getPersonnage() : personnage;
+  begin
+    getPersonnage := persoChoose;
+  end;
 
   //Procédure pour créer le personnage
   procedure createCharacter();

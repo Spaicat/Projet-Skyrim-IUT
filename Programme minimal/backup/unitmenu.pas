@@ -1,7 +1,7 @@
 unit UnitMenu;
 
 interface
-uses UnitPersonnage, UnitMagasin, unitCombat, GestionEcran;
+uses UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu;
 
 
 //Procédure qui affiche le menu initial
@@ -10,6 +10,8 @@ procedure menuInitial();
 procedure LaunchGame();
 //Procédure pour quitter le jeu
 procedure QuitGame();
+//Procédure pour afficher l'interface du jeu
+procedure InterfaceInGame();
 
 implementation
 
@@ -63,6 +65,7 @@ begin
       end;
   until (rep = 'o') OR (rep = 'n');
   effacerEcran();
+  Halt(1);
 end;
 
 procedure InterfaceInGame();

@@ -3,21 +3,21 @@ program ProjetProgramme;
 uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, GestionEcran, unitLieu,unitInventaire;
 
 var
-  i : Integer;
-  scenario : Integer; //Varaible qui definiera ou le joueur en est dans l'histoire
+  scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
+  posTemp, //Variable qui définit la position du joueur
   anciennePosition : TInformation;
-  dragonFeu : Personnage;
+  dragonFeu,
+  persoTemp : Personnage;
   fuite : Boolean;
-
 
   nChoix : Integer;
 
-   o1,
+  o1,
   o2,
   o3 : Objet;
-  inventairePerso : Inventaire;
+  inventairePerso,
   inventaireMagasin : Inventaire;
-  indicateur : Integer; //Vraiable qui indique si le joueur a un objet equiper ou non
+  indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
 
 
@@ -27,11 +27,11 @@ begin
   changerTailleConsole(200,60);
   fuite := False;
   menuInitial();   //Creation du Menu Principal avec selection du personnage
-  anciennePosition := lieu1;
+  anciennePosition := getLieu1();
   initLieu();
   indicateur := 0;
   nomEquipement := '';
-  InterfaceInGame(position);        //Creation de l'interface
+  InterfaceInGame();        //Creation de l'interface
   initObjet(o1,o2,o3);
   initInventaire(inventairePerso,o1,o2,o3);
   initInventaire(inventaireMagasin,o1,o2,o3);
@@ -52,12 +52,14 @@ begin
 
   while scenario = 1 do
     begin
-    case position.nom of
+    posTemp := getPosition();
+    persoTemp := getPersonnage();
+    case posTemp.nom of
 
     'Boutique' :
       begin
       effacerEcran();
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Que voulez-vous faire');
       writeln();
       writeln('1 Pour vendre');
@@ -66,29 +68,30 @@ begin
       readln(nChoix);
 
       case nChoix of
-      0 :
+        0 :
+          begin
+          setPosition(getLieu1());
+          effacerEcran();
+          end;
+        1 :
         begin
-        position := lieu1;
+        vente(persoTemp,inventairePerso,inventaireMagasin);
         effacerEcran();
         end;
-      1 :
-      begin
-      vente(persoChoose,inventairePerso,inventaireMagasin);
-      effacerEcran();
+        2 :
+        begin
+        achat(persoTemp,inventairePerso,inventaireMagasin);
+        effacerEcran();
+        end;
       end;
-      2 :
-      begin
-      achat(persoChoose,inventairePerso,inventaireMagasin);
-      effacerEcran();
-      end;
-
-      end;
+      setPersonnage(persoTemp);
       end;
 
     'Inventaire' :
       begin
       afficheInventaire(inventairePerso);
-      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      equipement(persoTemp,inventairePerso,indicateur,nomEquipement);
+      setPersonnage(persoTemp);
       effacerEcran();
       deplacement();
       end;
@@ -97,7 +100,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Porte de Blancherive';
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Bienvenue devant la porte de Blancherive');
       writeln('Sortir maintenant serai une perte de temps...');
       writeln();
@@ -110,7 +113,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Bourg de Blancherive';
-      InterfaceInGame(position);   //Creation de l'interface
+      InterfaceInGame();   //Creation de l'interface
       writeln('Vous revoila a l''entre de Blancherive');
       writeln('Vous devez donnez le message au jarl le plus vite possible');
 
@@ -125,7 +128,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Marche de Blancherive';
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Bienvenue au marché de Blancherive');
       writeln('Vous voila au grand marche de Blancherive');
       writeln('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
@@ -139,7 +142,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Chateau de Blancherive';
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Bienvenue au Chateux de Blancherive');
       writeln('En arrivant a Fort-Dragon les garde vous arrête un instant et vous laisse passer a la vu du parchemin');
       writeln('Vous donner le parchemin au jarl il vous dit alors panique a situation');
@@ -159,11 +162,13 @@ begin
 
   while scenario = 2 do
     begin
-    case position.nom of
+    posTemp := getPosition();
+    persoTemp := getPersonnage();
+    case posTemp.nom of
 
     'Boutique' :
       begin
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Que voulez-vous faire');
       writeln();
       writeln('1 Pour vendre');
@@ -172,29 +177,31 @@ begin
       readln(nChoix);
 
       case nChoix of
-      0 : position := lieu1;
+        0 : setPosition(getLieu1());
 
-      1 :
-      begin
-      vente(persoChoose,inventairePerso,inventaireMagasin);
-      effacerEcran();
-      end;
-      2 :
-      begin
-      achat(persoChoose,inventairePerso,inventaireMagasin);
-      effacerEcran();
-      end;
-
+        1 :
+        begin
+        vente(persoTemp,inventairePerso,inventaireMagasin);
+        setPersonnage(persoTemp);
+        effacerEcran();
+        end;
+        2 :
+        begin
+        achat(persoTemp,inventairePerso,inventaireMagasin);
+        setPersonnage(persoTemp);
+        effacerEcran();
+        end;
       end;
       end;
 
     'Inventaire' :
       begin
       afficheInventaire(inventairePerso);
-      equipement(persoChoose,inventairePerso,indicateur,nomEquipement);
+      equipement(persoTemp,inventairePerso,indicateur,nomEquipement);
+      setPersonnage(persoTemp);
       readln;
       effacerEcran();
-      position := anciennePosition;
+      setPosition(anciennePosition);
       deplacement();
       end;
 
@@ -209,14 +216,15 @@ begin
       dragonFeu.argent := 100;
       writeln('Il est la !!!');
       writeln('Le ',dragonFeu.pseudo,' vous attaque !');
-      combat(persoChoose,dragonFeu,inventairePerso,fuite);
+      combat(persoTemp,dragonFeu,inventairePerso,fuite);
+      setPersonnage(persoTemp);
       effacerEcran();
       if fuite = False then
         begin
         writeln('Vous avez accomplie l''impossible !!');
         writeln('Le jarl vous a fait chevalier d''elite de Blancherive !!');
         couleurTexte(4);
-        writeln('CONGLATURATION');
+        writeln('CONGRATULATION');
         couleurTexte(15);
         readln();
         Halt(1);
@@ -238,7 +246,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Bourg de Blancherive';
-      InterfaceInGame(position);   //Creation de l'interface
+      InterfaceInGame();   //Creation de l'interface
       writeln('Vers la porte de la ville vous entender un grand bruit...');
       couleurTexte(4);
       writeln('La BETE EST ARRIVE !');
@@ -255,7 +263,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Marche de Blancherive';
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Bienvenue au marché de Blancherive');
       writeln('Vous voila au grand marche de Blancherive');
       writeln('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
@@ -269,7 +277,7 @@ begin
       begin
       writeln();
       anciennePosition.nom := 'Chateau de Blancherive';
-      InterfaceInGame(position);
+      InterfaceInGame();
       writeln('Diriger vous au plus vite au porte de la ville !');
       writeln();
       writeln('Ou voulez-vous aller ?');

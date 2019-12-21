@@ -11,7 +11,7 @@ procedure LaunchGame();
 //Procédure pour quitter le jeu
 procedure QuitGame();
 //Procédure pour afficher l'interface du jeu
-procedure InterfaceInGame(position : TInformation);
+procedure InterfaceInGame();
 
 implementation
 
@@ -68,13 +68,13 @@ begin
   Halt(1);
 end;
 
-procedure InterfaceInGame(position : TInformation);
+procedure InterfaceInGame();
 begin
   writeln('===========================');
-  writeln('Pseudo : ', persoChoose.pseudo);
-  writeln('Race : ', persoChoose.race);
-  writeln('PV : ', persoChoose.pv, ' / ', persoChoose.pvMax);
-  writeln('Bourse : ', persoChoose.argent, ' Gold');
+  writeln('Pseudo : ', getPersonnage().pseudo);
+  writeln('Race : ', getPersonnage().race);
+  writeln('PV : ', getPersonnage().pv, ' / ', getPersonnage().pvMax);
+  writeln('Bourse : ', getPersonnage().argent, ' Gold');
   writeln('===========================');
 end;
 
