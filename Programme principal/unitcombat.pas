@@ -179,14 +179,12 @@ randomize();
              writelnPerso('Vous avez gagnez !!');
              writelnPerso('Vous gagnez ' + IntToStr(monstre.argent) + ' or !');
              perso.argent := perso.argent + monstre.argent;
-           end;
          if perso.pv <= 0 then
            begin
            writelnPerso('Vous êtes mort...');
-           readlnPerso();
-           Halt(1);
+           // QuitGame();
            end;
-
+           end;
          writelnPerso();
 end;
 end;

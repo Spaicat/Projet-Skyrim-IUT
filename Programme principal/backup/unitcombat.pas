@@ -98,7 +98,7 @@ randomize();
          attendre(4000);
          effacerEcran();
          setPersonnage(perso);
-         InterfaceInGame();
+         InterfaceInGame(position);
          writelnPerso();
          writelnPerso('=============');
          writelnPerso(' ' + monstre.pseudo + ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));

@@ -15,13 +15,12 @@ interface
   end;
 
     type listeObj = array[1..3] of Objet;
-
     type poss = array[1..3] of Integer;
 
   type inventaire = record
      listeObjets : listeObj;
      possession : poss;
-     end;
+  end;
 
   // FONCTIONS ET PROCEDURES
 
