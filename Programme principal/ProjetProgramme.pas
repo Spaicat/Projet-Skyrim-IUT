@@ -56,7 +56,7 @@ begin
   writelnPerso('Vous ne gardez que votre epee et courez pour vous jeter sur le meurtrier de votre bien aime.');
   writelnPerso('Vous tranchez le corps de l''ennemi qui s''averait etre un soldat sombrage, il meurt sur le coup sans avoir le temps de se retourner.  ');
   writelnPerso();
-  writelnPerso(' Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
+  writelnPerso('Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
   writelnPerso('Vous lui rendez hommage en immolant son corps et jetant ses cendres dans la riviere qu''elle adorait');
   writelnPerso('Vous gardez son talisman pres de votre coeur. ');
   writelnPerso();
@@ -65,25 +65,24 @@ begin
 
   while (fin = False) do
     begin
-    posTemp := getPosition();
+    posTemp := getPosition(); //On prends le nom du lieu actuel
     case posTemp.nom of
 
     'Auberge' :
     begin
-    LancerAuberge(persoTemp);
+    LancerAuberge(persoTemp); //On lance la procédure auberge
     setPersonnage(persoTemp);
     lieuBourg := getLieu1();
     posTemp := getPosition();
     setLieu(posTemp, lieuBourg);
-    setPosition(posTemp);
+    setPosition(posTemp); //On met à jour la position
     end;
 
     'Boutique' :
     begin
-
       InterfaceInGame();
 
-      if not(getOuverture()) then
+      if not(getOuverture()) then //On vérifie si la boutique est fermé
       begin
            writeln('LE MAGASIN EST FERME ! REVENEZ A 8H DEMAIN MATIN !');
            readln();
@@ -93,44 +92,36 @@ begin
       begin
         writelnPerso('Que voulez-vous faire');
         writelnPerso();
-        writelnPerso('1 - Vendre');
-        writelnPerso('2 - Acheter');
-        writelnPerso('3 - Negocier');
-        writelnPerso('0 - Quitter');
-        repeat
-          readlnPerso(nChoix);
-        until ((nChoix>=0) and (nChoix<=3));
+        writelnPerso(' >  Acheter');
+        writelnPerso(' >  Vendre');
+        writelnPerso(' >  Negocier');
+        writelnPerso(' >  Quitter');
+        nChoix := selectionMenu(posXY(positionCurseur().x, positionCurseur().y-3), 4, 1, 2, LightBlue, White);
 
         case nChoix of
         0 :
           begin
-          setPosition(getLieu1());
-          effacerEcran();
+          achat(persoTemp,inventairePerso,inventaireMagasin);
+          setPersonnage(persoTemp);
+          redo();
           end;
         1 :
           begin
           vente(persoTemp,inventairePerso,inventaireMagasin);
           setPersonnage(persoTemp);
-          effacerEcran();
+          redo();
           end;
         2 :
           begin
-          achat(persoTemp,inventairePerso,inventaireMagasin);
-          setPersonnage(persoTemp);
-          effacerEcran();
+          writelnPerso();
+          negociation();
           end;
         3 :
           begin
-          negociation();
-          effacerEcran();
+          setPosition(getLieu1());
           end;
         end;
-
       end;
-      InterfaceInGame();
-      deplacement();
-
-
     end;
 
     'Menu' :
