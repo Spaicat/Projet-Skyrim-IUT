@@ -87,10 +87,12 @@ var
    choix: Integer;
    attaque: Integer;
    rng : Integer;
+
 begin
-randomize;
-sortie := False;
-randomize();
+      randomize;
+      sortie := False;
+      fuite := False;
+      randomize();
 
        while sortie=FALSE DO
        begin
@@ -119,6 +121,8 @@ randomize();
                   monstre.pv :=  0;
                 writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
                 attaque:= monstre.attaque + random(monstre.attaque div 2);
+                if attaque < 0 then
+                  attaque := 0;
                 perso.pv:= perso.pv - attaque;
                 writelnPerso();
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
@@ -129,6 +133,8 @@ randomize();
                 monstre.pv := monstre.pv - attaque;
                 writelnPerso('Vous contrez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + '. Il lui reste ' + IntToStr(monstre.pv));
                 attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
+                if attaque < 0 then
+                  attaque := 0;
                 perso.pv:= perso.pv - attaque;
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
               end;
@@ -177,11 +183,12 @@ randomize();
              writelnPerso('Vous avez gagnez !!');
              writelnPerso('Vous gagnez ' + IntToStr(monstre.argent) + ' or !');
              perso.argent := perso.argent + monstre.argent;
+           end;
          if perso.pv <= 0 then
            begin
            writelnPerso('Vous êtes mort...');
-           // QuitGame();
-           end;
+           readlnPerso();
+           Halt(1);
            end;
          writelnPerso();
        end;

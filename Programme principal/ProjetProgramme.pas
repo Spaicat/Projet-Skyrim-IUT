@@ -1,5 +1,7 @@
 program ProjetProgramme;
 
+{$codepage utf8}
+
 uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate, unitAuberge,unitbenediction,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;
 
@@ -23,11 +25,8 @@ var
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
 
-  coorMenuTexte1 : coordonnees;
 
 begin
-  coorMenuTexte1.x := 10;
-  coorMenuTexte1.y := 5;
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage
   persoTemp := getPersonnage();
@@ -391,23 +390,12 @@ begin
 
         readlnPerso();
         InterfaceInGame();
-
-        writelnPerso('Illyar Vous attaque');
-        monstre := Illyar();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
-
-        Benediction(persoTemp);
-        setPersonnage(persoTemp);
-
-        readlnPerso();
-        InterfaceInGame();
-
-        writelnPerso('Qjard a ete invoque');
-        writelnPerso('Qjard Vous attaque');
-        monstre := Qjard();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
+        repeat
+          writelnPerso('Illyar Vous attaque');
+          monstre := Illyar();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);
@@ -415,11 +403,26 @@ begin
         readlnPerso();
         InterfaceInGame();
 
-        writelnPerso('Ksiorn a ete invoque');
-        writelnPerso('Ksiorn Vous attaque');
-        monstre := Ksiorn();
-        combat(persoTemp,monstre,inventairePerso,fuite);
+        repeat
+          writelnPerso('Qjard a ete invoque');
+          writelnPerso('Qjard Vous attaque');
+          monstre := Qjard();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
+
+        Benediction(persoTemp);
         setPersonnage(persoTemp);
+
+        readlnPerso();
+        InterfaceInGame();
+        repeat
+          writelnPerso('Ksiorn a ete invoque');
+          writelnPerso('Ksiorn Vous attaque');
+          monstre := Ksiorn();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);

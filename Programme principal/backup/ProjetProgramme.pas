@@ -244,7 +244,7 @@ begin
       InterfaceInGame();
 
       writelnPerso('Vous voila au grand marche de Blancherive');
-      writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
+      writelnPerso('D''ici vous pouvez voir le Chateau emblematique de Blancherive : Fort-Dragon');
       writelnPerso();
       writelnPerso('Ou voulez-vous aller ?');
       writelnPerso();
@@ -391,23 +391,12 @@ begin
 
         readlnPerso();
         InterfaceInGame();
-
-        writelnPerso('Illyar Vous attaque');
-        monstre := Illyar();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
-
-        Benediction(persoTemp);
-        setPersonnage(persoTemp);
-
-        readlnPerso();
-        InterfaceInGame();
-
-        writelnPerso('Qjard a ete invoque');
-        writelnPerso('Qjard Vous attaque');
-        monstre := Qjard();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
+        repeat
+          writelnPerso('Illyar Vous attaque');
+          monstre := Illyar();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);
@@ -415,11 +404,26 @@ begin
         readlnPerso();
         InterfaceInGame();
 
-        writelnPerso('Ksiorn a ete invoque');
-        writelnPerso('Ksiorn Vous attaque');
-        monstre := Ksiorn();
-        combat(persoTemp,monstre,inventairePerso,fuite);
+        repeat
+          writelnPerso('Qjard a ete invoque');
+          writelnPerso('Qjard Vous attaque');
+          monstre := Qjard();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
+
+        Benediction(persoTemp);
         setPersonnage(persoTemp);
+
+        readlnPerso();
+        InterfaceInGame();
+        repeat
+          writelnPerso('Ksiorn a ete invoque');
+          writelnPerso('Ksiorn Vous attaque');
+          monstre := Ksiorn();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+        until fuite = False;
 
         Benediction(persoTemp);
         setPersonnage(persoTemp);
