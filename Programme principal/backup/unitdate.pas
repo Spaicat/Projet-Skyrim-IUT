@@ -4,6 +4,7 @@ interface
 
   uses SysUtils;
 
+  //Type
   type
     jour =(Morndas,Tirdas,Middas,Turdas,Fredas,Loredas,Sundas);
     mois = (Primetoile,Clairciel,Semailles,Ondepluie,Plantaisons,Mi_lan,Hautzenith,Vifazur,Atrefeu,Soufflegivre,Sombreciel,Soiretoile);
@@ -157,7 +158,7 @@ implementation
   var
      res:String;
   begin
-    res:=strJour(temps.j)+' '+IntToStr(temps.i)+' '+strMois(temps.m)+' de l''an '+IntToStr(temps.a);
+    res:=strJour(temps.j)+' '+IntToStr(temps.i)+' '+strMois(temps.m)+' de l''an '+IntToStr(temps.a)+' '+IntToStr(temps.t.heure)+'h';
     if temps.t.minute<10 then
        res:=res+'0';
     res:=res+IntToStr(temps.t.minute);

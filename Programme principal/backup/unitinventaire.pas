@@ -15,6 +15,7 @@ interface
   end;
 
     type listeObj = array[1..3] of Objet;
+
     type poss = array[1..3] of Integer;
 
   type inventaire = record
@@ -94,6 +95,7 @@ uses UnitMenu;
    begin
    sortie := False;
    repeat
+     redo();
      writelnPerso('De quel objet voulez-vous vous equiper ?');
      writelnPerso();
      writelnPerso('1 - Epee');

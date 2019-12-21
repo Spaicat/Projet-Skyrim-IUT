@@ -8,6 +8,7 @@ uses unitpersonnage, UnitMenu,GestionEcran;
 procedure Benediction(var perso: personnage);
 //Permet, en fin de combat, de choisir une bénédiction des Dieux nordiques.
 
+
 implementation
 
 procedure Benediction(var perso: personnage);
@@ -33,13 +34,13 @@ begin
   texte4.y := 55;
 
   //CHOIX DE LA BENEDICTION
-  writeln('De quelle bénédiction souhaitez-vous beneficiez pour la suite de votre aventure ?');
+  writeln('De quelle bénédiction souhaitez-vous bénéficiez pour la suite de votre aventure ?');
   //ODIN
-  ecrireEnPosition(texte1,'Benediction d''Odin - Votre force prend exemple sur celle du Dieu de la guerre. Votre attaque est augmentee de 30');
+  ecrireEnPosition(texte1,'Bénédiction d''Odin - Votre force prend exemple sur celle du Dieu de la guerre. Votre attaque est augmentée de 30');
   //IDUNN
-  ecrireEnPosition(texte2,'Benediction d''Idunn - La deesse de la jeunesse immortelle ameliore votre resistance. Votre vie sera augmentee de 30');
+  ecrireEnPosition(texte2,'Bénédiction d''Idunn - La déesse de la jeunesse immortelle améliore votre résistance. Votre vie sera augmentée de 30');
   //THOR
-  ecrireEnPosition(texte3,'Bénédiction de Thor - Le tonnerre et la protection de Thor vous accompagne. Votre attaque, votre vie et votre defense sont augmente de 10');
+  ecrireEnPosition(texte3,'Bénédiction de Thor - Le tonnerre et la protection de Thor vous accompagne. Votre attaque, votre vie et votre défense sont augmenté de 10');
 
   temp := selectionMenu(texte1,3,5,20,3,15); //Permet de sélectionner son choix grâce aux touches flèches haut/bas et la touche entrée
 

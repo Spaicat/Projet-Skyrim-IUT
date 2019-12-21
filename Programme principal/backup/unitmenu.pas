@@ -5,23 +5,13 @@ uses UnitPersonnage, GestionEcran, unitLieu, TypInfo, Keyboard, Classes, SysUtil
 
 //Procédure qui affiche le menu initial
 procedure menuInitial();
-
 //Procédure pour lancer le jeu
 procedure LaunchGame();
-
 //Procédure pour quitter le jeu
 procedure QuitGame();
-
 //Procédure pour afficher l'interface du jeu
 procedure InterfaceInGame();
-
 procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
-
-function Key() : TKeyEvent;
-
-//Efface l'écran et reconstitue le cadre
-procedure redo();
-
 //Procédure qui permet d'afficher un menu à partir d'une liste de texte (par exemple pour le menu initial)
 procedure afficherListeMenu(ListeTexte : array of String; coordMenuInitial : coordonnees; distanceEntreTexte : Integer);
 
@@ -33,21 +23,18 @@ procedure ecrireTexte(posCoord : coordonnees; textToWrite : String; largeur : In
 
 //Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe (juste pour sauter une ligne)
 procedure writelnPerso();
-
 //Fonction writeln mais saute d'abord une ligne et marche avec des coordonnées non fixe
 procedure writelnPerso(ligneAEcrire : String);
 
 procedure readlnPerso();
-
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour une chaine de caractères)
 procedure readlnPerso(var ligneAEnregistrer : String);
-
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour un entier)
 procedure readlnPerso(var ligneAEnregistrer : Integer);
 
-//Renvoie une coordonnée située en x et y
-function posXY(x, y : Integer) : coordonnees;
-
+function Key() : TKeyEvent;
+//Efface l'écran et reconstitue le cadre
+procedure redo();
 
 implementation
 
@@ -97,7 +84,7 @@ begin
   asciiText := asciiText + '                           /#######  /#   #####/                                    /                                 ';
   asciiText := asciiText + '                          /      ###/       ###                                    /                                  ';
   ecrireTexte(coorTTest, asciiText, 118);
-  writelnPerso('é/é è/è à/à : ' + chr(130) + #130);
+
   setLength(ListeMenuInitial, 2);
   ListeMenuInitial[0] := 'Jouer ?';
   ListeMenuInitial[1] := 'Quitter ?';
@@ -226,7 +213,7 @@ begin
     afficheMenuPersonnage()
   else if GetChoixMenu() = -2 then
     begin
-      InterfaceInGame();
+      InterfaceInGame(getPosition());
       afficheInventaire(inventairePerso);
       equipement(perso,inventairePerso,indicateur,nomEquipement);
       readlnPerso();
@@ -522,15 +509,6 @@ begin
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
   readln(ligneAEnregistrer);
   deplacerCurseurXY(posTemp, positionCurseur.y);
-end;
-
-function posXY(x, y : Integer) : coordonnees;
-var
-  coordTemp : coordonnees;
-begin
-  coordTemp.x := x;
-  coordTemp.y := y;
-  posXY := coordTemp;
 end;
 
 end.
