@@ -92,11 +92,10 @@ begin
       randomize;
       sortie := False;
       fuite := False;
-      randomize();
 
        while sortie=FALSE DO
        begin
-         attendre(4000);
+         attendre(3000);
          setPersonnage(perso);
          InterfaceInGame();
          writelnPerso();
@@ -169,6 +168,7 @@ begin
                   writelnPerso('Vous vous enfuyez !');
                   sortie:= True;
                   fuite := True;
+                  readlnPerso();
                   end
                 else
                   begin
@@ -177,7 +177,6 @@ begin
                   perso.pv:= perso.pv - attaque;
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
-                readlnPerso();
               end;
        end;
          if monstre.pv<=0 then

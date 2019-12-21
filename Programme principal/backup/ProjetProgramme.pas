@@ -25,9 +25,6 @@ var
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
 begin
-
-  menuInitial();            //Creation du Menu Principal avec selection du personnage
-  persoTemp := getPersonnage();
   fin := False;
   menuInitial(fin);            //Creation du Menu Principal avec selection du personnage
 
@@ -249,8 +246,6 @@ begin
       writelnPerso('Vous voila au grand marche de Blancherive');
       writelnPerso('D''ici vous pouvez voir le Chateau emblematique de Blancherive : Fort-Dragon');
       writelnPerso();
-      writelnPerso('Ou voulez-vous aller ?');
-      writelnPerso();
       if not getOuverture() then
       begin
            writelnPerso('Un Ivrogne vous attaque !!');
@@ -258,6 +253,11 @@ begin
            combat(persoTemp,monstre,inventairePerso,fuite);
            setPersonnage(persoTemp);
            InterfaceInGame();
+      end
+      else
+      begin
+      writelnPerso('Ou voulez-vous aller ?');
+      writelnPerso();
       end;
       deplacement();
       waitUneHeure();
