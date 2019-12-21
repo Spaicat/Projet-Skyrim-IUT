@@ -119,7 +119,7 @@ implementation
       listeTexte[1] := 'non';
       coordOrigin.y := coordOrigin.y + 2;
       afficherListeMenu(listeTexte, coordOrigin, 1);
-      repUtilisateur := selectionMenu(coordOrigin, 2, 1, 3, LightBlue, White); //0 = oui et 1 = non
+      repUtilisateur := selectionMenu(coordOrigin, 2, 1, 2, LightBlue, White); //0 = oui et 1 = non
 
     until repUtilisateur=0;
   end;

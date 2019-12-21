@@ -505,22 +505,24 @@ end;
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour une chaine de caractères)
 procedure readlnPerso(var ligneAEnregistrer : String);
 var
-  posTemp : Integer;
+  posTemp : coordonnees;
 begin
-  posTemp := positionCurseur.x;
+  posTemp.x := positionCurseur.x;
+  posTemp.y := positionCurseur.y+1;
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
   readln(ligneAEnregistrer);
-  deplacerCurseurXY(posTemp, positionCurseur.y);
+  deplacerCurseur(posTemp);
 end;
 //Fonction readln mais saute d'abord une ligne et marche avec des coordonnées non fixe (pour un entier)
 procedure readlnPerso(var ligneAEnregistrer : Integer);
 var
-  posTemp : Integer;
+  posTemp : coordonnees;
 begin
-  posTemp := positionCurseur.x;
+  posTemp.x := positionCurseur.x;
+  posTemp.y := positionCurseur.y+1;
   deplacerCurseurXY(positionCurseur.x, positionCurseur.y+1);
   readln(ligneAEnregistrer);
-  deplacerCurseurXY(posTemp, positionCurseur.y);
+  deplacerCurseur(posTemp);
 end;
 
 function posXY(x, y : Integer) : coordonnees;

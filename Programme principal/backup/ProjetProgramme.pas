@@ -56,7 +56,7 @@ begin
   writelnPerso('Vous ne gardez que votre epee et courez pour vous jeter sur le meurtrier de votre bien aime.');
   writelnPerso('Vous tranchez le corps de l''ennemi qui s''averait etre un soldat sombrage, il meurt sur le coup sans avoir le temps de se retourner.  ');
   writelnPerso();
-  writelnPerso(' Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
+  writelnPerso('Le melange de haine et de tristesse vous fait fondre en larme sur le corps sans vie de votre femme.');
   writelnPerso('Vous lui rendez hommage en immolant son corps et jetant ses cendres dans la riviere qu''elle adorait');
   writelnPerso('Vous gardez son talisman pres de votre coeur. ');
   writelnPerso();

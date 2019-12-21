@@ -38,7 +38,7 @@ implementation
    //Fonction qui renvoie le personnage
    function getPersonnage() : personnage;
    begin
-     getPersonnage() := persoChoose;
+     getPersonnage := persoChoose;
    end;
 
   //Procédure pour créer le personnage

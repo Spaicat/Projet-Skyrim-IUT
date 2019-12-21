@@ -244,7 +244,7 @@ begin
       InterfaceInGame();
 
       writelnPerso('Vous voila au grand marche de Blancherive');
-      writelnPerso('D''ici vous pouvez vous le Chateau emblematique de Blancherive : Fort-Dragon');
+      writelnPerso('D''ici vous pouvez voir le Chateau emblematique de Blancherive : Fort-Dragon');
       writelnPerso();
       writelnPerso('Ou voulez-vous aller ?');
       writelnPerso();

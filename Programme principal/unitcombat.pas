@@ -38,7 +38,7 @@ begin
      monstre.pvMax:=120;
      monstre.attaque:=10;
      monstre.argent:=12;
-     Illyar:=monstre;
+     Illyar := monstre;
 end;
 
 function Qjard():Personnage;
@@ -47,12 +47,12 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Qjard';
-     monstre.pv:= 125;
-     monstre.pvMax:=125;
-     monstre.attaque:=11;
-     monstre.argent:=12;
-     Qjard:=monstre;
+     monstre.pseudo := 'Qjard';
+     monstre.pv := 125;
+     monstre.pvMax := 125;
+     monstre.attaque := 11;
+     monstre.argent := 12;
+     Qjard := monstre;
 end;
 
 function Ksiorn():Personnage;
@@ -61,23 +61,23 @@ var
    monstre : Personnage;
 
 begin
-     monstre.pseudo:= 'Ksiorn';
-     monstre.pv:= 130;
-     monstre.pvMax:=130;
-     monstre.attaque:=20;
-     monstre.argent:=12;
-     Ksiorn:=monstre;
+     monstre.pseudo := 'Ksiorn';
+     monstre.pv := 130;
+     monstre.pvMax := 130;
+     monstre.attaque := 20;
+     monstre.argent := 12;
+     Ksiorn := monstre;
 end;
 function Ivrogne():Personnage;
 var
    monstre : Personnage;
 begin
-   monstre.pseudo:= 'L''Ivrogne';
-   monstre.pv:= 75;
-   monstre.pvMax:=75;
-   monstre.attaque:=15;
-   monstre.argent:=30;
-   Ivrogne:=monstre;
+   monstre.pseudo := 'L''Ivrogne';
+   monstre.pv := 75;
+   monstre.pvMax := 75;
+   monstre.attaque := 15;
+   monstre.argent := 30;
+   Ivrogne := monstre;
 end;
 
 procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
@@ -88,15 +88,13 @@ var
    attaque: Integer;
    rng : Integer;
 begin
-randomize;
-sortie := False;
-randomize();
+      randomize;
+      sortie := False;
+      randomize();
 
        while sortie=FALSE DO
        begin
-
          attendre(4000);
-         effacerEcran();
          setPersonnage(perso);
          InterfaceInGame();
          writelnPerso();
@@ -111,7 +109,7 @@ randomize();
            writelnPerso('3 - Utiliser une potion');
            writelnPerso('4 - Fuite');
            readlnPerso(choix);
-         until (choix = 1) OR (choix = 2) OR (choix = 3) OR (choix = 4);
+         until (choix >= 1) and (choix <= 4);
          case choix of
               1:
               begin
@@ -173,7 +171,7 @@ randomize();
                   end;
               end;
        end;
-         IF monstre.pv<=0 then
+         if monstre.pv<=0 then
            begin
              sortie := True;
              writelnPerso('Vous avez gagnez !!');
@@ -186,6 +184,6 @@ randomize();
            end;
            end;
          writelnPerso();
-end;
+       end;
 end;
 end.
