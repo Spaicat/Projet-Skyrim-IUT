@@ -24,7 +24,6 @@ var
   inventaireMagasin : Inventaire;
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
-
 begin
 
   menuInitial();            //Creation du Menu Principal avec selection du personnage

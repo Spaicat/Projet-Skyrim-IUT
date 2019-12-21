@@ -24,8 +24,10 @@ var
   inventaireMagasin : Inventaire;
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
   nomEquipement : String;
-
 begin
+
+  menuInitial();            //Creation du Menu Principal avec selection du personnage
+  persoTemp := getPersonnage();
   fin := False;
   menuInitial(fin);            //Creation du Menu Principal avec selection du personnage
 
@@ -393,13 +395,6 @@ begin
 
         readlnPerso();
         InterfaceInGame();
-
-        writelnPerso('Illyar Vous attaque');
-        monstre := Illyar();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
-        InterfaceInGame();
-
         repeat
           writelnPerso('Illyar Vous attaque');
           monstre := Illyar();
@@ -411,13 +406,6 @@ begin
         setPersonnage(persoTemp);
 
         readlnPerso();
-        InterfaceInGame();
-
-        writelnPerso('Qjard a ete invoque');
-        writelnPerso('Qjard Vous attaque');
-        monstre := Qjard();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
         InterfaceInGame();
 
         repeat
@@ -432,13 +420,6 @@ begin
         setPersonnage(persoTemp);
 
         readlnPerso();
-        InterfaceInGame();
-
-        writelnPerso('Ksiorn a ete invoque');
-        writelnPerso('Ksiorn Vous attaque');
-        monstre := Ksiorn();
-        combat(persoTemp,monstre,inventairePerso,fuite);
-        setPersonnage(persoTemp);
         InterfaceInGame();
 
         repeat

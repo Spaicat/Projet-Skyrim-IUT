@@ -91,10 +91,7 @@ var
 begin
       randomize;
       sortie := False;
-<<<<<<< HEAD
-=======
       fuite := False;
->>>>>>> 8bfb6b28071ac7e6b1ad2e75bc5f1bc9934e6e2e
       randomize();
 
        while sortie=FALSE DO
@@ -129,7 +126,6 @@ begin
                 perso.pv:= perso.pv - attaque;
                 writelnPerso();
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
-                readlnPerso();
               end;
               2:
               begin
@@ -141,7 +137,6 @@ begin
                   attaque := 0;
                 perso.pv:= perso.pv - attaque;
                 writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
-                readlnPerso();
               end;
               3:
               begin
@@ -159,11 +154,12 @@ begin
                   if perso.pv > perso.pvMax then
                     perso.pv := perso.pvMax;
                   attaque:= monstre.attaque + random(monstre.attaque div 2);
+                  if attaque < 0 then
+                    attaque := 0;
                   perso.pv:= perso.pv - attaque;
                   writelnPerso();
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
                   end;
-                readlnPerso();
               end;
               4:
               begin
@@ -190,10 +186,7 @@ begin
              writelnPerso('Vous avez gagnez !!');
              writelnPerso('Vous gagnez ' + IntToStr(monstre.argent) + ' or !');
              perso.argent := perso.argent + monstre.argent;
-<<<<<<< HEAD
              readlnPerso();
-=======
->>>>>>> 8bfb6b28071ac7e6b1ad2e75bc5f1bc9934e6e2e
            end;
          if perso.pv <= 0 then
            begin
