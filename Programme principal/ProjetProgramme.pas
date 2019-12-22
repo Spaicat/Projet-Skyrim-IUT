@@ -1,6 +1,6 @@
 program ProjetProgramme;
 
-{$codepage utf8}
+{$codepage utf8} //On définit l'encodage en utf-8
 
 uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire, unitDate, unitAuberge,unitbenediction,
      GestionEcran, TypInfo, Keyboard, Classes, SysUtils, Windows;

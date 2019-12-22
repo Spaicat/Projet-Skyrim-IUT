@@ -46,8 +46,8 @@ uses UnitMenu;
      nChoix, //Entier correspondant au choix de l'utilisateur (Epee, bouclier ...)
      valobj : Integer; //Valeur de l'objet à acheter (avec ou sans remise)
      sortie : boolean; //Variable de la boucle
-     listePerTemp, //Inventaire du personnage dans la procédure qu'on fait correspondre au véritable inventaire à chaque itération
-     listeMagasinTemp : Inventaire; //Inventaire du magasin dans la procédure qu'on fait correspondre au véritable inventaire à chaque itération
+     listePerTemp, //Inventaire du personnage dans la procédure qu'on fait correspondre au véritable inventaire à chaque fin d'itération
+     listeMagasinTemp : Inventaire; //Inventaire du magasin dans la procédure qu'on fait correspondre au véritable inventaire à chaque fin d'itération
    begin
      listePerTemp := listePer;
      listeMagasinTemp := listeMagasin;
@@ -100,10 +100,10 @@ uses UnitMenu;
   //Procédure qui lance les ventes dans le magasin
   procedure vente(var p:Personnage; var listePer,listeMagasin:Inventaire);
   var
-     nChoix : Integer;
-     sortie : boolean;
-     listePerTemp,
-     listeMagasinTemp : Inventaire;
+     nChoix : Integer; //Entier correspondant au choix de l'utilisateur (Epee, bouclier ...)
+     sortie : boolean; //Variable de la boucle
+     listePerTemp, //Inventaire du personnage dans la procédure qu'on fait correspondre au véritable inventaire à chaque fin d'itération
+     listeMagasinTemp : Inventaire; //Inventaire du magasin dans la procédure qu'on fait correspondre au véritable inventaire à chaque fin d'itération
   begin
      listePerTemp := listePer;
      listeMagasinTemp := listeMagasin;
@@ -153,9 +153,9 @@ uses UnitMenu;
   //Procédure qui lance la négociation
   procedure negociation();
   var
-     nbADeviner,
-     nbEssais,
-     nb : Integer;
+     nbADeviner, //Entier correspondant au nombre à deviner pour avoir la remise
+     nbEssais, //Entier correspondant au nombre d'essais effectué par l'utilisateur
+     nb : Integer; //Entier correspondant au nombre tapé par l'utilisateur
      sortie : boolean;
   begin
      sortie:=false;

@@ -248,16 +248,16 @@ begin
       writelnPerso();
       if not getOuverture() then
       begin
-           writelnPerso('Un Ivrogne vous attaque !!');
-           monstre:=Ivrogne();
-           combat(persoTemp,monstre,inventairePerso,fuite);
-           setPersonnage(persoTemp);
-           InterfaceInGame();
+          writelnPerso('Un Ivrogne vous attaque !!');
+          monstre:=Ivrogne();
+          combat(persoTemp,monstre,inventairePerso,fuite);
+          setPersonnage(persoTemp);
+          InterfaceInGame();
       end
       else
       begin
-      writelnPerso('Ou voulez-vous aller ?');
-      writelnPerso();
+          writelnPerso('Ou voulez-vous aller ?');
+          writelnPerso();
       end;
       deplacement();
       waitUneHeure();
