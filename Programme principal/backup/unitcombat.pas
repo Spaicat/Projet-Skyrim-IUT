@@ -308,9 +308,8 @@ begin
            asciiText := asciiText + '    `## ##    ##       ##  ##       ##   `"####,      ###"""""""    ##    ###"""""""   `"####,      ##      ##      ##  ##       ##  ##            ##          ';
            asciiText := asciiText + '     `###     "##,   ,##"   ##,   ,###  ##    ]##     "##,   ,##    ##,   "##,   ,##  ##    ]##     ##      ##      ##  "##,   ,##"  ##            ##,       ##';
            asciiText := asciiText + '      `#       `"#####"      "##### ##  `"#####"       `"#####"     "####  `"#####"   `"#####"      ##      ##      ##   `"#####"    ##            "####     ##';
-           ecrireTexte(posXY(20, 20), asciiText, 159);
+           ecrireTexte(posXY(20, 26), asciiText, 159);
 
-           writelnPerso('Vous êtes mort...');
            readlnPerso();
            Halt(1);
            end;

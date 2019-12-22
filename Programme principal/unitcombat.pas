@@ -91,7 +91,7 @@ var
    rng : Integer;        //Variable qui stokera une valeur aleatoire
    effet : Integer;     //Variable qui définie l'effet du personnage //0 = rien //1 = étourdissement
    effetDuree : Integer;  //Variable qui compte la duree de l'effet
-   asciiText,
+   asciiText, //Variable qui contient l'ascii art à afficher quand on est mort
    textTemp : String; //Variable qui contient le texte à afficher dans les cadres
    coorTemp : coordonnees; //Variable qui contient l'emplacement (en haut à gauche) des cadres
 
