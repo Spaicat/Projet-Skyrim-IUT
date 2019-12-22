@@ -525,6 +525,7 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
+  deplacerCurseur(posTemp);
   read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
 end;
@@ -535,6 +536,7 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
+  deplacerCurseur(posTemp);
   read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
 end;

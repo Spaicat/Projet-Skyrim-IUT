@@ -120,7 +120,7 @@ begin
   coorT.y := 27;
   text := 'Pour selectionner le menu, appuyez sur "tab" !';
   dessinercadre(coorT, posXY(coorT.x+length(text)+5, coorT.y+4), double, White, Black);
-  ecrireEnPosition(posXY(coorT.x+3, coorT.y), ' Conseil ');
+  ecrireEnPosition(posXY(coorT.x+4, coorT.y), ' Conseil ');
   ecrireEnPosition(posXY(coorT.x+3,coorT.y+2), text);
   readlnPerso();
   createCharacter();
@@ -525,6 +525,7 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
+  deplacerCurseur(posTemp);
   read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
 end;
@@ -535,8 +536,8 @@ var
 begin
   posTemp.x := positionCurseur.x;
   posTemp.y := positionCurseur.y+1;
-  read(ligneAEnregistrer);
   deplacerCurseur(posTemp);
+  read(ligneAEnregistrer);
 end;
 //Renvoie une coordonnée située en x et y
 function posXY(x, y : Integer) : coordonnees;

@@ -1,6 +1,6 @@
 unit unitMagasin;
 
-
+{$codepage utf8}
 
 interface
 
@@ -36,7 +36,8 @@ uses UnitMenu;
 
    procedure achat(var p:Personnage; var listePer,listeMagasin:Inventaire);
    var
-     nChoix:Integer;
+     nChoix,
+     valobj : Integer;
      sortie:boolean;
      listePerTemp,
      listeMagasinTemp : Inventaire;
@@ -52,7 +53,7 @@ uses UnitMenu;
        writelnPerso(' >  Potion --> 5 or');
        writelnPerso(' >  Quitter');
        if remise then
-          writelnPerso('N''oubliez pas ! Vous avez 30% de remise sur un article au choix.');
+          writelnPerso('N''oubliez pas ! Vous avez 30% de remise sur un article au choix.')
        else
           writelnPerso();
        writelnPerso();
@@ -60,31 +61,27 @@ uses UnitMenu;
        nChoix := selectionMenu(posXY(positionCurseur().x, positionCurseur().y-5), 4, 1, 2, LightBlue, White) + 1;
        if (nChoix=4) then
           sortie:=true
-       else if p.argent>=listeMagasinTemp.listeObjets[nChoix].valeur then
+       else
        begin
          if remise then
+            valobj := listeMagasinTemp.listeObjets[nChoix].valeur * 7 div 10
+         else
+             valObj := listeMagasinTemp.listeObjets[nChoix].valeur;
+         if p.argent>=valObj then
          begin
-            remise:=false;
-            listePerTemp.possession[nChoix]:=listePerTemp.possession[nChoix]+1; //ajout à l'inventaire du personnage
-            p.argent:=p.argent-listeMagasinTemp.listeObjets[nChoix].valeur*7 div 10; //diminution de la bourse du personnage
-            listeMagasinTemp.possession[nChoix]:=listeMagasinTemp.possession[nChoix]-1;//diminution des stocks
-            writelnPerso('Vous avez acquis un/une ' + listePerTemp.listeObjets[nChoix].nom + '  pour ' + IntToStr(listeMagasinTemp.listeObjets[nChoix].valeur*7 div 10) + ' or. Vous en avez actuellement ' + IntToStr(listePer.possession[nChoix]) + ' et il vous reste maintenant ' + IntToStr(p.argent) +' or.');
-            readlnPerso();
+              remise:=false;
+              listePerTemp.possession[nChoix]:=listePerTemp.possession[nChoix]+1; //ajout à l'inventaire du personnage
+              p.argent:=p.argent-valObj; //diminution de la bourse du personnage
+              listeMagasinTemp.possession[nChoix]:=listeMagasinTemp.possession[nChoix]-1;//diminution des stocks
+              writelnPerso('Vous avez acquis un/une ' + listePerTemp.listeObjets[nChoix].nom + '  pour ' + IntToStr(valObj) + ' or. Vous en avez actuellement ' + IntToStr(listePer.possession[nChoix]) + ' et il vous reste maintenant ' + IntToStr(p.argent) +' or.');
+              readlnPerso();
          end
          else
-         begin
-            listePerTemp.possession[nChoix]:=listePerTemp.possession[nChoix]+1; //ajout à l'inventaire du personnage
-            p.argent:=p.argent-listeMagasinTemp.listeObjets[nChoix].valeur; //diminution de la bourse du personnage
-            listeMagasinTemp.possession[nChoix]:=listeMagasinTemp.possession[nChoix]-1;//diminution des stocks
-            writelnPerso('Vous avez acquis un/une ' + listePerTemp.listeObjets[nChoix].nom + '  pour ' + IntToStr(listeMagasinTemp.listeObjets[nChoix].valeur) + ' or. Vous en avez actuellement ' + IntToStr(listePer.possession[nChoix]) + ' et il vous reste maintenant ' + IntToStr(p.argent) + ' or.');
-            readlnPerso();
-         end;
-         if (p.argent<listeMagasinTemp.listeObjets[nChoix].valeur) then
          begin
               writelnPerso('Vous n''avez pas l''argent necessaire.');
               readlnPerso();
          end;
-       end; //Fin cas achat possible
+       end;
        setPersonnage(p);
        listePer := listePerTemp;
        listeMagasin := listeMagasinTemp;
@@ -145,14 +142,13 @@ uses UnitMenu;
 
   procedure negociation();
   var
-
-     nbADeviner:Integer;
-     nbEssais:Integer;
-     sortie:boolean;
-     nb:Integer;
+     nbADeviner,
+     nbEssais,
+     nb : Integer;
+     sortie : boolean;
   begin
      sortie:=false;
-     nbEssais:=1;
+     nbEssais:=0;
      randomize();
      writelnPerso('Ah vous voulez jouer, ... sachez que je suis joueur moi aussi et si vous gagner contre moi vous gagnerez 30% de remise sur n''importe quel article pour votre prochain achat');
      readlnPerso();
@@ -165,8 +161,8 @@ uses UnitMenu;
      writelnPerso('Les regles sont simples, vous devez trouver le nombre écrit au dos de ce tableau');
      writelnPerso('Vous avez 4 essais, le nombre est compris entre 1 et 50. C''est parti ! Proposez un nombre !');
      repeat
-       readlnPerso(nb);
-       if (nbEssais>4) then
+       nbEssais:=nbEssais+1;
+       if (nbEssais>6) then
        begin
             writelnPerso('Dommage ! Vous avez dépassé le nombre d''essais ! Vous paierez les articles au prix fort !');
             sortie:=true;
@@ -174,6 +170,7 @@ uses UnitMenu;
        end
        else
        begin
+            readlnPerso(nb);
             if nb=nbADeviner then
             begin
                  remise:=true;
@@ -182,7 +179,6 @@ uses UnitMenu;
             end
             else
             begin
-                 nbEssais:=nbEssais+1;
                  if nb>nbADeviner then
                  begin
                       writelnPerso('Raté le nombre est plus petit que ' + IntToStr(nb) + '.');
@@ -194,6 +190,7 @@ uses UnitMenu;
             end;
        end;
      until(sortie);
+     readlnPerso();
      readlnPerso();
 
   end;
