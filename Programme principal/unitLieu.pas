@@ -9,21 +9,21 @@ type
   TTableau = array [1..8] of Boolean;       // 1 = Blancherive // 2 = Marché de Blancherive // 3 = Chateau //4 = Porte de la ville // 5 = Boutique // 6 = Menu // 7 = Auberge // 8 = Clan Drakion
 
 type
-  TInformation = record
+  TInformation = record         //Definition du type lieu  TInforamtion
     nom : String;
     indice:Integer;
     possibiliteLieu : TTableau;
   end;
 
-function GetChoixMenu() : Integer;
-function getLieu1() : TInformation;
-procedure setLieu(var lieuAAffect,lieu:TInformation);
-function getOuverture() : boolean;
-function getPosition() : TInformation;
-procedure setPosition(pos : TInformation);
-procedure updateOuverture();
-function afficheLieuxPossibles() : Integer;
-procedure deplacement();
+function GetChoixMenu() : Integer;          //Fonction qui permet de resortir les choix du joueur
+function getLieu1() : TInformation;             //Fonction qui permet de retouner les information du lieu 1
+procedure setLieu(var lieuAAffect,lieu:TInformation);       //Procedure qui permet de definir un lieu sur le jeu
+function getOuverture() : boolean;              //Fonction qui indique grace a une variable boolean si le batiment est ouvert a une certaine heure
+function getPosition() : TInformation;          //Fonction qui permet de retouner la valeur de la position du joueur
+procedure setPosition(pos : TInformation);      //Procedure qui met la position du personnage a un certain lieu
+procedure updateOuverture();            //On met a jour les batiment en fonction de l'heure du jeu
+function afficheLieuxPossibles() : Integer;     //Fonction qui permet d'afficher les lieux possibles
+procedure deplacement();            //Procedure qui permet de se déplacer de lieux en lieux
 procedure initLieu();
 
 implementation
@@ -47,36 +47,36 @@ begin
    lieuAAffect.indice:=lieu.indice;
    for i:=low(lieu.possibiliteLieu) to high(lieu.possibilitelieu) do
    begin
-     lieuAAffect.possibiliteLieu[i]:=lieu.possibiliteLieu[i];
+     lieuAAffect.possibiliteLieu[i]:=lieu.possibiliteLieu[i];       //On affecte tous les lieux possible 
    end;
 end;
 
 function GetChoixMenu() : Integer;
 begin
-  GetChoixMenu := choixMenu;
+  GetChoixMenu := choixMenu;        //On retourne la valeur du choix du menu du joueur
 end;
 
-function getOuverture():boolean;
-begin
+function getOuverture():boolean;        //La fonction indique si le batiment est ouvert a l'heure du jeu
+begin   
   getOuverture := ouvert;
 end;
 
 function getPosition():TInformation;
 begin
-  getPosition := position;
+  getPosition := position;      //On retourne la valeur de la position du joueur
 end;
 
 procedure setPosition(pos : TInformation);
 begin
-  position := pos;
+  position := pos;              //On definie la position du joueur
 end;
 
 procedure updateOuverture();
 var
-  d : dateCourante;
+  d : dateCourante;//Variable qui definie la date et l'heure du jeux
 begin
   d := getDate();
-  if (d.t.heure<=7) or (d.t.heure>=20) then
+  if (d.t.heure<=7) or (d.t.heure>=20) then  //On met a jour les lieux en fnction de l'heure de la journee
     ouvert := false
   else
      ouvert := true;
@@ -91,7 +91,7 @@ var
 begin
     listePos := '';
     writelnPerso('Position : ' + position.nom);
-    posInitial.x := positionCurseur().x;
+    posInitial.x := positionCurseur().x;            //On affiche les différentes possibilité de deplacement en fonction de la postion
     posInitial.y := positionCurseur().y+1;
     for i:= 1 to 8 do
       if position.possibiliteLieu[i] then
@@ -115,18 +115,18 @@ end;
 
 procedure deplacement();
 var
-  choix:Integer;
+  choix:Integer;//Variable qui stoke le choix de l'utilisateur
 
 begin
   choix := afficheLieuxPossibles();
-  case choix of
+  case choix of         
        1:setLieu(position,lieu1); //Blancherive
        2:setLieu(position,lieu2); //Marché de Blancherive
        3:setLieu(position,lieu3); //Chateau
-       4:setLieu(position,lieu4); //Porte de la ville
+       4:setLieu(position,lieu4); //Porte de la ville           //On setposition selon le lieu choisie
        5:setLieu(position,lieu5); //Boutique
-       7:setLieu(position,lieu7);
-       8:setLieu(position,lieu8);
+       7:setLieu(position,lieu7);//Auberge
+       8:setLieu(position,lieu8);//Clan Drakion
        else
          if choix < 0 then
            setLieu(position,lieu6); //Menu
@@ -135,7 +135,7 @@ begin
   updateOuverture();
 end;
 
-procedure initLieu();
+procedure initLieu();       //On definie le nom, l'indice, et les possibilité de tous les lieux
 begin
 
 
@@ -143,7 +143,7 @@ begin
   lieu1.indice:=1;
   lieu1.possibiliteLieu[1] := False;
   lieu1.possibiliteLieu[2] := True;
-  lieu1.possibiliteLieu[3] := False;
+  lieu1.possibiliteLieu[3] := False;  //On definie les possibilitées de deplacement du Bourg de Blancherive
   lieu1.possibiliteLieu[4] := True;
   lieu1.possibiliteLieu[5] := True;
   lieu1.possibiliteLieu[6] := True;
@@ -154,7 +154,7 @@ begin
   lieu2.indice:=2;
   lieu2.possibiliteLieu[1] := True;
   lieu2.possibiliteLieu[2] := False;
-  lieu2.possibiliteLieu[3] := True;
+  lieu2.possibiliteLieu[3] := True;     //On definie les possibilitées de deplacement du marche de Blancherive
   lieu2.possibiliteLieu[4] := False;
   lieu2.possibiliteLieu[5] := False;
   lieu2.possibiliteLieu[6] := True;
@@ -165,7 +165,7 @@ begin
   lieu3.indice:=3;
   lieu3.possibiliteLieu[1] := False;
   lieu3.possibiliteLieu[2] := True;
-  lieu3.possibiliteLieu[3] := False;
+  lieu3.possibiliteLieu[3] := False;        //On definie les possibilitées de deplacement du chateau de Blancherive
   lieu3.possibiliteLieu[4] := False;
   lieu3.possibiliteLieu[5] := False;
   lieu3.possibiliteLieu[6] := True;
@@ -176,7 +176,7 @@ begin
   lieu4.indice:=4;
   lieu4.possibiliteLieu[1] := True;
   lieu4.possibiliteLieu[2] := False;
-  lieu4.possibiliteLieu[3] := False;
+  lieu4.possibiliteLieu[3] := False;        //On definie les possibilitées de deplacement de la porte de Blancherive
   lieu4.possibiliteLieu[4] := False;
   lieu4.possibiliteLieu[5] := False;
   lieu4.possibiliteLieu[6] := True;
@@ -187,7 +187,7 @@ begin
   lieu5.indice:=5;
   lieu5.possibiliteLieu[1] := True;
   lieu5.possibiliteLieu[2] := False;
-  lieu5.possibiliteLieu[3] := False;
+  lieu5.possibiliteLieu[3] := False;    //On definie les possibilitées de deplacement de la boutique du jeu
   lieu5.possibiliteLieu[4] := False;
   lieu5.possibiliteLieu[5] := False;
   lieu5.possibiliteLieu[6] := False;
@@ -199,7 +199,7 @@ begin
   lieu6.possibiliteLieu[1] := True;
   lieu6.possibiliteLieu[2] := True;
   lieu6.possibiliteLieu[3] := True;
-  lieu6.possibiliteLieu[4] := True;
+  lieu6.possibiliteLieu[4] := True;   //On definie les possibilitées de deplacement de L'inventaire du personnage
   lieu6.possibiliteLieu[5] := True;
   lieu6.possibiliteLieu[6] := False;
   lieu6.possibiliteLieu[7] := True;
@@ -208,7 +208,7 @@ begin
   lieu7.nom := 'Auberge';
   lieu7.indice:=7;
   lieu7.possibiliteLieu[1] := True;
-  lieu7.possibiliteLieu[2] := False;
+  lieu7.possibiliteLieu[2] := False;      //On definie les possibilitées de deplacement de L'Auberge
   lieu7.possibiliteLieu[3] := False;
   lieu7.possibiliteLieu[4] := False;
   lieu7.possibiliteLieu[5] := False;
@@ -220,7 +220,7 @@ begin
   lieu8.indice:=8;
   lieu8.possibiliteLieu[1] := False;
   lieu8.possibiliteLieu[2] := False;
-  lieu8.possibiliteLieu[3] := False;
+  lieu8.possibiliteLieu[3] := False;    //On definie les possibilitées de deplacement du Clan Drakion
   lieu8.possibiliteLieu[4] := True;
   lieu8.possibiliteLieu[5] := False;
   lieu8.possibiliteLieu[6] := False;
