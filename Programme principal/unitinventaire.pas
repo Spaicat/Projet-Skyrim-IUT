@@ -24,12 +24,12 @@ interface
 
   // FONCTIONS ET PROCEDURES
 
-  procedure initInventaire(var liste:Inventaire; var o1,o2,o3:Objet);
-  procedure initObjet(var o1,o2,o3:Objet);
-  procedure afficheObjet(var o:Objet);
-  procedure afficheInventaire(var liste:Inventaire);
+  procedure initInventaire(var liste:Inventaire; var o1,o2,o3:Objet); //Procedure qui definie l'inventaire
+  procedure initObjet(var o1,o2,o3:Objet);    //Procedure qui definie les objets
+  procedure afficheObjet(var o:Objet);        //Procedure qui affiche les objets
+  procedure afficheInventaire(var liste:Inventaire);    //Procedure qui affiche l'inventaire
   procedure equipement(var perso : Personnage;var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
-
+  //Procedure qui permet d'equiper des objets
 implementation
 uses UnitMenu;
 
