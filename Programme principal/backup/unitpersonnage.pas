@@ -17,15 +17,14 @@ interface
                   defense : Integer;
                   end;
 
-
-  //Procédure pour créer le personnage
-  procedure createCharacter();
-
   //Fonction qui renvoie le personnage
   function getPersonnage() : Personnage;
 
   //Procédure qui défini le personnage
   procedure setPersonnage(perso : personnage);
+
+  //Procédure pour créer le personnage
+  procedure createCharacter();
 
 implementation
   uses unitMenu;

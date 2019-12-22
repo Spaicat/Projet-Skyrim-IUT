@@ -1,6 +1,6 @@
 unit unitCombat;
 
-
+{$codepage utf8}
 
 interface
     uses unitPersonnage, unitInventaire, GestionEcran, SysUtils, TypInfo;
@@ -91,6 +91,7 @@ var
    rng : Integer;        //Variable qui stokera une valeur aleatoire
    effet : Integer;     //Variable qui définie l'effet du personnage //0 = rien //1 = étourdissement
    effetDuree : Integer;  //Variable qui compte la duree de l'effet
+   asciiText,
    textTemp : String; //Variable qui contient le texte à afficher dans les cadres
    coorTemp : coordonnees; //Variable qui contient l'emplacement (en haut à gauche) des cadres
 
@@ -298,7 +299,17 @@ begin
            end;
          if perso.pv <= 0 then          //Si on  plus de point de vie
            begin
-           writelnPerso('Vous êtes mort...');
+           redo();
+           asciiText :=             '##           ##                                                                                                                                              ##';
+           asciiText := asciiText + '`##         ##                                                      ,#                                                                             ,#        ##';
+           asciiText := asciiText + ' `##       ##                                                       ##                                                                             ##        ##';
+           asciiText := asciiText + '  `##     ##   ,a#####a,   ##       ##  ,a#####a,      ,a#####a,  #######  ,a#####a,  ,a#####a,     ##,#####,,a####a,    ,a#####a,   ##,#####a,  #######     ##';
+           asciiText := asciiText + '   `##   ##   ##"     "##  ##       ##  ##[    ""     ###_____##    ##    ###_____##  ##[    ""     ###    "##"    "##  ##"     "##  ###    "##    ##        ##';
+           asciiText := asciiText + '    `## ##    ##       ##  ##       ##   `"####,      ###"""""""    ##    ###"""""""   `"####,      ##      ##      ##  ##       ##  ##            ##          ';
+           asciiText := asciiText + '     `###     "##,   ,##"   ##,   ,###  ##    ]##     "##,   ,##    ##,   "##,   ,##  ##    ]##     ##      ##      ##  "##,   ,##"  ##            ##,       ##';
+           asciiText := asciiText + '      `#       `"#####"      "##### ##  `"#####"       `"#####"     "####  `"#####"   `"#####"      ##      ##      ##   `"#####"    ##            "####     ##';
+           ecrireTexte(posXY(20, 26), asciiText, 159);
+
            readlnPerso();
            Halt(1);
            end;

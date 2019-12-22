@@ -1,7 +1,5 @@
 unit unitAuberge;
 
-
-
 interface
 uses GestionEcran, unitPersonnage, UnitMenu, unitLieu, SysUtils, unitDate;
 

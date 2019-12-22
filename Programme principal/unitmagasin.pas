@@ -28,7 +28,7 @@ uses UnitMenu;
 
    procedure initMagasin(var listePerso,listeMagasin:Inventaire);
    var
-     i:Integer;
+     i:Integer; //Variable de la boucle
      {On récupère de l'inventaire du joueur, les différents objets qu'il peut possèder
      et pour chaque objet on met la quantité d'objets disponible à 3.}
    begin
@@ -43,11 +43,11 @@ uses UnitMenu;
    //Procédure qui lance les achats dans le magasin
    procedure achat(var p:Personnage; var listePer,listeMagasin:Inventaire);
    var
-     nChoix,
-     valobj : Integer;
-     sortie:boolean;
-     listePerTemp,
-     listeMagasinTemp : Inventaire;
+     nChoix, //Entier correspondant au choix de l'utilisateur (Epee, bouclier ...)
+     valobj : Integer; //Valeur de l'objet à acheter (avec ou sans remise)
+     sortie : boolean; //Variable de la boucle
+     listePerTemp, //Inventaire du personnage dans la procédure qu'on fait correspondre au véritable inventaire à chaque itération
+     listeMagasinTemp : Inventaire; //Inventaire du magasin dans la procédure qu'on fait correspondre au véritable inventaire à chaque itération
    begin
      listePerTemp := listePer;
      listeMagasinTemp := listeMagasin;
