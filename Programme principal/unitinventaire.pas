@@ -91,10 +91,14 @@ uses UnitMenu;
    var
      option : Integer;
      sortie : Boolean;
+     coorTemp : coordonnees;
    begin
      sortie := False;
+     coorTemp := positionCurseur();
      while sortie = False do
      begin
+       ecrireEnPosition(positionCurseur(), '                                       ');
+       deplacerCurseur(coorTemp);
        writelnPerso('De quel objet voulez-vous vous equiper ?');
        writelnPerso();
        writelnPerso(' >  Epee');
@@ -112,7 +116,7 @@ uses UnitMenu;
                if nomEquipement = 'Epee' then
                  begin
                  writelnPerso('Elle est deja equiper');
-                 sortie := True;
+                 readlnPerso();
                  end
                else
                  begin
@@ -122,7 +126,6 @@ uses UnitMenu;
                  perso.attaque := perso.attaque + 20;
                  indicateur := indicateur + 1;
                  nomEquipement := 'Epee';
-                 sortie := True;
                  end;
                end
              else
@@ -132,13 +135,12 @@ uses UnitMenu;
                perso.attaque := perso.attaque + 20;
                indicateur := indicateur + 1;
                nomEquipement := 'Epee';
-               sortie := True;
                end;
             end
            else
              begin
              writelnPerso('Vous n''avez pas cet objet...');
-             sortie := True;
+             readlnPerso();
              end;
            end;
          2 :
@@ -150,7 +152,7 @@ uses UnitMenu;
                if nomEquipement = 'Bouclier' then
                  begin
                  writelnPerso('Elle est deja equiper');
-                 sortie := True;
+                 readlnPerso();
                  end
                else
                  begin
@@ -160,7 +162,6 @@ uses UnitMenu;
                  perso.attaque := perso.attaque - 20;
                  indicateur := indicateur + 1;
                  nomEquipement := 'Bouclier';
-                 sortie := True;
                  end;
                end
              else
@@ -170,32 +171,31 @@ uses UnitMenu;
                perso.defense := perso.defense + 10;
                indicateur := indicateur + 1;
                nomEquipement := 'Bouclier';
-               sortie := True;
                end;
 
              end
             else
                begin
                writelnPerso('Vous n''avez pas cet objet...');
-               sortie := True;
+               readlnPerso();
                end;
            end;
          3 :
            begin
            if inventairePerso.possession[3] > 0 then
              begin
-             sortie := True;
              writelnPerso('Vous consommer une potion !');
              writelnPerso('Vous regagner 30 PV !');
              perso.pv := perso.pv + 30;
              if perso.pv > perso.pvMax then
                perso.pv := perso.pvMax;
-             inventairePerso.possession[3] := inventairePerso.possession[3]-1
+             inventairePerso.possession[3] := inventairePerso.possession[3]-1;
+             readlnPerso();
              end
            else
              begin
-             sortie := True;
              writelnPerso('Vous n''avez pas de potion...');
+             readlnPerso();
              end;
            end;
          4 : sortie := True;

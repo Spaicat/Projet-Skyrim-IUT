@@ -116,12 +116,12 @@ var
   coorT : coordonnees;
 begin
   redo();
-  coorT.x := 40;
-  coorT.y := 10;
+  coorT.x := 72;
+  coorT.y := 27;
   text := 'Pour selectionner le menu, appuyez sur "tab" !';
-  dessinercadre(coorT, posXY(coorT+length(text)+2, coorT.y+3), double, White, Black);
-  ecrireEnPosition(posXY(coorT.x+4, coorT.y), 'Conseil');
-  ecrireEnPosition(posXY(coorT.x+2,coorT.y+2), text);
+  dessinercadre(coorT, posXY(coorT.x+length(text)+5, coorT.y+4), double, White, Black);
+  ecrireEnPosition(posXY(coorT.x+3, coorT.y), ' Conseil ');
+  ecrireEnPosition(posXY(coorT.x+3,coorT.y+2), text);
   readlnPerso();
   createCharacter();
 end;
