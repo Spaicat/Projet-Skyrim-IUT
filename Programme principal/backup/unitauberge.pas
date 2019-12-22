@@ -24,7 +24,7 @@ begin
   coorTexte2.x := positionCurseur().x;
   coorTexte2.y := positionCurseur().y + 5;
 
-  InterfaceInGame(position);
+  InterfaceInGame();
 
   if not getOuverture() then
   begin

@@ -114,7 +114,7 @@ begin
          dessinercadre(coorTemp, posXY(coorTemp.x + length(textTemp)+5 + length(monstre.pseudo), coorTemp.y+4), double, White, Black); //On dessine le cadre qui entoure le texte
          ecrireEnPosition(posXY(coorTemp.x+4, coorTemp.y), ' Ennemi : ' + monstre.pseudo + ' ');
          ecrireEnPosition(posXY(coorTemp.x+3, coorTemp.y+2), textTemp);
-         deplacerCurseur(posXY(coorTemp.x, coorTemp.y+7));
+         deplacerCurseur(posXY(coorTemp.x, coorTemp.y+5));
 
          //On sélectionne les options
          writelnPerso('Choisissez une option : ');

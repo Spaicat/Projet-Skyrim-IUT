@@ -5,6 +5,7 @@ unit unitAuberge;
 interface
 uses GestionEcran, unitPersonnage, UnitMenu, unitLieu, SysUtils, unitDate;
 
+//Procédure qui lance l'accès à l'auberge
 procedure LancerAuberge(var perso : personnage);
 
 

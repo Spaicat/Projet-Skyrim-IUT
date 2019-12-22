@@ -6,9 +6,16 @@ interface
 
 uses GestionEcran, unitInventaire, unitPersonnage, SysUtils, TypInfo;
 
+//Procédure qui initialise le Magasin
 procedure initMagasin(var listePerso,listeMagasin:Inventaire);
+
+//Procédure qui lance les achats dans le magasin
 procedure achat(var p:Personnage; var listePer,listeMagasin:Inventaire);
+
+//Procédure qui lance les ventes dans le magasin
 procedure vente(var p:Personnage; var listePer,listeMagasin:Inventaire);
+
+//Procédure qui lance la négociation
 procedure negociation();
 
 
@@ -72,7 +79,6 @@ uses UnitMenu;
              valObj := listeMagasinTemp.listeObjets[nChoix].valeur;
          if p.argent>=valObj then
          begin
-              remise:=false;
               listePerTemp.possession[nChoix]:=listePerTemp.possession[nChoix]+1; //ajout à l'inventaire du personnage
               p.argent:=p.argent-valObj; //diminution de la bourse du personnage
               listeMagasinTemp.possession[nChoix]:=listeMagasinTemp.possession[nChoix]-1;//diminution des stocks

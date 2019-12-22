@@ -1,5 +1,7 @@
 unit UnitPersonnage;
 
+{$codepage utf8}
+
 interface
   uses GestionEcran, SysUtils, TypInfo;
 
@@ -18,27 +20,29 @@ interface
 
   //Procédure pour créer le personnage
   procedure createCharacter();
+
+  //Fonction qui renvoie le personnage
   function getPersonnage() : Personnage;
+
+  //Procédure qui défini le personnage
   procedure setPersonnage(perso : personnage);
 
 implementation
   uses unitMenu;
 
-
   var
     persoChoose : personnage; //Variable qui enregistre le personnage créé par l'utilisateur
 
-  //Fonction qui défini le personnage
-   procedure setPersonnage(perso : personnage);
-   begin
-     persoChoose := perso;
-   end;
-
-
-   //Fonction qui renvoie le personnage
+  //Fonction qui renvoie le personnage
    function getPersonnage() : personnage;
    begin
      getPersonnage := persoChoose;
+   end;
+
+  //Procédure qui défini le personnage
+   procedure setPersonnage(perso : personnage);
+   begin
+     persoChoose := perso;
    end;
 
   //Procédure pour créer le personnage

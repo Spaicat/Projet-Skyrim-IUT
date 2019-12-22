@@ -7,20 +7,20 @@ interface
 
   //FONCTIONS ET PROCEDURES
 
-    procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
     //Procedure gérant tous les combats
+    procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
 
-    function Illyar():personnage;
     //Fonction permettant de gérer le premier dragon
-
-    function Qjard():Personnage;
+    function Illyar():personnage;
+    
     //Fonction permettant de gérer le second dragon
-
-    function Ksiorn():Personnage;
+    function Qjard():Personnage;
+    
     //Fonction permettant de gérer le troisième dragon
-
-    function Ivrogne():Personnage;
+    function Ksiorn():Personnage;
+    
     //Fonction permettant de gérer l'Ivrogne qui est là la nuit sur la place du marché
+    function Ivrogne():Personnage;
 
 
 implementation

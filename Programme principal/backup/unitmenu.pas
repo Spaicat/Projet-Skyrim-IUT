@@ -18,6 +18,7 @@ procedure InterfaceInGame();
 //Affiche le choix effectué par l'utilisateur dans le menu du jeu (Menu sur la gauche)
 procedure gestionMenu(var perso : Personnage; var inventairePerso : Inventaire; var indicateur : Integer; var nomEquipement : String);
 
+//Procédure qui renvoie la touche du clavier pressée
 function Key() : TKeyEvent;
 
 //Efface l'écran et reconstitue le cadre
@@ -58,17 +59,13 @@ implementation
 //Procédure qui affiche le menu initial
 procedure menuInitial(var fin : Boolean);
 var
-  coorT : coordonnees;
-  coorTTest : coordonnees;
-  ListeMenuInitial : array of String;
-  choiceMenu : Integer;
-  asciiText : String;
+  coorT : coordonnees; //Coordonnées contenant l'emplacement du coin supérieur gauche des cadres dessiné
+  ListeMenuInitial : array of String; //Tableau qui contient les textes à afficher dans le menu principal
+  choiceMenu : Integer; //Entier correspondant au choix de l'utilisateur (Jouer ou quitter)
+  asciiText : String; //Chaine de caractères contenant l'ascii art du titre
 begin
   coorT.x := 94;      //Coor Texte
   coorT.y := 38;
-
-  coorTTest.x := 40;
-  coorTTest.y := 10;
 
   redo();
   couleurTexte(White);
@@ -92,7 +89,7 @@ begin
   asciiText := asciiText + ' \)                          #####   ###        ##                              #/                                    ';
   asciiText := asciiText + '                           /#######  /#        ##                             #/                                      ';
   asciiText := asciiText + '                          /      ###/       ###                                                                       ';
-  ecrireTexte(coorTTest, asciiText, 118);
+  ecrireTexte(posXY(40, 10), asciiText, 118);
   setLength(ListeMenuInitial, 2);
 
   ListeMenuInitial[0] := '    Jouer    ';
@@ -113,7 +110,7 @@ end;
 procedure LaunchGame();
 var
   text : String; //Variable qui enregistre le texte à afficher
-  coorT : coordonnees;
+  coorT : coordonnees; //Variable qui enregistre les coordonnées du cadre (coin supérieur gauche)
 begin
   redo();
   coorT.x := 72;
@@ -131,9 +128,9 @@ end;
 //Procédure pour quitter le jeu
 procedure QuitGame(var fin : Boolean);
 var
-  rep : Integer;
-  coordOrigin : coordonnees;
-  listeTexte : array of String;
+  rep : Integer; //Entier correspondant au choix de l'utilisateur (oui ou non)
+  coordOrigin : coordonnees; //Coordonnées correspondant à la position des textes
+  listeTexte : array of String; //Tableau qui contient les textes à afficher dans la selection (oui ou non)
 begin
   redo();
 
@@ -149,13 +146,14 @@ begin
   rep := selectionMenu(coordOrigin, 2, 2, 4, LightBlue, White);
   if rep = 0 then
     begin
-    ecrireEnPosition(posXY(88, coordOrigin.y+4), 'Au plaisir de vous revoir !');
+    ecrireEnPosition(posXY(87, coordOrigin.y+4), 'Au plaisir de vous revoir !');
     fin := true;
     end
   else
      menuInitial(fin);
 end;
 
+//Procédure pour afficher l'interface du jeu
 procedure InterfaceInGame();
 var
   posTemp,
@@ -163,7 +161,7 @@ var
   posCadre1 : coordonnees; //Position du coin haut gauche
   i : Integer; //Variable de boucle
   textTemp : String; //Variable qui affiche chaque ligne de l'inventaire
-  listeInterface : array of String;
+  listeInterface : array of String; //Tableau qui contient les textes à afficher dans le menu à gauche
 begin
   redo();
   posInterface.x := 5;
@@ -224,10 +222,11 @@ begin
   deplacerCurseur(posCadre1);
 end;
 
+//Procédure qui n'est pas dans l'interface et qui affiche toutes les informations du personnage
 procedure afficheMenuPersonnage();
 var
-  asciiArtText : String;
-  coorTemp : coordonnees;
+  asciiArtText : String; //Chaine de caractères contenant l'ascii art du livre
+  coorTemp : coordonnees; //Coordonnées de la position du coin supérieur gauche de l'ascii art
 begin
   InterfaceInGame();
 
@@ -252,7 +251,7 @@ begin
   asciiArtText := asciiArtText + '\----------------------~___~---------------------/ ';
   ecrireTexte(positionCurseur(), asciiArtText, 51);
 
-  deplacerCurseur(posXY(coorTemp.x+5, coorTemp.y+1));
+  deplacerCurseur(posXY(coorTemp.x+5, coorTemp.y+2));
   writelnPerso('Pseudo : ' + getPersonnage().pseudo);
   writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(getPersonnage().race)));
   writelnPerso('PV : ' + IntToStr(getPersonnage().pv) + ' / ' + IntToStr(getPersonnage().pvMax));
@@ -278,7 +277,7 @@ begin
     end;
 end;
 
-
+//Procédure qui renvoie la touche du clavier pressée
 function Key() : TKeyEvent;
 var
   K:TKeyEvent;
