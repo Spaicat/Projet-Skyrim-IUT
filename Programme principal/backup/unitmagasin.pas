@@ -64,7 +64,10 @@ uses UnitMenu;
        else
        begin
          if remise then
-            valobj := listeMagasinTemp.listeObjets[nChoix].valeur * 7 div 10
+            begin
+            valobj := listeMagasinTemp.listeObjets[nChoix].valeur * 7 div 10;
+            remise := false
+            end
          else
              valObj := listeMagasinTemp.listeObjets[nChoix].valeur;
          if p.argent>=valObj then
@@ -162,7 +165,7 @@ uses UnitMenu;
      writelnPerso('Vous avez 4 essais, le nombre est compris entre 1 et 50. C''est parti ! Proposez un nombre !');
      repeat
        nbEssais:=nbEssais+1;
-       if (nbEssais>6) then
+       if (nbEssais>4) then
        begin
             writelnPerso('Dommage ! Vous avez dépassé le nombre d''essais ! Vous paierez les articles au prix fort !');
             sortie:=true;

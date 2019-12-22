@@ -112,16 +112,18 @@ end;
 //Procédure pour lancer le jeu
 procedure LaunchGame();
 var
-  text : String;
+  text : String; //Variable qui enregistre le texte à afficher
   coorT : coordonnees;
 begin
   redo();
   coorT.x := 72;
   coorT.y := 27;
   text := 'Pour selectionner le menu, appuyez sur "tab" !';
-  dessinercadre(coorT, posXY(coorT.x+length(text)+5, coorT.y+4), double, White, Black);
+
+  dessinercadre(coorT, posXY(coorT.x+length(text)+5, coorT.y+4), double, White, Black); //On dessine le cadre qui entoure le texte
   ecrireEnPosition(posXY(coorT.x+4, coorT.y), ' Conseil ');
   ecrireEnPosition(posXY(coorT.x+3,coorT.y+2), text);
+
   readlnPerso();
   createCharacter();
 end;
@@ -223,12 +225,40 @@ begin
 end;
 
 procedure afficheMenuPersonnage();
+var
+  asciiArtText : String;
+  coorTemp : coordonnees;
 begin
   InterfaceInGame();
+
+  coorTemp := positionCurseur();
+
+  asciiArtText :=                '    ____________________   ____________________    ';
+  asciiArtText := asciiArtText + '.-/|                    \ /                    |\-.';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |        ~~*~~        ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |      --==*==--      ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||                     |                     ||||';
+  asciiArtText := asciiArtText + '||||____________________ | ____________________||||';
+  asciiArtText := asciiArtText + '||/=====================\|/=====================\||';
+  asciiArtText := asciiArtText + '\----------------------~___~---------------------/ ';
+  ecrireTexte(positionCurseur(), asciiArtText, 51);
+
+  deplacerCurseur(posXY(coorTemp.x+5, coorTemp.y+2));
   writelnPerso('Pseudo : ' + getPersonnage().pseudo);
   writelnPerso('Race : ' + GetEnumName(TypeInfo(race), Ord(getPersonnage().race)));
   writelnPerso('PV : ' + IntToStr(getPersonnage().pv) + ' / ' + IntToStr(getPersonnage().pvMax));
   writelnPerso('Bourse : ' + IntToStr(getPersonnage().argent) + ' Gold');
+  writelnPerso();
+  writelnPerso('     --==*==--');
   writelnPerso();
   writelnPerso('Attaque : ' + IntToStr(getPersonnage().attaque));
   writelnPerso('Defense : ' + IntToStr(getPersonnage().defense));

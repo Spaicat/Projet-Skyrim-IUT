@@ -64,12 +64,14 @@ uses UnitMenu;
        else
        begin
          if remise then
-            valobj := listeMagasinTemp.listeObjets[nChoix].valeur * 7 div 10
+            begin
+            valobj := listeMagasinTemp.listeObjets[nChoix].valeur * 7 div 10;
+            remise := false
+            end
          else
              valObj := listeMagasinTemp.listeObjets[nChoix].valeur;
          if p.argent>=valObj then
          begin
-              remise:=false;
               listePerTemp.possession[nChoix]:=listePerTemp.possession[nChoix]+1; //ajout à l'inventaire du personnage
               p.argent:=p.argent-valObj; //diminution de la bourse du personnage
               listeMagasinTemp.possession[nChoix]:=listeMagasinTemp.possession[nChoix]-1;//diminution des stocks

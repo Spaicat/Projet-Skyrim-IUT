@@ -65,23 +65,38 @@ uses UnitMenu;
   end;
 
    procedure afficheObjet(var o:Objet);
+   var
+       coorTemp : coordonnees;
    begin
-       writelnPerso(o.nom + ' : ' + IntToStr(o.valeur) + 'or   ');
+       coorTemp := positionCurseur();
+
+       dessinercadre(coorTemp, posXY(coorTemp.x + 30, coorTemp.y+6), double, White, Black); //On dessine le cadre qui entoure le texte
+       ecrireEnPosition(posXY(coorTemp.x+4, coorTemp.y), ' ' + o.nom + ' ');
+
+       deplacerCurseur(posXY(coorTemp.x+4, coorTemp.y+1));
+
+       writelnPerso('Valeur : ' + IntToStr(o.valeur) + ' or');
        writelnPerso(GetEnumName(TypeInfo(categorie), Ord(o.cate)) + ' : ' + IntToStr(o.action));
+       deplacerCurseur(posXY(coorTemp.x, coorTemp.y+5));
+
+       //writelnPerso(o.nom + ' : ' + IntToStr(o.valeur) + ' or   ');
+       //writelnPerso(GetEnumName(TypeInfo(categorie), Ord(o.cate)) + ' : ' + IntToStr(o.action));
    end;
 
 
    procedure afficheInventaire(var liste:Inventaire);
    var
      i:Integer;
+     textTemp : String; //Variable qui contient la quantité à afficher dans le cadre correspondant
    begin
      for i:=1 to length(liste.listeObjets) DO
      begin
         if (liste.possession[i]>0) then
         begin
-            // writeln('N° d''article : ',i);
              afficheObjet(liste.listeObjets[i]);
-             writelnPerso('Quantite : ' + IntToStr(liste.possession[i]) + ' ');
+             textTemp := 'Quantite : ' + IntToStr(liste.possession[i]) + ' ';
+             ecrireEnPosition(posXY(positionCurseur().x+4, positionCurseur().y-1), textTemp);
+             deplacerCurseur(posXY(positionCurseur().x - length(textTemp)-4, positionCurseur().y+3));
              writelnPerso();
         end;
      end;
@@ -97,7 +112,7 @@ uses UnitMenu;
      coorTemp := positionCurseur();
      while sortie = False do
      begin
-       ecrireEnPosition(ositionCurseur(), '                                       ');
+       ecrireEnPosition(positionCurseur(), '                                       ');
        deplacerCurseur(coorTemp);
        writelnPerso('De quel objet voulez-vous vous equiper ?');
        writelnPerso();

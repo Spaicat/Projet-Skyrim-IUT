@@ -91,6 +91,8 @@ var
    rng : Integer;        //Variable qui stokera une valeur aleatoire
    effet : Integer;     //Variable qui définie l'effet du personnage //0 = rien //1 = étourdissement
    effetDuree : Integer;  //Variable qui compte la duree de l'effet
+   textTemp : String; //Variable qui contient le texte à afficher dans les cadres
+   coorTemp : coordonnees; //Variable qui contient l'emplacement (en haut à gauche) des cadres
 
 begin
       randomize;
@@ -105,12 +107,17 @@ begin
          setPersonnage(perso);
          InterfaceInGame();
          writelnPerso();
-         writelnPerso('=============');                 //On affiche l'interface
-         writelnPerso(' ' + monstre.pseudo + ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax));
-         writelnPerso('=============');
-         writelnPerso();
 
-         writelnPerso('Choisissez une option : ');        //On sélectionne les option
+         //On affiche les informations du monstre
+         coorTemp := positionCurseur();
+         textTemp := ' PV : ' + IntToStr(monstre.pv) + ' / ' + IntToStr(monstre.pvMax);
+         dessinercadre(coorTemp, posXY(coorTemp.x + length(textTemp)+5 + length(monstre.pseudo), coorTemp.y+4), double, White, Black); //On dessine le cadre qui entoure le texte
+         ecrireEnPosition(posXY(coorTemp.x+4, coorTemp.y), ' Ennemi : ' + monstre.pseudo + ' ');
+         ecrireEnPosition(posXY(coorTemp.x+3, coorTemp.y+2), textTemp);
+         deplacerCurseur(posXY(coorTemp.x, coorTemp.y+5));
+
+         //On sélectionne les options
+         writelnPerso('Choisissez une option : ');
          writelnPerso(' >  Attaquer');
          writelnPerso(' >  Se defendre');
          writelnPerso(' >  Utiliser une potion');
