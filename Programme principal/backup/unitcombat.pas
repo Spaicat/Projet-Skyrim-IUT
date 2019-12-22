@@ -80,19 +80,24 @@ begin
    Ivrogne := monstre;
 end;
 
+
+//Procedure gérant tous les combats
 procedure combat(var perso,monstre: personnage;var inventairePerso : Inventaire;var fuite : Boolean);
 
 var
-   sortie: Boolean;
-   choix: Integer;
-   attaque: Integer;
-   rng : Integer;
+   sortie: Boolean;     //Variable de sortie de boucle
+   choix: Integer;      //Variable qui definie les choix du joueur
+   attaque: Integer;     //Variable qui stock l'attaque du personnage et du monstre
+   rng : Integer;        //Variable qui stokera une valeur aleatoire
+   effet : Integer;     //Variable qui définie l'effet du personnage //0 = rien //1 = étourdissement
+   effetDuree : Integer;  //Variable qui compte la duree de l'effet
 
 begin
       randomize;
       sortie := False;
       fuite := False;
-      randomize();
+      effet := 0;
+      effetDuree := 0;
 
        while sortie=FALSE DO
        begin
@@ -115,28 +120,112 @@ begin
          case choix of
               1:
               begin
-                attaque:= perso.attaque + random(perso.attaque div 2);
-                monstre.pv := monstre.pv - attaque;
-                if monstre.pv <= 0 then
-                  monstre.pv :=  0;
-                writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
-                attaque:= monstre.attaque + random(monstre.attaque div 2);
-                if attaque < 0 then
-                  attaque := 0;
-                perso.pv:= perso.pv - attaque;
-                writelnPerso();
-                writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                if effet = 1 then
+                  begin
+                  writelnPerso('Vous etes étoudit');
+                  rng := random(2);
+                  if rng = 1 then
+                    begin
+                    writelnPerso('Vous n''avez pas reussie a frapper...');
+                    effetDuree := effetDuree + 1;
+                    attaque:= monstre.attaque + random(monstre.attaque div 2);
+                    if attaque < 0 then
+                      attaque := 0;
+                    perso.pv:= perso.pv - attaque;
+                    writelnPerso();
+                    writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                    if effetDuree = 3 then
+                      effet := 0;
+                    end
+                  else
+                    begin
+                    writelnPerso('Vous frapper malgré l''étourdissement');
+                    attaque:= perso.attaque + random(perso.attaque div 2);
+                    monstre.pv := monstre.pv - attaque;
+                    if monstre.pv <= 0 then
+                      monstre.pv :=  0;
+                    writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
+                    attaque:= monstre.attaque + random(monstre.attaque div 2);
+                    if attaque < 0 then
+                      attaque := 0;
+                    perso.pv:= perso.pv - attaque;
+                    writelnPerso();
+                    writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                    effetDuree := effetDuree + 1;
+                    if effetDuree = 3 then
+                      effet := 0;
+                    end;
+                  end
+                else
+                  begin
+                  attaque:= perso.attaque + random(perso.attaque div 2);
+                  monstre.pv := monstre.pv - attaque;
+                  if monstre.pv <= 0 then
+                    monstre.pv :=  0;
+                  writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
+                  attaque:= monstre.attaque + random(monstre.attaque div 2);
+                  if attaque < 0 then
+                    attaque := 0;
+                  perso.pv:= perso.pv - attaque;
+                  writelnPerso();
+                  writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                  rng := random(4);
+                  if rng = 1 then
+                    begin
+                    writelnPerso('Le coup vous a etoudit !');
+                    effet := 1;
+                    end;
+                  end;
               end;
               2:
               begin
-                attaque:= (perso.attaque div 2) + random(perso.attaque div 2);
-                monstre.pv := monstre.pv - attaque;
-                writelnPerso('Vous contrez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + '. Il lui reste ' + IntToStr(monstre.pv));
-                attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
-                if attaque < 0 then
-                  attaque := 0;
-                perso.pv:= perso.pv - attaque;
-                writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                if effet = 1 then
+                  begin
+                  writelnPerso('Vous etes étoudit');
+                  rng := random(2);
+                  if rng = 1 then
+                    begin
+                    writelnPerso('Vous n''avez pas reussie a frapper...');
+                    effetDuree := effetDuree + 1;
+                    attaque:= monstre.attaque + random(monstre.attaque div 2);
+                    if attaque < 0 then
+                      attaque := 0;
+                    perso.pv:= perso.pv - attaque;
+                    writelnPerso();
+                    writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                    if effetDuree = 3 then
+                      effet := 0;
+                    end
+                  else
+                    begin
+                    writelnPerso('Vous frapper malgré l''étourdissement');
+                    attaque:= perso.attaque + random(perso.attaque div 2);
+                    monstre.pv := monstre.pv - attaque;
+                    if monstre.pv <= 0 then
+                      monstre.pv :=  0;
+                    writelnPerso('Vous attaquez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + ' pv. Il lui reste ' + IntToStr(monstre.pv) + ' pv.');
+                    attaque:= monstre.attaque + random(monstre.attaque div 2);
+                    if attaque < 0 then
+                      attaque := 0;
+                    perso.pv:= perso.pv - attaque;
+                    writelnPerso();
+                    writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                    effetDuree := effetDuree + 1;
+                    if effetDuree = 3 then
+                      effet := 0;
+                    end;
+                  end
+                else
+                  begin
+                  attaque:= (perso.attaque div 2) + random(perso.attaque div 2);
+                  monstre.pv := monstre.pv - attaque;
+                  writelnPerso('Vous contrez ' + monstre.pseudo + ' il subit ' + IntToStr(attaque) + '. Il lui reste ' + IntToStr(monstre.pv));
+                  attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
+                  if attaque < 0 then
+                    attaque := 0;
+                  perso.pv:= perso.pv - attaque;
+                  writelnPerso(monstre.pseudo + ' vous attaque, ' + ' vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                  end;
               end;
               3:
               begin
@@ -159,6 +248,12 @@ begin
                   perso.pv:= perso.pv - attaque;
                   writelnPerso();
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                  rng := random(4);
+                  if rng = 1 then
+                    begin
+                    writelnPerso('Le coup vous a etoudit !');
+                    effet := 1;
+                    end;
                   end;
               end;
               4:
@@ -177,6 +272,12 @@ begin
                   attaque:= (monstre.attaque + random(monstre.attaque div 2)) - perso.defense;
                   perso.pv:= perso.pv - attaque;
                   writelnPerso(monstre.pseudo + ' vous attaque, vous subissez ' + IntToStr(attaque) + ' pv. Il vous reste ' + IntToStr(perso.pv) + ' pv.');
+                  rng := random(5);
+                  if rng = 1 then
+                    begin
+                    writelnPerso('Le coup vous a etoudit !');
+                    effet := 1;
+                    end;
                   end;
               end;
        end;
