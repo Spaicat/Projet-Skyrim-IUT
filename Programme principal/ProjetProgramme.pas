@@ -7,23 +7,23 @@ uses UnitMenu, UnitPersonnage, UnitMagasin, unitCombat, unitLieu, unitInventaire
 
 var
   scenario : Integer; //Variable qui definiera ou le joueur en est dans l'histoire
-  anciennePosition,
-  posTemp : TInformation;
-  persoTemp,
-  monstre : Personnage;
-  fuite : Boolean;
-  fin : Boolean;
-  lieuBourg : TInformation;
+  anciennePosition,      //Variable qui stoke l'ancienne position du joueur
+  posTemp : TInformation;   //Variable qui stoke la position du personnage
+  persoTemp,             //Variable qui définie les caracteristique et nom et la race du personnage
+  monstre : Personnage;  //Variable qui définie les caracteristique et nom du monstre
+  fuite : Boolean;       //Variable boolenne qui definie si le joueur a fuit d'un combat
+  fin : Boolean;         //Variable boolenne qui sert de condition a la boucle principale
+  lieuBourg : TInformation;   //Position du lieu 1
 
-  nChoix : Integer;
+  nChoix : Integer;      //Vraiable de choix du joueur
 
-  o1,
-  o2,
-  o3 : Objet;
-  inventairePerso : Inventaire;
-  inventaireMagasin : Inventaire;
+  o1,                    //Objet 1 //Epee
+  o2,                    //Objet 2 //Bouclier
+  o3 : Objet;            //Objet 3 //Potion
+  inventairePerso : Inventaire;         //Inventaire du personnage
+  inventaireMagasin : Inventaire;            //Inventaire du magasin
   indicateur : Integer; //Variable qui indique si le joueur a un objet equiper ou non
-  nomEquipement : String;
+  nomEquipement : String;          //Nom de l'objet equiper par le joueur
 begin
   fin := False;
   menuInitial(fin);            //Creation du Menu Principal avec selection du personnage
