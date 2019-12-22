@@ -109,9 +109,20 @@ begin
 end;
 
 
-//Procédure pour quitter le jeu
+//Procédure pour lancer le jeu
 procedure LaunchGame();
+var
+  text : String;
+  coorT : coordonnees;
 begin
+  redo();
+  coorT.x := 40;
+  coorT.y := 10;
+  text := 'Pour selectionner le menu, appuyez sur "tab" !';
+  dessinercadre(coorT, posXY(coorT.x+length(text)+2, coorT.y+3), double, White, Black);
+  ecrireEnPosition(posXY(coorT.x+4, coorT.y), 'Conseil');
+  ecrireEnPosition(posXY(coorT.x+2,coorT.y+2), text);
+  readlnPerso();
   createCharacter();
 end;
 

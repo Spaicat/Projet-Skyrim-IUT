@@ -8,6 +8,7 @@
       <Unit0>
         <Filename Value="ProjetProgramme.pas"/>
         <IsPartOfProject Value="True"/>
+        <TopLine Value="97"/>
         <CursorPos X="42" Y="262"/>
         <UsageCount Value="71"/>
         <Loaded Value="True"/>
@@ -18,8 +19,8 @@
         <UnitName Value="UnitMenu"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="82"/>
-        <CursorPos X="89" Y="99"/>
+        <TopLine Value="97"/>
+        <CursorPos X="45" Y="119"/>
         <UsageCount Value="71"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -55,7 +56,7 @@
       <Unit5>
         <Filename Value="GestionEcran.pas"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="37"/>
+        <TopLine Value="247"/>
         <CursorPos X="45" Y="38"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
@@ -106,7 +107,7 @@
         <UnitName Value="unitInventaire"/>
         <EditorIndex Value="3"/>
         <TopLine Value="41"/>
-        <CursorPos X="23" Y="87"/>
+        <CursorPos X="50" Y="70"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit11>
@@ -118,7 +119,7 @@
         <Loaded Value="True"/>
       </Unit12>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unitmenu.pas"/>
         <Caret Line="487" Column="43" TopLine="471"/>
@@ -232,13 +233,9 @@
         <Caret Line="108" Column="9" TopLine="89"/>
       </Position28>
       <Position29>
-        <Filename Value="ProjetProgramme.pas"/>
-        <Caret Line="390" Column="49" TopLine="401"/>
-      </Position29>
-      <Position30>
         <Filename Value="unitmenu.pas"/>
         <Caret Line="101" Column="118" TopLine="81"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

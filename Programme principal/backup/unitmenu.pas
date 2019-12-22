@@ -96,9 +96,9 @@ begin
   setLength(ListeMenuInitial, 2);
 
   ListeMenuInitial[0] := '    Jouer    ';
-  dessinercadre(posXY(coorT.x-5, coorT.y-2), posXY(coorT.x+length(ListeMenuInitial[0])+5,coorT.y+2), double, White, Black);
+  dessinercadre(posXY(coorT.x-5, coorT.y-2), posXY(coorT.x+length(ListeMenuInitial[0])+4,coorT.y+2), double, White, Black);
   ListeMenuInitial[1] := '   Quitter   ';
-  dessinercadre(posXY(coorT.x-5, coorT.y-2), posXY(coorT.x+length(ListeMenuInitial[1])+4,coorT.y+2), double, White, Black);
+  dessinercadre(posXY(coorT.x-5, coorT.y-2+5), posXY(coorT.x+length(ListeMenuInitial[1])+4,coorT.y+2+5), double, White, Black);
   afficherListeMenu(ListeMenuInitial, coorT, 5);
   choiceMenu := selectionMenu(coorT, 2, 5, 12, LightBlue, White);
 
@@ -109,9 +109,20 @@ begin
 end;
 
 
-//Procédure pour quitter le jeu
+//Procédure pour lancer le jeu
 procedure LaunchGame();
+var
+  text : String;
+  coorT : coordonnees;
 begin
+  redo();
+  coorT.x := 40;
+  coorT.y := 10;
+  text := 'Pour selectionner le menu, appuyez sur "tab" !';
+  dessinercadre(coorT, posXY(coorT+length(text)+2, coorT.y+3), double, White, Black);
+  ecrireEnPosition(posXY(coorT.x+4, coorT.y), 'Conseil');
+  ecrireEnPosition(posXY(coorT.x+2,coorT.y+2), text);
+  readlnPerso();
   createCharacter();
 end;
 
